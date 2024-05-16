@@ -145,7 +145,7 @@ export function Conferance() {
             <div className="space-y-4">
               <div className="grid gap-1">
                 <h3 className="text-xl font-bold">Address</h3>
-                <p className="text-gray-500 dark:text-gray-400">Krømpe 26, Grimstad, Eide, Norway</p>
+                <p className="text-gray-500 dark:text-gray-400">Krømpe 16, Grimstad, Eide, Norway</p>
               </div>
               <div className="grid gap-1">
                 <h3 className="text-xl font-bold">Parking</h3>
