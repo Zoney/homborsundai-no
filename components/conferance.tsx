@@ -26,6 +26,7 @@ export function Conferance() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">Homborsund AI Conference</h1>
+            <p className="text-3xl text-rose-800 tracking-tighter sm:text-4xl md:text-5xl">August 17th 2024</p>
             <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">Back to Basics</p>
             <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
               Join us for a deep dive into the fundamentals of AI, where we&apos;ll explore the core concepts and techniques
@@ -83,8 +84,8 @@ export function Conferance() {
                 width="150"
               />
               <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Jane Doe</h3>
-                <p className="text-gray-500 dark:text-gray-400">AI Researcher, XYZ University</p>
+                <h3 className="text-xl font-bold">Eivind</h3>
+                <p className="text-gray-500 dark:text-gray-400">Random TOGAF nerd</p>
               </div>
             </div>
             <div className="flex flex-col items-center space-y-4">
@@ -100,8 +101,8 @@ export function Conferance() {
                 width="150"
               />
               <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">John Smith</h3>
-                <p className="text-gray-500 dark:text-gray-400">AI Engineer, ABC Corporation</p>
+                <h3 className="text-xl font-bold">Øyvind</h3>
+                <p className="text-gray-500 dark:text-gray-400">Random dev nerd</p>
               </div>
             </div>
             <div className="flex flex-col items-center space-y-4">
@@ -117,8 +118,61 @@ export function Conferance() {
                 width="150"
               />
               <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Sarah Lee</h3>
-                <p className="text-gray-500 dark:text-gray-400">AI Ethicist, DEF Institute</p>
+                <h3 className="text-xl font-bold">Rebekka (please come!)</h3>
+                <p className="text-gray-500 dark:text-gray-400">Random AI nerd</p>
+              </div>
+            </div>
+          </div>
+          <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
+            <div className="flex flex-col items-center space-y-4">
+              <img
+                alt="Speaker"
+                className="rounded-full"
+                height="150"
+                src="/placeholder.svg"
+                style={{
+                  aspectRatio: "150/150",
+                  objectFit: "cover",
+                }}
+                width="150"
+              />
+              <div className="space-y-1 text-center">
+                <h3 className="text-xl font-bold">Lars</h3>
+                <p className="text-gray-500 dark:text-gray-400">Random ERP nerd</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center space-y-4">
+              <img
+                alt="Speaker"
+                className="rounded-full"
+                height="150"
+                src="/placeholder.svg"
+                style={{
+                  aspectRatio: "150/150",
+                  objectFit: "cover",
+                }}
+                width="150"
+              />
+              <div className="space-y-1 text-center">
+                <h3 className="text-xl font-bold">And you!</h3>
+                <p className="text-gray-500 dark:text-gray-400">...</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center space-y-4">
+              <img
+                alt="Speaker"
+                className="rounded-full"
+                height="150"
+                src="/placeholder.svg"
+                style={{
+                  aspectRatio: "150/150",
+                  objectFit: "cover",
+                }}
+                width="150"
+              />
+              <div className="space-y-1 text-center">
+                <h3 className="text-xl font-bold">Ofc, you!</h3>
+                <p className="text-gray-500 dark:text-gray-400">....</p>
               </div>
             </div>
           </div>
