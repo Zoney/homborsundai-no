@@ -154,6 +154,23 @@ export function Conferance() {
                 width="150"
               />
               <div className="space-y-1 text-center">
+                <h3 className="text-xl font-bold">Andreas</h3>
+                <p className="text-gray-500 dark:text-gray-400">Random robotics nerd</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center space-y-4">
+              <img
+                alt="Speaker"
+                className="rounded-full"
+                height="150"
+                src="/placeholder.svg"
+                style={{
+                  aspectRatio: "150/150",
+                  objectFit: "cover",
+                }}
+                width="150"
+              />
+              <div className="space-y-1 text-center">
                 <h3 className="text-xl font-bold">And you!</h3>
                 <p className="text-gray-500 dark:text-gray-400">...</p>
               </div>
