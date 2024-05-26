@@ -18,6 +18,7 @@ To read more about using these font, please visit the Next.js documentation:
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
 import Link from "next/link"
+import Image from "next/image"
 
 export function Conferance() {
   return (
@@ -72,7 +73,7 @@ export function Conferance() {
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
             <div className="flex flex-col items-center space-y-4">
-              <img
+              <Image
                 alt="Speaker"
                 className="rounded-full"
                 height="150"
@@ -89,7 +90,7 @@ export function Conferance() {
               </div>
             </div>
             <div className="flex flex-col items-center space-y-4">
-              <img
+              <Image
                 alt="Speaker"
                 className="rounded-full"
                 height="150"
@@ -106,7 +107,7 @@ export function Conferance() {
               </div>
             </div>
             <div className="flex flex-col items-center space-y-4">
-              <img
+              <Image
                 alt="Speaker"
                 className="rounded-full"
                 height="150"
@@ -125,7 +126,7 @@ export function Conferance() {
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
             <div className="flex flex-col items-center space-y-4">
-              <img
+              <Image
                 alt="Speaker"
                 className="rounded-full"
                 height="150"
@@ -142,7 +143,7 @@ export function Conferance() {
               </div>
             </div>
             <div className="flex flex-col items-center space-y-4">
-              <img
+              <Image
                 alt="Speaker"
                 className="rounded-full"
                 height="150"
@@ -159,7 +160,7 @@ export function Conferance() {
               </div>
             </div>
             <div className="flex flex-col items-center space-y-4">
-              <img
+              <Image
                 alt="Speaker"
                 className="rounded-full"
                 height="150"
@@ -176,16 +177,14 @@ export function Conferance() {
               </div>
             </div>
             <div className="flex flex-col items-center space-y-4">
-              <img
+              <Image
                 alt="Speaker"
                 className="rounded-full"
-                height="150"
+                height={150}
                 src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width="150"
+                layout="fixed"
+                objectFit="cover"
+                width={150}
               />
               <div className="space-y-1 text-center">
                 <h3 className="text-xl font-bold">Ofc, you!</h3>
@@ -206,12 +205,15 @@ export function Conferance() {
             </p>
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-            <img
-              alt="Venue"
+            <iframe
               className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
-              height="310"
-              src="/placeholder.svg"
               width="550"
+              height="310"
+              frameBorder="0"
+              style={{ border: 0 }}
+              src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=Krømpe+16,Grimstad,Norway&zoom=10`}
+              allowFullScreen
+              title="Google Maps"
             />
             <div className="space-y-4">
               <div className="grid gap-1">
@@ -243,7 +245,7 @@ export function Conferance() {
           <div className="mx-auto w-full max-w-sm space-y-2">
             <Link
               className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              href="#"
+              href="https://discord.gg/5rQ9XGYdqJ"
             >
               Register Now
             </Link>
