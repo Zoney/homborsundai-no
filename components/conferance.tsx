@@ -621,7 +621,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                 <h3 className="text-2xl font-bold">Authentic Facilities</h3>
                 <div className="space-y-2">
                   <p className="text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Traditional "Utedo":</span> Experience our charming Norwegian outdoor toilet facility, a perfect opportunity to connect with nature while disconnecting from technology.
+                    <span className="font-semibold">Traditional &quot;Utedo&quot;:</span> Experience our charming Norwegian outdoor toilet facility, a perfect opportunity to connect with nature while disconnecting from technology.
                   </p>
                   <p className="text-gray-500 dark:text-gray-400">
                     <span className="font-semibold">No Electricity or Running Water:</span> Detach completely from digital dependencies. We&apos;ll use candles, lanterns, and stars to light our discussions—just like the pioneers of science and philosophy did for centuries.
