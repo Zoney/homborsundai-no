@@ -312,7 +312,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                   <li><span className="font-bold">When your utedo needs AI:</span> (Trick topic - utedos definitely don't need AI, and that's the point!)</li>
                 </ul>
                 <p className="text-gray-500 dark:text-gray-400 italic">
-                  "Sometimes the most advanced technology is knowing when to use no technology at all." — Norwegian proverb we just made up but sounds legit
+                  &quot;Sometimes the most advanced technology is knowing when to use no technology at all.&quot; — Norwegian proverb we just made up but sounds legit
                 </p>
               </div>
             </div>
@@ -409,7 +409,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                     </li>
                   </ul>
                   <p className="mt-4 text-rose-400 italic font-medium">
-                    "The best gatherings are those where each person feels personally responsible for its success."
+                    &quot;The best gatherings are those where each person feels personally responsible for its success.&quot;
                   </p>
                 </div>
               </div>
@@ -642,7 +642,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                     In a world where AI can now generate working code, create interactive visualizations, and solve complex math problems with ease, we believe that human creativity still flourishes best in nature, away from screens.
                   </p>
                   <p className="text-gray-500 dark:text-gray-400">
-                    <span className="italic">"Some of my best ideas came when I was furthest from technology."</span> — Previous attendee
+                    <span className="italic">&quot;Some of my best ideas came when I was furthest from technology.&quot;</span> — Previous attendee
                   </p>
                 </div>
               </div>
@@ -722,11 +722,11 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                   <h3 className="text-2xl font-semibold">Attendee Feedback</h3>
                   <div className="space-y-4">
                     <blockquote className="border-l-4 border-rose-800 pl-4 italic">
-                      "The discussions were eye-opening. Can't wait for next year's summit!"
+                      &quot;The discussions were eye-opening. Can't wait for next year's summit!&quot;
                       <footer className="text-sm mt-2">— Previous Attendee</footer>
                     </blockquote>
                     <blockquote className="border-l-4 border-rose-800 pl-4 italic">
-                      "A perfect blend of technical insights and practical applications."
+                      &quot;A perfect blend of technical insights and practical applications.&quot;
                       <footer className="text-sm mt-2">— AI Enthusiast</footer>
                     </blockquote>
                   </div>
