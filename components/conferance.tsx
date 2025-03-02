@@ -229,7 +229,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="inline-block rounded-lg bg-rose-100 px-3 py-1 text-sm dark:bg-gray-800">Hot Topics</div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">2025's Cutting-Edge AI Trends</h2>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">2025&apos;s Cutting-Edge AI Trends</h2>
               <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
                 Our summit will explore the most revolutionary AI developments just emerging in 2025.
               </p>
@@ -238,41 +238,41 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
             <div className="mx-auto grid max-w-5xl items-center gap-8 py-12 md:grid-cols-2 lg:grid-cols-3">
               <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="text-rose-800 text-4xl font-bold">01</div>
-                <h3 className="text-xl font-bold">GPT-4.5 Orion's Emotional Intelligence</h3>
+                <h3 className="text-xl font-bold">GPT-4.5 Orion&apos;s Emotional Intelligence</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Explore how OpenAI's newest model achieves unprecedented emotional understanding and world knowledge, creating more nuanced and contextually aware responses.
+                  Explore how OpenAI&apos;s newest model achieves unprecedented emotional understanding and world knowledge, creating more nuanced and contextually aware responses.
                 </p>
               </div>
               
               <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="text-rose-800 text-4xl font-bold">02</div>
-                <h3 className="text-xl font-bold">Claude 3.7's Reasoning Capabilities</h3>
+                <h3 className="text-xl font-bold">Claude 3.7&apos;s Reasoning Capabilities</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Anthropic's Claude 3.7 Sonnet introduces revolutionary reasoning abilities that allow it to solve complex problems step-by-step with minimal errors.
+                  Anthropic&apos;s Claude 3.7 Sonnet introduces revolutionary reasoning abilities that allow it to solve complex problems step-by-step with minimal errors.
                 </p>
               </div>
               
               <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="text-rose-800 text-4xl font-bold">03</div>
-                <h3 className="text-xl font-bold">NVIDIA's H200 vs DeepSeek Revolution</h3>
+                <h3 className="text-xl font-bold">NVIDIA&apos;s H200 vs DeepSeek Revolution</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  The great silicon showdown: NVIDIA's $40,000 H200 GPUs power most AI, but DeepSeek's R1 model challenges this dominance with a radically different approach that bypasses traditional APIs.
+                  The great silicon showdown: NVIDIA&apos;s $40,000 H200 GPUs power most AI, but DeepSeek&apos;s R1 model challenges this dominance with a radically different approach that bypasses traditional APIs.
                 </p>
               </div>
               
               <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="text-rose-800 text-4xl font-bold">04</div>
-                <h3 className="text-xl font-bold">ML's Renaissance: XGBoost Strikes Back</h3>
+                <h3 className="text-xl font-bold">ML&apos;s Renaissance: XGBoost Strikes Back</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  While GenAI hogs the spotlight, traditional machine learning frameworks have evolved—sometimes outperforming transformer models with 1/1000th the parameters. Come witness XGBoost's revenge tour.
+                  While GenAI hogs the spotlight, traditional machine learning frameworks have evolved—sometimes outperforming transformer models with 1/1000th the parameters. Come witness XGBoost&apos;s revenge tour.
                 </p>
               </div>
               
               <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="text-rose-800 text-4xl font-bold">05</div>
-                <h3 className="text-xl font-bold">MoE Architecture: When One Expert Isn't Enough</h3>
+                <h3 className="text-xl font-bold">MoE Architecture: When One Expert Isn&apos;t Enough</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  DeepSeek's 671B parameter Mixture-of-Experts model demonstrates how specialized neural pathways—not just raw parameter count—drive breakthrough performance at a fraction of the training cost.
+                  DeepSeek&apos;s 671B parameter Mixture-of-Experts model demonstrates how specialized neural pathways—not just raw parameter count—drive breakthrough performance at a fraction of the training cost.
                 </p>
               </div>
               
@@ -280,7 +280,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                 <div className="text-rose-800 text-4xl font-bold">06</div>
                 <h3 className="text-xl font-bold">The GPU-Less Future?</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Is Jensen Huang's leather jacket collection at risk? Explore how novel training approaches, specialized AI chips, and open-source innovations might finally break NVIDIA's AI monopoly.
+                  Is Jensen Huang&apos;s leather jacket collection at risk? Explore how novel training approaches, specialized AI chips, and open-source innovations might finally break NVIDIA&apos;s AI monopoly.
                 </p>
               </div>
             </div>
@@ -309,7 +309,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                   <li><span className="font-bold">Neural nets for fishing forecasts:</span> Local ML models predict optimal fishing conditions with 85% accuracy using 1000x less compute than a single ChatGPT query</li>
                   <li><span className="font-bold">Random forests for actual forests:</span> Predicting bark beetle outbreaks using lightweight ML that runs on solar power</li>
                   <li><span className="font-bold">Gradient boosting vs. avalanches:</span> How a 5MB model saves lives every winter</li>
-                  <li><span className="font-bold">When your utedo needs AI:</span> (Trick topic - utedos definitely don't need AI, and that's the point!)</li>
+                  <li><span className="font-bold">When your utedo needs AI:</span> (Trick topic - utedos definitely don&apos;t need AI, and that&apos;s the point!)</li>
                 </ul>
                 <p className="text-gray-500 dark:text-gray-400 italic">
                   &quot;Sometimes the most advanced technology is knowing when to use no technology at all.&quot; — Norwegian proverb we just made up but sounds legit
@@ -343,7 +343,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                   </div>
                   <h3 className="text-xl font-bold text-white">Want to Attend?</h3>
                   <p className="text-gray-300 text-center">
-                    That's the first and most important step. If you're reading this and thinking "I'd like to be there" - congratulations, you've completed the most crucial part of the registration process.
+                    That&apos;s the first and most important step. If you&apos;re reading this and thinking &quot;I&apos;d like to be there&quot; - congratulations, you&apos;ve completed the most crucial part of the registration process.
                   </p>
                 </div>
               </div>
@@ -360,7 +360,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                   </div>
                   <h3 className="text-xl font-bold text-white">Know Something</h3>
                   <p className="text-gray-300 text-center">
-                    Bring your knowledge—whether it's vast expertise in transformer architectures or just a persistent curiosity about why ChatGPT hallucinates your birthday. What matters is what YOU know, and what YOU want to learn.
+                    Bring your knowledge—whether it&apos;s vast expertise in transformer architectures or just a persistent curiosity about why ChatGPT hallucinates your birthday. What matters is what YOU know, and what YOU want to learn.
                   </p>
                 </div>
               </div>
@@ -386,7 +386,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                 <div className="p-6 rounded-xl border-l-4 border-rose-500">
                   <h3 className="text-2xl font-bold mb-4 text-white">The Self-Invitation Philosophy</h3>
                   <p className="text-gray-300 mb-4">
-                    Unlike mainstream conferences with prohibitive price tags and elaborate registration processes, we believe in simplicity. If you feel called to join our gathering of minds, we trust that you'll:
+                    Unlike mainstream conferences with prohibitive price tags and elaborate registration processes, we believe in simplicity. If you feel called to join our gathering of minds, we trust that you&apos;ll:
                   </p>
                   <ul className="space-y-3 text-gray-300">
                     <li className="flex items-start">
@@ -420,7 +420,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                 href="https://discord.gg/5rQ9XGYdqJ" 
                 className="inline-flex h-12 items-center justify-center rounded-md bg-rose-600 px-8 text-base font-medium text-white shadow transition-colors hover:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:pointer-events-none disabled:opacity-50 transform transition-transform duration-200 hover:scale-105"
               >
-                I'm Inviting Myself
+                I&apos;m Inviting Myself
               </Link>
               <p className="text-sm text-gray-400 mt-3">
                 Join our Discord first, then introduce yourself in the #summit-2025 channel
@@ -624,10 +624,10 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                     <span className="font-semibold">Traditional "Utedo":</span> Experience our charming Norwegian outdoor toilet facility, a perfect opportunity to connect with nature while disconnecting from technology.
                   </p>
                   <p className="text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">No Electricity or Running Water:</span> Detach completely from digital dependencies. We'll use candles, lanterns, and stars to light our discussions—just like the pioneers of science and philosophy did for centuries.
+                    <span className="font-semibold">No Electricity or Running Water:</span> Detach completely from digital dependencies. We&apos;ll use candles, lanterns, and stars to light our discussions—just like the pioneers of science and philosophy did for centuries.
                   </p>
                   <p className="text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">What to Bring:</span> A flashlight, comfortable warm clothes, your favorite drinks, and food to share. We'll provide basic necessities, warm fires, and plenty of inspiration.
+                    <span className="font-semibold">What to Bring:</span> A flashlight, comfortable warm clothes, your favorite drinks, and food to share. We&apos;ll provide basic necessities, warm fires, and plenty of inspiration.
                   </p>
                 </div>
               </div>
@@ -722,7 +722,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                   <h3 className="text-2xl font-semibold">Attendee Feedback</h3>
                   <div className="space-y-4">
                     <blockquote className="border-l-4 border-rose-800 pl-4 italic">
-                      &quot;The discussions were eye-opening. Can't wait for next year's summit!&quot;
+                      &quot;The discussions were eye-opening. Can&apos;t wait for next year&apos;s summit!&quot;
                       <footer className="text-sm mt-2">— Previous Attendee</footer>
                     </blockquote>
                     <blockquote className="border-l-4 border-rose-800 pl-4 italic">
