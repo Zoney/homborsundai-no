@@ -581,11 +581,9 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
             <iframe
-              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
-              width="550"
-              height="310"
+              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center w-full"
               frameBorder="0"
-              style={{ border: 0 }}
+              style={{ border: 0, maxWidth: '100%' }}
               src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=Krømpe+16,Grimstad,Norway&zoom=10`}
               allowFullScreen
               title="Google Maps"
