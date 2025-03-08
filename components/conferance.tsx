@@ -417,13 +417,13 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
             
             <div className="flex flex-col items-center mt-8">
               <Link 
-                href="https://discord.gg/5rQ9XGYdqJ" 
+                href="https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ" 
                 className="inline-flex h-12 items-center justify-center rounded-md bg-rose-600 px-8 text-base font-medium text-white shadow transition-colors hover:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:pointer-events-none disabled:opacity-50 transform transition-transform duration-200 hover:scale-105"
               >
                 I&apos;m Inviting Myself
               </Link>
               <p className="text-sm text-gray-400 mt-3">
-                Join our Discord first, then introduce yourself in the #summit-2025 channel
+                Join our WhatsApp community and introduce yourself
               </p>
             </div>
           </div>
@@ -707,11 +707,11 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                       ? "bg-gradient-to-r from-rose-800 to-purple-700 hover:from-rose-700 hover:to-purple-600 focus-visible:ring-rose-500"
                       : "bg-gray-900 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
                   }`}
-                  href="https://discord.gg/5rQ9XGYdqJ"
+                  href="https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ"
                 >
                   Register Now
                 </Link>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Early bird tickets available until March 1st, 2025. Limited to 30 participants for an intimate experience.</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Early bird tickets available until March 1st, 2025. Limited to 30 participants for an intimate experience. Join our WhatsApp community.</p>
               </>
             ) : (
               <Link
