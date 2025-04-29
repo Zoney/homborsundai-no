@@ -57,11 +57,11 @@ const summits: SummitsData = {
   "2025": {
     title: "Homborsund AI Summit",
     date: "3. Mai 2025",
-    theme: "Beyond GenAI: The Hardware Wars & ML Revolution",
+    theme: "Agentic & Multimodal AI: Beyond GenAI with o4-mini & The Hardware Wars",
     description: [
-      "The second annual gathering for AI enthusiasts and professionals to discuss real-world applications and the future of artificial intelligence.",
-      "Experience the latest breakthroughs in AI just weeks after the release of GPT-4.5 Orion, Claude 3.7 Sonnet, and Grok 3 — the first 'Generation 3' models with 10x the computing power of their predecessors.",
-      "But it's not all about GenAI! This year we're diving deep into the silicon battles and ML frameworks that power our AI overlords.",
+      "The second annual gathering for AI enthusiasts and professionals to discuss real-world applications and the future of artificial intelligence, focusing on agentic capabilities and multimodal interaction.",
+      "Experience the latest breakthroughs just weeks after the expected release of OpenAI's o4-mini and o3 models, alongside competitors like GPT-4.5 Orion, Claude 3.7 Sonnet, and Grok 3 — exploring the shift towards AI agents that can reason, use tools (like Codex CLI!), understand diverse data types, and perhaps one day, take physical form.",
+      "But it's not all about GenAI! This year we're diving deep into the silicon battles, the rise of agentic frameworks, multimodal understanding, the path towards general-purpose agents, and the ML approaches that power our AI.",
       "No tech allowed, just you and your curiosity — we'll provide the inspiration in nature's own environment, far from the hum of NVIDIA's H200 server farms."
     ],
     schedule: [
@@ -231,24 +231,24 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
               <div className="inline-block rounded-lg bg-rose-100 px-3 py-1 text-sm dark:bg-gray-800">Hot Topics</div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">2025&apos;s Cutting-Edge AI Trends</h2>
               <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                Our summit will explore the most revolutionary AI developments just emerging in 2025.
+                Our summit will explore the most revolutionary AI developments just emerging in 2025, including agentic models like OpenAI&apos;s o4-mini.
               </p>
             </div>
             
             <div className="mx-auto grid max-w-5xl items-center gap-8 py-12 md:grid-cols-2 lg:grid-cols-3">
               <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="text-rose-800 text-4xl font-bold">01</div>
-                <h3 className="text-xl font-bold">GPT-4.5 Orion&apos;s Emotional Intelligence</h3>
+                <h3 className="text-xl font-bold">o4-mini & o3: Next-Gen Reasoning & Multimodality</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Explore how OpenAI&apos;s newest model achieves unprecedented emotional understanding and world knowledge, creating more nuanced and contextually aware responses.
+                  Dive into OpenAI&apos;s newest models (o4-mini, o3) combining advanced reasoning with multimodal skills (image analysis, generation) and agentic tool use via interfaces like Codex CLI.
                 </p>
               </div>
               
               <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="text-rose-800 text-4xl font-bold">02</div>
-                <h3 className="text-xl font-bold">Claude 3.7&apos;s Reasoning Capabilities</h3>
+                <h3 className="text-xl font-bold">Agentic AI: Models That Act</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Anthropic&apos;s Claude 3.7 Sonnet introduces revolutionary reasoning abilities that allow it to solve complex problems step-by-step with minimal errors.
+                  Explore how models like o4-mini are becoming agents, capable of using tools (Python, web search, image analysis) autonomously to solve complex, multi-step problems.
                 </p>
               </div>
               
@@ -278,9 +278,17 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
               
               <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="text-rose-800 text-4xl font-bold">06</div>
-                <h3 className="text-xl font-bold">The GPU-Less Future?</h3>
+                <h3 className="text-xl font-bold">Benchmarking Agent Intelligence</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Is Jensen Huang&apos;s leather jacket collection at risk? Explore how novel training approaches, specialized AI chips, and open-source innovations might finally break NVIDIA&apos;s AI monopoly.
+                  How do we measure the 'intelligence' of models like o4-mini when they can use tools and interact multimodally? Explore the latest benchmarks and evaluation techniques.
+                </p>
+              </div>
+              
+              <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
+                <div className="text-rose-800 text-4xl font-bold">07</div>
+                <h3 className="text-xl font-bold">General Purpose Agents & Robotics</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Beyond specialized tasks: discussing the roadmap towards general-purpose AI agents that can learn, adapt, and potentially operate in the physical world as robots.
                 </p>
               </div>
             </div>
