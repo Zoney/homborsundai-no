@@ -280,7 +280,7 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                 <div className="text-rose-800 text-4xl font-bold">06</div>
                 <h3 className="text-xl font-bold">Benchmarking Agent Intelligence</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  How do we measure the 'intelligence' of models like o4-mini when they can use tools and interact multimodally? Explore the latest benchmarks and evaluation techniques.
+                  How do we measure the &apos;intelligence&apos; of models like o4-mini when they can use tools and interact multimodally? Explore the latest benchmarks and evaluation techniques.
                 </p>
               </div>
               
