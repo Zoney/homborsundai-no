@@ -547,6 +547,28 @@ export function Conferance({ year = "2025" }: ConferanceProps) {
                 width={150}
               />
               <div className="space-y-1 text-center">
+                <h3 className="text-xl font-bold">
+                  Michael
+                  <span className="ml-2 text-xs bg-yellow-400 text-gray-800 px-2 py-0.5 rounded-full font-semibold animate-pulse">
+                    Just In!
+                  </span>
+                </h3>
+                <p className="text-gray-500 dark:text-gray-400">Ex-Game Dev, AI/GIS wizard, public sector value creator & year-round swimmer.</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center space-y-4">
+              <Image
+                alt="Speaker"
+                className="rounded-full"
+                height={150}
+                src="/placeholder.svg"
+                style={{
+                  aspectRatio: "150/150",
+                  objectFit: "cover",
+                }}
+                width={150}
+              />
+              <div className="space-y-1 text-center">
                 <h3 className="text-xl font-bold">Christoffer</h3>
                 <p className="text-gray-500 dark:text-gray-400">Random puzzle-solving business nerd</p>
               </div>
