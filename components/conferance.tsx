@@ -121,7 +121,7 @@ export function Conferance({ year = "2025.1" }: ConferanceProps) {
                 }`}
               >
                 Summit {summitYear}
-                {summits[summitYear].status === "Upcoming" && (
+                {summits[summitYear].status === "Upcoming" && summitYear !== "2025.1" && (
                   <span className="ml-2 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
                     Next
                   </span>
@@ -547,12 +547,7 @@ export function Conferance({ year = "2025.1" }: ConferanceProps) {
                 width={150}
               />
               <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">
-                  Michael
-                  <span className="ml-2 text-xs bg-yellow-400 text-gray-800 px-2 py-0.5 rounded-full font-semibold animate-pulse">
-                    Just In!
-                  </span>
-                </h3>
+                <h3 className="text-xl font-bold">Michael</h3>
                 <p className="text-gray-500 dark:text-gray-400">Ex-Game Dev, AI/GIS wizard, public sector value creator & year-round swimmer.</p>
               </div>
             </div>
@@ -637,12 +632,7 @@ export function Conferance({ year = "2025.1" }: ConferanceProps) {
                 width={150}
               />
               <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">
-                  Erik
-                  <span className="ml-2 text-xs bg-yellow-400 text-gray-800 px-2 py-0.5 rounded-full font-semibold animate-pulse">
-                    Just In!
-                  </span>
-                </h3>
+                <h3 className="text-xl font-bold">Erik</h3>
                 <p className="text-gray-500 dark:text-gray-400">Enterprise Architecture & economic wiz</p>
               </div>
             </div>
