@@ -6,8 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Homborsund AI Conference",
-  description: "No tech allowed, just you and your curiosity.",
+  title: "Homborsund AI",
+  description: "A community for AI enthusiasts in Homborsund",
 };
 
 export default function RootLayout({
