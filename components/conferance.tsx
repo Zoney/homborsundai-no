@@ -73,15 +73,34 @@ const summits: SummitsData = {
       { time: "22:00 - Late", event: "Campfire discussions under the stars - 'Ghost Stories About Runaway Training Jobs and Other AI Horrors' - Bring blankets, warm drinks, and your most expensive failed experiment stories" }
     ],
     status: "Upcoming"
+  },
+  "2025.2": {
+    title: "Homborsund AI Festival",
+    date: "TBD",
+    theme: "Flashy Agents & Friendly Robots",
+    description: [
+      "Our third gathering pushes AI into the physical world with robots, drones and more.",
+      "Expect shiny demos and hands-on sessions powered by the latest agentic models.",
+      "Full program will drop after the summer—keep your calendars open!"
+    ],
+    schedule: [
+      { time: "16:00 - 17:00", event: "Arrival, snacks and mingling" },
+      { time: "17:00 - 18:00", event: "Keynote: 'Agents Everywhere'" },
+      { time: "18:00 - 19:30", event: "Demo Jam & Breakouts" },
+      { time: "19:30 - Late", event: "BBQ, bonfire and lightning talks" }
+    ],
+    status: "Upcoming"
   }
 }
+
+const DEFAULT_YEAR = "2025.2";
 
 type ConferanceProps = {
   year?: string;
 }
 
-export function Conferance({ year = "2025.1" }: ConferanceProps) {
-  const activeYear = Object.keys(summits).includes(year) ? year : "2025.1";
+export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
+  const activeYear = Object.keys(summits).includes(year) ? year : DEFAULT_YEAR;
   const activeSummit = summits[activeYear];
 
   // Add smooth scrolling for anchor links
@@ -121,7 +140,7 @@ export function Conferance({ year = "2025.1" }: ConferanceProps) {
                 }`}
               >
                 Summit {summitYear}
-                {summits[summitYear].status === "Upcoming" && summitYear !== "2025.1" && (
+                {summits[summitYear].status === "Upcoming" && summitYear === DEFAULT_YEAR && (
                   <span className="ml-2 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
                     Next
                   </span>
@@ -636,6 +655,25 @@ export function Conferance({ year = "2025.1" }: ConferanceProps) {
                 <p className="text-gray-500 dark:text-gray-400">Enterprise Architecture & economic wiz</p>
               </div>
             </div>
+            {parseFloat(activeYear) >= 2025.2 && (
+              <div className="flex flex-col items-center space-y-4">
+                <Image
+                  alt="Speaker"
+                  className="rounded-full"
+                  height={150}
+                  src="/placeholder.svg"
+                  style={{
+                    aspectRatio: "150/150",
+                    objectFit: "cover",
+                  }}
+                  width={150}
+                />
+                <div className="space-y-1 text-center">
+                  <h3 className="text-xl font-bold">Knut</h3>
+                  <p className="text-gray-500 dark:text-gray-400">Random chatty boat maker</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -644,7 +682,7 @@ export function Conferance({ year = "2025.1" }: ConferanceProps) {
           <div className="flex flex-col items-center text-center space-y-4">
             <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">Venue</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              {activeYear === "2025.1" ? (
+              {activeYear === DEFAULT_YEAR ? (
                 <span className="bg-gradient-to-r from-gray-900 to-rose-800 bg-clip-text text-transparent">Homborsund Community Center</span>
               ) : (
                 "Homborsund Community Center"
@@ -728,7 +766,7 @@ export function Conferance({ year = "2025.1" }: ConferanceProps) {
         <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
           <div className="space-y-3">
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-              {activeYear === "2025.1" ? (
+              {activeYear === DEFAULT_YEAR ? (
                 <span className="bg-gradient-to-r from-rose-800 to-indigo-700 bg-clip-text text-transparent">Join us at the Homborsund AI Summit {activeYear}</span>
               ) : (
                 `Join us at the Homborsund AI Summit ${activeYear}`
@@ -745,7 +783,7 @@ export function Conferance({ year = "2025.1" }: ConferanceProps) {
               <>
                 <Link
                   className={`inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium text-gray-50 shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 ${
-                    activeYear === "2025.1" 
+                    activeYear === DEFAULT_YEAR
                       ? "bg-gradient-to-r from-rose-800 to-purple-700 hover:from-rose-700 hover:to-purple-600 focus-visible:ring-rose-500"
                       : "bg-gray-900 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
                   }`}
@@ -757,7 +795,7 @@ export function Conferance({ year = "2025.1" }: ConferanceProps) {
               </>
             ) : (
               <Link
-                href="/2025.1"
+                href={`/${DEFAULT_YEAR}`}
                 className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
               >
                 View Upcoming Summit
