@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import Link from "next/link";
@@ -26,7 +27,7 @@ export default function LandingPage() {
           Homborsund AI: <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">Ignite Your AI Journey</span>
         </h1>
         <p className="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          Step into the epicenter of AI innovation. Connect with brilliant minds, explore groundbreaking ideas, and collaboratively shape the future. This is where AI's brightest sparks converge. Don't just witness the future – create it with us.
+          Step into the epicenter of AI innovation. Connect with brilliant minds, explore groundbreaking ideas, and collaboratively shape the future. This is where AI&apos;s brightest sparks converge. Don&apos;t just witness the future – create it with us.
         </p>
         <Link href="/summit">
           <Button size="lg" className="bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-bounce-slow" style={{ animationDelay: '0.4s' }}>
@@ -119,12 +120,12 @@ export default function LandingPage() {
               },
               {
                 title: "AI as a Catalyst for Discovery",
-                description: "Witness AI accelerating scientific breakthroughs, from material science to drug discovery. We'll delve into how AI models are becoming indispensable partners in research.",
+                description: "Witness AI accelerating scientific breakthroughs, from material science to drug discovery. We&apos;ll delve into how AI models are becoming indispensable partners in research.",
                 IconName: "FlaskConicalIconPlaceholder" // Placeholder for FlaskConicalIcon or similar
               },
               {
                 title: "The Evolving Human-AI Partnership",
-                description: "The future isn't AI versus human, but AI *with* human. Discuss the future of work, creativity, and problem-solving as we build more intuitive and collaborative AI systems.",
+                description: "The future isn&apos;t AI versus human, but AI with human. Discuss the future of work, creativity, and problem-solving as we build more intuitive and collaborative AI systems.",
                 IconName: "UsersIconPlaceholder" // Placeholder for UsersIcon or similar
               }
             ].map((trend) => (
@@ -156,7 +157,7 @@ export default function LandingPage() {
             The future of AI is not just coming; it's being built right here, right now. Join Homborsund AI and leave your mark.
           </p>
           <Link href="/summit">
-            <Button size="xl" className="bg-gradient-to-r from-purple-600 to-rose-600 hover:from-purple-700 hover:to-rose-700 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105">
+            <Button size="lg" className="bg-gradient-to-r from-purple-600 to-rose-600 hover:from-purple-700 hover:to-rose-700 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105">
               Dive Into the Summit Details
             </Button>
           </Link>
@@ -169,3 +170,4 @@ export default function LandingPage() {
     </div>
   );
 }
+/* eslint-enable react/no-unescaped-entities */
