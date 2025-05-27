@@ -22,6 +22,11 @@ To read more about using these font, please visit the Next.js documentation:
 import Link from "next/link"
 import Image from "next/image"
 import { useEffect } from "react"
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { HelpCircle, Lightbulb, Users, ArrowLeft } from "lucide-react"; // Added ArrowLeft icon
 
 type SummitData = {
   title: string;
@@ -125,23 +130,36 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
   }, []);
 
   return (
-    <main className="flex flex-col">
-      <section className="w-full py-6 md:py-12 bg-gray-100 dark:bg-gray-800">
+    <main className="flex flex-col min-h-screen bg-gradient-cool text-white">
+      {/* Back to Home Link */}
+      <div className="w-full pt-6 pb-2">
         <div className="container px-4 md:px-6">
-          <div className="flex flex-row justify-center gap-4 mb-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-rosebud-200 hover:text-rosebud transition-colors duration-200 group"
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
+            <span className="text-sm font-medium">Back to Home</span>
+          </Link>
+        </div>
+      </div>
+
+      <section className="w-full py-8 md:py-12"> {/* Reduced top padding since we added the back link */}
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-row justify-center gap-3 md:gap-4 mb-10 md:mb-12"> {/* Adjusted gap and margin */}
             {Object.keys(summits).map((summitYear) => (
               <Link
                 key={summitYear}
-                href={`/${summitYear}`}
-                className={`px-6 py-2 rounded-md ${
-                  activeYear === summitYear 
-                    ? "bg-rose-800 text-white font-bold" 
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200"
+                href={`/summit/${summitYear}`}
+                className={`px-5 py-3 md:px-6 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
+                  activeYear === summitYear
+                    ? "bg-copperrose text-white shadow-lg"
+                    : "bg-ferra-700 hover:bg-ferra-600 text-rosebud-200 border border-ferra-600"
                 }`}
               >
                 Summit {summitYear}
                 {summits[summitYear].status === "Upcoming" && summitYear === DEFAULT_YEAR && (
-                  <span className="ml-2 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
+                  <span className="ml-2 text-xs bg-rosebud text-tarawera px-2 py-0.5 rounded-full"> {/* Adjusted badge color */}
                     Next
                   </span>
                 )}
@@ -149,530 +167,370 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
             ))}
           </div>
 
-          <div className="flex flex-col items-center text-center space-y-4">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">{activeSummit.title}</h1>
-            <p className="text-3xl text-rose-800 tracking-tighter sm:text-4xl md:text-5xl">{activeSummit.date}</p>
-            <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">{activeSummit.theme}</p>
-            {activeSummit.description.map((paragraph, index) => (
-              <p key={index} className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                {paragraph}
-              </p>
-            ))}
+          <div className="flex flex-col items-center text-center space-y-3 md:space-y-4"> {/* Adjusted space-y */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">{activeSummit.title}</h1>
+            <p className="text-3xl md:text-4xl text-rosebud mb-2">{activeSummit.date}</p>
+            <p className="text-xl md:text-2xl text-rosebud-200 max-w-3xl mb-6">{activeSummit.theme}</p>
+            <div className="space-y-3"> {/* Added wrapper for description paragraphs */}
+              {activeSummit.description.map((paragraph, index) => (
+                <p key={index} className="text-lg text-rosebud-300 max-w-2xl mx-auto">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
             
             {/* Navigation links for 2025.1 */}
             {activeYear === "2025.1" && (
-              <div className="w-full max-w-4xl mt-8">
-                <h3 className="text-lg font-medium mb-4">Jump to a section:</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                  <a href="#schedule" className="bg-gradient-to-r from-rose-600 to-rose-800 text-white px-4 py-3 rounded-lg shadow-md hover:shadow-lg transition-all text-sm md:text-base text-center font-medium flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    Schedule
-                  </a>
-                  <a href="#topics" className="bg-gradient-to-r from-rose-600 to-purple-700 text-white px-4 py-3 rounded-lg shadow-md hover:shadow-lg transition-all text-sm md:text-base text-center font-medium flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                    Hot Topics
-                  </a>
-                  <a href="#norwegian" className="bg-gradient-to-r from-green-600 to-green-800 text-white px-4 py-3 rounded-lg shadow-md hover:shadow-lg transition-all text-sm md:text-base text-center font-medium flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Norwegian ML
-                  </a>
-                  <a href="#attend" className="bg-gradient-to-r from-gray-700 to-gray-900 text-white px-4 py-3 rounded-lg shadow-md hover:shadow-lg transition-all text-sm md:text-base text-center font-medium flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    How to Attend
-                  </a>
-                  <a href="#speakers" className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-3 rounded-lg shadow-md hover:shadow-lg transition-all text-sm md:text-base text-center font-medium flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    Speakers
-                  </a>
-                  <a href="#venue" className="bg-gradient-to-r from-amber-600 to-amber-800 text-white px-4 py-3 rounded-lg shadow-md hover:shadow-lg transition-all text-sm md:text-base text-center font-medium flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Venue
-                  </a>
-                  <a href="#experience" className="bg-gradient-to-r from-indigo-600 to-indigo-800 text-white px-4 py-3 rounded-lg shadow-md hover:shadow-lg transition-all text-sm md:text-base text-center font-medium flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                    </svg>
-                    Experience
-                  </a>
-                  <a href="#register" className="bg-gradient-to-r from-rose-500 to-rose-700 text-white px-4 py-3 rounded-lg shadow-md hover:shadow-lg transition-all text-sm md:text-base text-center font-medium flex items-center justify-center col-span-2 md:col-span-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                    </svg>
-                    Register Now
-                  </a>
+              <div className="w-full max-w-4xl mt-10 md:mt-12"> {/* Adjusted margin */}
+                <h3 className="text-2xl font-semibold mb-6 text-center text-rosebud-200">Jump to a section:</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"> {/* Adjusted gap */}
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
+                    <a href="#schedule">Schedule</a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
+                    <a href="#topics">Hot Topics</a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
+                    <a href="#norwegian">Norwegian ML</a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
+                    <a href="#attend">How to Attend</a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
+                    <a href="#speakers">Speakers</a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
+                    <a href="#venue">Venue</a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
+                    <a href="#experience">Experience</a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="border-rosebud text-rosebud hover:bg-rosebud hover:text-tarawera flex items-center justify-center text-base py-3 col-span-2 md:col-span-1 lg:col-span-1">
+                    <a href="#register">Register Now</a>
+                  </Button>
                 </div>
               </div>
             )}
           </div>
         </div>
       </section>
-      <section id="schedule" className="w-full py-12 md:py-24 lg:py-32 scroll-mt-16">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center text-center space-y-4">
-            <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">Schedule</div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Summit Schedule</h2>
-            <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+      <section id="schedule" className="w-full scroll-mt-16 bg-ferra bg-opacity-50"> {/* Updated section background */}
+        <div className="container mx-auto px-4 md:px-6 py-12 md:py-16"> {/* Added inner div with padding */}
+          <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12"> {/* Added margin-bottom */}
+            <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">Schedule</div> {/* Updated small "Schedule" div */}
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Summit Schedule</h2> {/* Updated h2 */}
+            <p className="max-w-[700px] text-rosebud-200 md:text-lg"> {/* Updated descriptive paragraph */}
               Explore the lineup of thought-provoking talks and interactive sessions.
             </p>
           </div>
-          <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-1 lg:gap-12">
-            <div className="space-y-4">
-              <div className="grid gap-1">
-                <h3 className="text-xl font-bold">Day 1</h3>
+          <div className="mx-auto max-w-3xl w-full"> {/* Wrapper for the Card */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-3xl font-semibold text-center text-rosebud-100">
+                  Day 1 {/* Assuming "Day 1" for now */}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6 px-6 py-8"> {/* Increased padding */}
                 {activeSummit.schedule.map((item, index) => (
-                  <p key={index} className="text-gray-500 dark:text-gray-400">
-                    {item.time}: {item.event}
-                  </p>
+                  <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-ferra-700 bg-opacity-50 hover:bg-ferra-600/70 transition-colors duration-200">
+                    <Badge variant="outline" className="border-copperrose text-copperrose text-sm font-semibold px-3 py-1 whitespace-nowrap">
+                      {item.time}
+                    </Badge>
+                    <p className="text-rosebud-200 text-base leading-relaxed">{item.event}</p>
+                  </div>
                 ))}
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
       {/* Add Hot Topics section between Schedule and Speakers sections */}
       {activeYear === "2025.1" && (
-        <section id="topics" className="w-full py-12 md:py-24 lg:py-32 bg-rose-50 dark:bg-gray-900 scroll-mt-16">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="inline-block rounded-lg bg-rose-100 px-3 py-1 text-sm dark:bg-gray-800">Hot Topics</div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">2025&apos;s Cutting-Edge AI Trends</h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+        <section id="topics" className="w-full py-12 md:py-16 scroll-mt-16 bg-tarawera bg-opacity-50">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
+              <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm inline-block">Hot Topics</div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">2025&apos;s Cutting-Edge AI Trends</h2>
+              <p className="max-w-[700px] text-rosebud-200 md:text-lg mx-auto">
                 Our summit will explore the most revolutionary AI developments just emerging in 2025, including agentic models like OpenAI&apos;s o4-mini.
               </p>
             </div>
             
-            <div className="mx-auto grid max-w-5xl items-center gap-8 py-12 md:grid-cols-2 lg:grid-cols-3">
-              <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
-                <div className="text-rose-800 text-4xl font-bold">01</div>
-                <h3 className="text-xl font-bold">o4-mini & o3: Next-Gen Reasoning & Multimodality</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Dive into OpenAI&apos;s newest models (o4-mini, o3) combining advanced reasoning with multimodal skills (image analysis, generation) and agentic tool use via interfaces like Codex CLI.
-                </p>
-              </div>
-              
-              <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
-                <div className="text-rose-800 text-4xl font-bold">02</div>
-                <h3 className="text-xl font-bold">Agentic AI: Models That Act</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Explore how models like o4-mini are becoming agents, capable of using tools (Python, web search, image analysis) autonomously to solve complex, multi-step problems.
-                </p>
-              </div>
-              
-              <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
-                <div className="text-rose-800 text-4xl font-bold">03</div>
-                <h3 className="text-xl font-bold">NVIDIA&apos;s H200 vs DeepSeek Revolution</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  The great silicon showdown: NVIDIA&apos;s $40,000 H200 GPUs power most AI, but DeepSeek&apos;s R1 model challenges this dominance with a radically different approach that bypasses traditional APIs.
-                </p>
-              </div>
-              
-              <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
-                <div className="text-rose-800 text-4xl font-bold">04</div>
-                <h3 className="text-xl font-bold">ML&apos;s Renaissance: XGBoost Strikes Back</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  While GenAI hogs the spotlight, traditional machine learning frameworks have evolved—sometimes outperforming transformer models with 1/1000th the parameters. Come witness XGBoost&apos;s revenge tour.
-                </p>
-              </div>
-              
-              <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
-                <div className="text-rose-800 text-4xl font-bold">05</div>
-                <h3 className="text-xl font-bold">MoE Architecture: When One Expert Isn&apos;t Enough</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  DeepSeek&apos;s 671B parameter Mixture-of-Experts model demonstrates how specialized neural pathways—not just raw parameter count—drive breakthrough performance at a fraction of the training cost.
-                </p>
-              </div>
-              
-              <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
-                <div className="text-rose-800 text-4xl font-bold">06</div>
-                <h3 className="text-xl font-bold">Benchmarking Agent Intelligence</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  How do we measure the &apos;intelligence&apos; of models like o4-mini when they can use tools and interact multimodally? Explore the latest benchmarks and evaluation techniques.
-                </p>
-              </div>
-              
-              <div className="flex flex-col p-6 space-y-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
-                <div className="text-rose-800 text-4xl font-bold">07</div>
-                <h3 className="text-xl font-bold">General Purpose Agents & Robotics</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Beyond specialized tasks: discussing the roadmap towards general-purpose AI agents that can learn, adapt, and potentially operate in the physical world as robots.
-                </p>
-              </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                { title: "o4-mini & o3: Next-Gen Reasoning & Multimodality", description: "Dive into OpenAI&apos;s newest models (o4-mini, o3) combining advanced reasoning with multimodal skills (image analysis, generation) and agentic tool use via interfaces like Codex CLI.", number: "01" },
+                { title: "Agentic AI: Models That Act", description: "Explore how models like o4-mini are becoming agents, capable of using tools (Python, web search, image analysis) autonomously to solve complex, multi-step problems.", number: "02" },
+                { title: "NVIDIA&apos;s H200 vs DeepSeek Revolution", description: "The great silicon showdown: NVIDIA&apos;s $40,000 H200 GPUs power most AI, but DeepSeek&apos;s R1 model challenges this dominance with a radically different approach that bypasses traditional APIs.", number: "03" },
+                { title: "ML&apos;s Renaissance: XGBoost Strikes Back", description: "While GenAI hogs the spotlight, traditional machine learning frameworks have evolved—sometimes outperforming transformer models with 1/1000th the parameters. Come witness XGBoost&apos;s revenge tour.", number: "04" },
+                { title: "MoE Architecture: When One Expert Isn&apos;t Enough", description: "DeepSeek&apos;s 671B parameter Mixture-of-Experts model demonstrates how specialized neural pathways—not just raw parameter count—drive breakthrough performance at a fraction of the training cost.", number: "05" },
+                { title: "Benchmarking Agent Intelligence", description: "How do we measure the &apos;intelligence&apos; of models like o4-mini when they can use tools and interact multimodally? Explore the latest benchmarks and evaluation techniques.", number: "06" },
+                { title: "General Purpose Agents & Robotics", description: "Beyond specialized tasks: discussing the roadmap towards general-purpose AI agents that can learn, adapt, and potentially operate in the physical world as robots.", number: "07" }
+              ].map((topic, index) => (
+                <Card key={index} className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden hover:shadow-rosebud/30 hover:border-rosebud/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-xl font-semibold text-rosebud-100">{topic.title}</CardTitle>
+                      <Badge variant="outline" className="border-copperrose text-copperrose text-lg font-bold">{topic.number}</Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="text-rosebud-300 text-sm">{topic.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
       )}
       {/* Add new Norwegian Experience section before the Venue section */}
       {activeYear === "2025.1" && (
-        <section id="norwegian" className="w-full py-12 md:py-24 lg:py-32 bg-green-50 dark:bg-gray-900 scroll-mt-16">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm dark:bg-gray-800">Norwegian ML Experience</div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Machine Learning, Norwegian Style</h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+        <section id="norwegian" className="w-full py-12 md:py-16 scroll-mt-16 bg-transparent"> {/* Updated background */}
+          <div className="container mx-auto px-4 md:px-6"> {/* Added container */}
+            <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
+              <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm inline-block">Norwegian ML Experience</div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Machine Learning, Norwegian Style</h2>
+              <p className="max-w-[700px] text-rosebud-200 md:text-lg mx-auto">
                 What Norway lacks in silicon, we make up for in scenic beauty and philosophical clarity.
               </p>
             </div>
             
-            <div className="mx-auto grid max-w-5xl items-center gap-8 py-12 lg:grid-cols-1">
-              <div className="flex flex-col p-6 space-y-6 bg-white rounded-xl shadow-sm dark:bg-gray-800">
-                <h3 className="text-2xl font-bold">The Norwegian ML Philosophy</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  While Silicon Valley argues about which $100 million model is best, Norwegians have been quietly applying ML in practical ways that actually help people. Learn how:
-                </p>
-                <ul className="space-y-2 text-gray-500 dark:text-gray-400 text-left list-disc pl-5">
-                  <li><span className="font-bold">Neural nets for fishing forecasts:</span> Local ML models predict optimal fishing conditions with 85% accuracy using 1000x less compute than a single ChatGPT query</li>
-                  <li><span className="font-bold">Random forests for actual forests:</span> Predicting bark beetle outbreaks using lightweight ML that runs on solar power</li>
-                  <li><span className="font-bold">Gradient boosting vs. avalanches:</span> How a 5MB model saves lives every winter</li>
-                  <li><span className="font-bold">When your utedo needs AI:</span> (Trick topic - utedos definitely don&apos;t need AI, and that&apos;s the point!)</li>
-                </ul>
-                <p className="text-gray-500 dark:text-gray-400 italic">
-                  &quot;Sometimes the most advanced technology is knowing when to use no technology at all.&quot; — Norwegian proverb we just made up but sounds legit
-                </p>
-              </div>
+            <div className="mx-auto max-w-3xl w-full"> {/* Wrapper for the Card */}
+              <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden p-6 md:p-8"> {/* Added padding to card */}
+                <CardHeader className="p-0 pb-6"> {/* Removed default padding, added bottom padding */}
+                  <CardTitle className="text-3xl font-semibold text-rosebud-100 text-center">The Norwegian ML Philosophy</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0 text-rosebud-200 text-left space-y-4"> {/* Removed default padding */}
+                  <p>
+                    While Silicon Valley argues about which $100 million model is best, Norwegians have been quietly applying ML in practical ways that actually help people. Learn how:
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2 marker:text-copperrose">
+                    <li><span className="font-semibold text-rosebud-100">Neural nets for fishing forecasts:</span> Local ML models predict optimal fishing conditions with 85% accuracy using 1000x less compute than a single ChatGPT query</li>
+                    <li><span className="font-semibold text-rosebud-100">Random forests for actual forests:</span> Predicting bark beetle outbreaks using lightweight ML that runs on solar power</li>
+                    <li><span className="font-semibold text-rosebud-100">Gradient boosting vs. avalanches:</span> How a 5MB model saves lives every winter</li>
+                    <li><span className="font-semibold text-rosebud-100">When your utedo needs AI:</span> (Trick topic - utedos definitely don&apos;t need AI, and that&apos;s the point!)</li>
+                  </ul>
+                  <p className="italic text-copperrose pt-2">
+                    &quot;Sometimes the most advanced technology is knowing when to use no technology at all.&quot; — Norwegian proverb we just made up but sounds legit
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
       )}
       {/* Add How to Attend section for 2025 summit */}
       {activeYear === "2025.1" && (
-        <section id="attend" className="w-full py-12 md:py-24 lg:py-32 bg-gray-900 text-white scroll-mt-16">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-rose-500">How to Attend</h2>
-              <p className="max-w-[700px] text-gray-300 md:text-xl font-medium">
+        <section id="attend" className="w-full py-12 md:py-16 scroll-mt-16 bg-ferra bg-opacity-50">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
+              <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm inline-block">How to Attend</div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Join the Conversation</h2>
+              <p className="max-w-[700px] text-rosebud-200 md:text-lg mx-auto">
                 The Homborsund AI Summit is an invitation... that you extend to yourself.
               </p>
             </div>
             
-            <div className="mx-auto grid max-w-5xl items-center gap-8 py-12 md:grid-cols-1 lg:grid-cols-3">
-              <div className="flex flex-col h-full">
-                <div className="relative">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-rose-500"></div>
-                </div>
-                <div className="flex flex-col items-center space-y-3 p-6">
-                  <div className="bg-rose-100 rounded-full p-4 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-rose-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-white">Want to Attend?</h3>
-                  <p className="text-gray-300 text-center">
+            <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+              <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden hover:shadow-rosebud/30 hover:border-rosebud/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6">
+                <HelpCircle className="w-16 h-16 text-copperrose mb-6" />
+                <CardHeader className="p-0 pb-3">
+                  <CardTitle className="text-2xl font-semibold text-rosebud-100">Want to Attend?</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0 flex-grow">
+                  <p className="text-rosebud-300">
                     That&apos;s the first and most important step. If you&apos;re reading this and thinking &quot;I&apos;d like to be there&quot; - congratulations, you&apos;ve completed the most crucial part of the registration process.
                   </p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
               
-              <div className="flex flex-col h-full">
-                <div className="relative">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-rose-500"></div>
-                </div>
-                <div className="flex flex-col items-center space-y-3 p-6">
-                  <div className="bg-rose-100 rounded-full p-4 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-rose-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-white">Know Something</h3>
-                  <p className="text-gray-300 text-center">
+              <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden hover:shadow-rosebud/30 hover:border-rosebud/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6">
+                <Lightbulb className="w-16 h-16 text-copperrose mb-6" />
+                <CardHeader className="p-0 pb-3">
+                  <CardTitle className="text-2xl font-semibold text-rosebud-100">Know Something</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0 flex-grow">
+                  <p className="text-rosebud-300">
                     Bring your knowledge—whether it&apos;s vast expertise in transformer architectures or just a persistent curiosity about why ChatGPT hallucinates your birthday. What matters is what YOU know, and what YOU want to learn.
                   </p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
               
-              <div className="flex flex-col h-full">
-                <div className="relative">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-rose-500"></div>
-                </div>
-                <div className="flex flex-col items-center space-y-3 p-6">
-                  <div className="bg-rose-100 rounded-full p-4 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-rose-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-white">Tell Someone</h3>
-                  <p className="text-gray-300 text-center">
+              <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden hover:shadow-rosebud/30 hover:border-rosebud/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6">
+                <Users className="w-16 h-16 text-copperrose mb-6" />
+                <CardHeader className="p-0 pb-3">
+                  <CardTitle className="text-2xl font-semibold text-rosebud-100">Tell Someone</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0 flex-grow">
+                  <p className="text-rosebud-300">
                     Invite yourself by clicking the registration link, then tell a fellow AI enthusiast about the summit. The best learning happens in small groups of passionate people—each person you invite enriches the experience for everyone.
                   </p>
-                </div>
-              </div>
-
-              <div className="md:col-span-1 lg:col-span-3 mt-6">
-                <div className="p-6 rounded-xl border-l-4 border-rose-500">
-                  <h3 className="text-2xl font-bold mb-4 text-white">The Self-Invitation Philosophy</h3>
-                  <p className="text-gray-300 mb-4">
-                    Unlike mainstream conferences with prohibitive price tags and elaborate registration processes, we believe in simplicity. If you feel called to join our gathering of minds, we trust that you&apos;ll:
-                  </p>
-                  <ul className="space-y-3 text-gray-300">
-                    <li className="flex items-start">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-rose-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span><strong>Bring the right spirit</strong> — A blend of curiosity, openness, and willingness to disconnect from technology to connect with ideas and people</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-rose-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span><strong>Contribute to the potluck</strong> — Both literally (bring food/drinks) and figuratively (bring ideas, questions, and enthusiasm)</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-rose-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span><strong>Extend the circle</strong> — Invite someone who would add value to our discussions (but remember space is limited to 30 participants)</span>
-                    </li>
-                  </ul>
-                  <p className="mt-4 text-rose-400 italic font-medium">
-                    &quot;The best gatherings are those where each person feels personally responsible for its success.&quot;
-                  </p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </div>
+
+            <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden p-6 md:p-8 border-l-4 border-copperrose mb-12">
+              <CardHeader className="p-0 pb-4">
+                <CardTitle className="text-2xl font-semibold text-rosebud-100">The Self-Invitation Philosophy</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0 text-rosebud-200 space-y-3">
+                <p>
+                  Unlike mainstream conferences with prohibitive price tags and elaborate registration processes, we believe in simplicity. If you feel called to join our gathering of minds, we trust that you&apos;ll:
+                </p>
+                <ul className="list-disc pl-6 space-y-2 marker:text-copperrose">
+                  <li><strong>Bring the right spirit</strong> — A blend of curiosity, openness, and willingness to disconnect from technology to connect with ideas and people</li>
+                  <li><strong>Contribute to the potluck</strong> — Both literally (bring food/drinks) and figuratively (bring ideas, questions, and enthusiasm)</li>
+                  <li><strong>Extend the circle</strong> — Invite someone who would add value to our discussions (but remember space is limited to 30 participants)</li>
+                </ul>
+                <p className="italic text-copperrose pt-2">
+                  &quot;The best gatherings are those where each person feels personally responsible for its success.&quot;
+                </p>
+              </CardContent>
+            </Card>
             
-            <div className="flex flex-col items-center mt-8">
-              <Link 
-                href="https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ" 
-                className="inline-flex h-12 items-center justify-center rounded-md bg-rose-600 px-8 text-base font-medium text-white shadow transition-colors hover:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:pointer-events-none disabled:opacity-50 transform transition-transform duration-200 hover:scale-105"
-              >
-                I&apos;m Inviting Myself
-              </Link>
-              <p className="text-sm text-gray-400 mt-3">
+            <div className="flex flex-col items-center">
+              <Button size="lg" asChild className="bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white font-semibold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-rosebud/50 transition-all duration-300 transform hover:scale-105">
+                <Link href="https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ">
+                  I&apos;m Inviting Myself
+                </Link>
+              </Button>
+              <p className="text-sm text-rosebud-300 mt-3">
                 Join our WhatsApp community and introduce yourself
               </p>
             </div>
           </div>
         </section>
       )}
-      <section id="speakers" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800 scroll-mt-16">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center text-center space-y-4">
-            <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">Speakers</div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Meet the Speakers</h2>
-            <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+      <section id="speakers" className="w-full py-12 md:py-16 scroll-mt-16 bg-tarawera bg-opacity-50"> {/* Updated padding and background */}
+        <div className="container mx-auto px-4 md:px-6"> {/* Added container with padding */}
+          <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12"> {/* Added margin-bottom */}
+            <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">Speakers</div> {/* Updated small "Speakers" div */}
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Meet the Speakers</h2> {/* Updated h2 */}
+            <p className="max-w-[700px] text-rosebud-200 md:text-lg"> {/* Updated descriptive paragraph */}
               Learn from industry experts and thought leaders in the field of AI.
             </p>
           </div>
-          <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height="150"
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width="150"
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Eivind</h3>
-                <p className="text-gray-500 dark:text-gray-400">Random TOGAF nerd</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height="150"
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width="150"
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Øyvind</h3>
-                <p className="text-gray-500 dark:text-gray-400">Random dev nerd</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height="150"
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width="150"
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Rebekka (please come!)</h3>
-                <p className="text-gray-500 dark:text-gray-400">Random AI nerd</p>
-              </div>
-            </div>
-          </div>
-          <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height="150"
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width="150"
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Lars</h3>
-                <p className="text-gray-500 dark:text-gray-400">Random ERP nerd</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height="150"
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width="150"
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Andreas</h3>
-                <p className="text-gray-500 dark:text-gray-400">Random robotics nerd</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height={150}
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width={150}
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Michael</h3>
-                <p className="text-gray-500 dark:text-gray-400">Ex-Game Dev, AI/GIS wizard, public sector value creator & year-round swimmer.</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height={150}
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width={150}
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Christoffer</h3>
-                <p className="text-gray-500 dark:text-gray-400">Random puzzle-solving business nerd</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height={150}
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width={150}
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Kjetil</h3>
-                <p className="text-gray-500 dark:text-gray-400">Random bicycle-powered system dev nerd</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height="150"
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width="150"
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">And you!</h3>
-                <p className="text-gray-500 dark:text-gray-400">...</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height={150}
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width={150}
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Ofc, you!</h3>
-                <p className="text-gray-500 dark:text-gray-400">....</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center space-y-4">
-              <Image
-                alt="Speaker"
-                className="rounded-full"
-                height={150}
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "150/150",
-                  objectFit: "cover",
-                }}
-                width={150}
-              />
-              <div className="space-y-1 text-center">
-                <h3 className="text-xl font-bold">Erik</h3>
-                <p className="text-gray-500 dark:text-gray-400">Enterprise Architecture & economic wiz</p>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"> {/* Updated grid layout and gap */}
+            
+            {/* Eivind */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Eivind" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">EI</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Eivind</h3>
+              <p className="text-copperrose text-sm">Random TOGAF nerd</p>
+            </Card>
+
+            {/* Øyvind */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Øyvind" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">ØY</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Øyvind</h3>
+              <p className="text-copperrose text-sm">Random dev nerd</p>
+            </Card>
+
+            {/* Rebekka */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Rebekka (please come!)" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">RE</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Rebekka (please come!)</h3>
+              <p className="text-copperrose text-sm">Random AI nerd</p>
+            </Card>
+
+            {/* Lars */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Lars" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">LA</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Lars</h3>
+              <p className="text-copperrose text-sm">Random ERP nerd</p>
+            </Card>
+
+            {/* Andreas */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Andreas" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">AN</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Andreas</h3>
+              <p className="text-copperrose text-sm">Random robotics nerd</p>
+            </Card>
+
+            {/* Michael */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Michael" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">MI</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Michael</h3>
+              <p className="text-copperrose text-sm">Ex-Game Dev, AI/GIS wizard, public sector value creator & year-round swimmer.</p>
+            </Card>
+
+            {/* Christoffer */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Christoffer" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">CH</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Christoffer</h3>
+              <p className="text-copperrose text-sm">Random puzzle-solving business nerd</p>
+            </Card>
+
+            {/* Kjetil */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Kjetil" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">KJ</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Kjetil</h3>
+              <p className="text-copperrose text-sm">Random bicycle-powered system dev nerd</p>
+            </Card>
+            
+            {/* And you! */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="And you!" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">AY</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">And you!</h3>
+              <p className="text-copperrose text-sm">...</p>
+            </Card>
+
+            {/* Ofc, you! */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Ofc, you!" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">OY</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Ofc, you!</h3>
+              <p className="text-copperrose text-sm">....</p>
+            </Card>
+
+            {/* Erik */}
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Erik" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">ER</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Erik</h3>
+              <p className="text-copperrose text-sm">Enterprise Architecture & economic wiz</p>
+            </Card>
+
+            {/* Knut - conditional */}
             {parseFloat(activeYear) >= 2025.2 && (
-              <div className="flex flex-col items-center space-y-4">
-                <Image
-                  alt="Speaker"
-                  className="rounded-full"
-                  height={150}
-                  src="/placeholder.svg"
-                  style={{
-                    aspectRatio: "150/150",
-                    objectFit: "cover",
-                  }}
-                  width={150}
-                />
-                <div className="space-y-1 text-center">
-                  <h3 className="text-xl font-bold">Knut</h3>
-                  <p className="text-gray-500 dark:text-gray-400">Random chatty boat maker</p>
-                </div>
-              </div>
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+                <AvatarImage src="/placeholder.svg" alt="Knut" />
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">KN</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Knut</h3>
+              <p className="text-copperrose text-sm">Random chatty boat maker</p>
+            </Card>
             )}
           </div>
         </div>
@@ -680,15 +538,15 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
       <section id="venue" className="w-full py-12 md:py-24 lg:py-32 scroll-mt-16">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4">
-            <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">Venue</div>
+            <div className="inline-block rounded-lg bg-rosebud px-3 py-1 text-sm text-tarawera">Venue</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               {activeYear === DEFAULT_YEAR ? (
-                <span className="bg-gradient-to-r from-gray-900 to-rose-800 bg-clip-text text-transparent">Homborsund Community Center</span>
+                <span className="bg-gradient-to-r from-tarawera to-copperrose bg-clip-text text-transparent">Homborsund Community Center</span>
               ) : (
-                "Homborsund Community Center"
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Homborsund Community Center</span>
               )}
             </h2>
-            <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+            <p className="max-w-[700px] text-rosebud-200 md:text-xl">
               The summit will be held at the Vågsholt skole, a historic building located in the heart
               of Krømpe.
             </p>
@@ -704,57 +562,57 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
             />
             <div className="space-y-4">
               <div className="grid gap-1">
-                <h3 className="text-xl font-bold">Address</h3>
-                <p className="text-gray-500 dark:text-gray-400">Krømpe 16, Grimstad, Eide, Norway</p>
+                <h3 className="text-xl font-bold text-rosebud-100">Address</h3>
+                <p className="text-rosebud-300">Krømpe 16, Grimstad, Eide, Norway</p>
               </div>
               <div className="grid gap-1">
-                <h3 className="text-xl font-bold">Parking</h3>
-                <p className="text-gray-500 dark:text-gray-400">Free parking is available on-site.</p>
+                <h3 className="text-xl font-bold text-rosebud-100">Parking</h3>
+                <p className="text-rosebud-300">Free parking is available on-site.</p>
               </div>
               <div className="grid gap-1">
-                <h3 className="text-xl font-bold">Accessibility</h3>
-                <p className="text-gray-500 dark:text-gray-400">The venue is wheelchair accessible.</p>
+                <h3 className="text-xl font-bold text-rosebud-100">Accessibility</h3>
+                <p className="text-rosebud-300">The venue is wheelchair accessible.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section id="experience" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900 scroll-mt-16">
+      <section id="experience" className="w-full py-12 md:py-24 lg:py-32 bg-ferra bg-opacity-30 scroll-mt-16">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4">
-            <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">The Experience</div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Back to Our Roots</h2>
-            <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+            <div className="inline-block rounded-lg bg-rosebud px-3 py-1 text-sm text-tarawera">The Experience</div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Back to Our Roots</h2>
+            <p className="max-w-[700px] text-rosebud-200 md:text-xl">
               Embracing the authentic Norwegian experience, our summit offers a refreshing departure from the usual tech-laden conferences.
             </p>
             
             <div className="mx-auto grid max-w-5xl items-center gap-8 py-12 lg:grid-cols-2 lg:gap-12">
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold">Authentic Facilities</h3>
+                <h3 className="text-2xl font-bold text-rosebud-100">Authentic Facilities</h3>
                 <div className="space-y-2">
-                  <p className="text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Traditional &quot;Utedo&quot;:</span> Experience our charming Norwegian outdoor toilet facility, a perfect opportunity to connect with nature while disconnecting from technology.
+                  <p className="text-rosebud-300">
+                    <span className="font-semibold text-rosebud-100">Traditional &quot;Utedo&quot;:</span> Experience our charming Norwegian outdoor toilet facility, a perfect opportunity to connect with nature while disconnecting from technology.
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">No Electricity or Running Water:</span> Detach completely from digital dependencies. We&apos;ll use candles, lanterns, and stars to light our discussions—just like the pioneers of science and philosophy did for centuries.
+                  <p className="text-rosebud-300">
+                    <span className="font-semibold text-rosebud-100">No Electricity or Running Water:</span> Detach completely from digital dependencies. We&apos;ll use candles, lanterns, and stars to light our discussions—just like the pioneers of science and philosophy did for centuries.
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">What to Bring:</span> A flashlight, comfortable warm clothes, your favorite drinks, and food to share. We&apos;ll provide basic necessities, warm fires, and plenty of inspiration.
+                  <p className="text-rosebud-300">
+                    <span className="font-semibold text-rosebud-100">What to Bring:</span> A flashlight, comfortable warm clothes, your favorite drinks, and food to share. We&apos;ll provide basic necessities, warm fires, and plenty of inspiration.
                   </p>
                 </div>
               </div>
               
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold">Why Unplug?</h3>
+                <h3 className="text-2xl font-bold text-rosebud-100">Why Unplug?</h3>
                 <div className="space-y-2">
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="text-rosebud-300">
                     As AI models like GPT-4.5 Orion and Claude 3.7 become increasingly natural in conversation and ever more capable, our summit offers a counterpoint: genuine human connection in its purest form.
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="text-rosebud-300">
                     In a world where AI can now generate working code, create interactive visualizations, and solve complex math problems with ease, we believe that human creativity still flourishes best in nature, away from screens.
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    <span className="italic">&quot;Some of my best ideas came when I was furthest from technology.&quot;</span> — Previous attendee
+                  <p className="text-rosebud-300">
+                    <span className="italic text-copperrose">&quot;Some of my best ideas came when I was furthest from technology.&quot;</span> — Previous attendee
                   </p>
                 </div>
               </div>
@@ -762,17 +620,17 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
           </div>
         </div>
       </section>
-      <section id="register" className="w-full py-12 md:py-24 lg:py-32 border-t scroll-mt-16">
+      <section id="register" className="w-full py-12 md:py-24 lg:py-32 border-t border-ferra-600 scroll-mt-16 bg-tarawera bg-opacity-30">
         <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
           <div className="space-y-3">
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
               {activeYear === DEFAULT_YEAR ? (
-                <span className="bg-gradient-to-r from-rose-800 to-indigo-700 bg-clip-text text-transparent">Join us at the Homborsund AI Summit {activeYear}</span>
+                <span className="bg-gradient-to-r from-rosebud to-copperrose bg-clip-text text-transparent">Join us at the Homborsund AI Summit {activeYear}</span>
               ) : (
-                `Join us at the Homborsund AI Summit ${activeYear}`
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Join us at the Homborsund AI Summit {activeYear}</span>
               )}
             </h2>
-            <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+            <p className="mx-auto max-w-[600px] text-rosebud-200 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               {activeSummit.status === "Upcoming" 
                 ? "Register now to secure your spot and be a part of this exciting event where cutting-edge AI concepts meet authentic human connection."
                 : "This event has concluded. Check out our upcoming summit!"}
@@ -782,21 +640,21 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
             {activeSummit.status === "Upcoming" ? (
               <>
                 <Link
-                  className={`inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium text-gray-50 shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 ${
+                  className={`inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 ${
                     activeYear === DEFAULT_YEAR
-                      ? "bg-gradient-to-r from-rose-800 to-purple-700 hover:from-rose-700 hover:to-purple-600 focus-visible:ring-rose-500"
-                      : "bg-gray-900 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                      ? "bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
+                      : "bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
                   }`}
                   href="https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ"
                 >
                   Register Now
                 </Link>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Early bird tickets available until March 1st, 2025. Limited to 30 participants for an intimate experience. Join our WhatsApp community.</p>
+                <p className="text-xs text-rosebud-300">Early bird tickets available until March 1st, 2025. Limited to 30 participants for an intimate experience. Join our WhatsApp community.</p>
               </>
             ) : (
               <Link
-                href={`/${DEFAULT_YEAR}`}
-                className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                href={`/summit/${DEFAULT_YEAR}`}
+                className="inline-flex h-10 items-center justify-center rounded-md bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 px-8 text-sm font-medium text-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-rosebud disabled:pointer-events-none disabled:opacity-50 shadow-lg hover:shadow-rosebud/50"
               >
                 View Upcoming Summit
               </Link>
@@ -807,23 +665,23 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
       
       {/* Past Summits Section - Only shown when viewing past summits */}
       {activeSummit.status === "Completed" && (
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-ferra bg-opacity-50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">Archive</div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Past Summits</h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+              <div className="inline-block rounded-lg bg-rosebud px-3 py-1 text-sm text-tarawera">Archive</div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Past Summits</h2>
+              <p className="max-w-[700px] text-rosebud-200 md:text-xl">
                 Take a look at our previous AI summits and the amazing discussions we had.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                 {/* Photo gallery from past summit */}
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-semibold">Photo Highlights</h3>
+                  <h3 className="text-2xl font-semibold text-rosebud-100">Photo Highlights</h3>
                   <div className="grid grid-cols-2 gap-2">
                     {[1, 2, 3, 4].map((num) => (
-                      <div key={num} className="aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-                        <span className="text-gray-500">Photo {num}</span>
+                      <div key={num} className="aspect-square bg-ferra-700 border border-ferra-600 rounded-md flex items-center justify-center">
+                        <span className="text-rosebud-300">Photo {num}</span>
                       </div>
                     ))}
                   </div>
@@ -831,15 +689,15 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
                 
                 {/* Testimonials from past summit */}
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-semibold">Attendee Feedback</h3>
+                  <h3 className="text-2xl font-semibold text-rosebud-100">Attendee Feedback</h3>
                   <div className="space-y-4">
-                    <blockquote className="border-l-4 border-rose-800 pl-4 italic">
+                    <blockquote className="border-l-4 border-copperrose pl-4 italic text-rosebud-200">
                       &quot;The discussions were eye-opening. Can&apos;t wait for next year&apos;s summit!&quot;
-                      <footer className="text-sm mt-2">— Previous Attendee</footer>
+                      <footer className="text-sm mt-2 text-rosebud-300">— Previous Attendee</footer>
                     </blockquote>
-                    <blockquote className="border-l-4 border-rose-800 pl-4 italic">
+                    <blockquote className="border-l-4 border-copperrose pl-4 italic text-rosebud-200">
                       &quot;A perfect blend of technical insights and practical applications.&quot;
-                      <footer className="text-sm mt-2">— AI Enthusiast</footer>
+                      <footer className="text-sm mt-2 text-rosebud-300">— AI Enthusiast</footer>
                     </blockquote>
                   </div>
                 </div>

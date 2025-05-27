@@ -1,5 +1,5 @@
-import { Conferance } from "@/components/conferance";
+import LandingPage from "@/components/landing-page";
 
 export default function Home() {
-  return <Conferance year="2025.2" />;
+  return <LandingPage />;
 }
