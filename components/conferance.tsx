@@ -228,7 +228,6 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
                 ))}
               </CardContent>
             </Card>
-            </div>
           </div>
         </div>
       </section>
