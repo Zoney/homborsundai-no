@@ -63,7 +63,7 @@ export default function Summit2025_1Page() {
       
       {/* Navigation links for 2025.1 */}
       <section className="w-full py-8">
-        <div className="container px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="w-full max-w-4xl mx-auto">
             <h3 className="text-2xl font-semibold mb-6 text-center text-rosebud-200">Jump to a section:</h3>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -256,7 +256,7 @@ export default function Summit2025_1Page() {
       
       {/* Experience section */}
       <section id="experience" className="w-full py-12 md:py-24 lg:py-32 bg-ferra bg-opacity-30 scroll-mt-16">
-        <div className="container px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4">
             <div className="inline-block rounded-lg bg-rosebud px-3 py-1 text-sm text-tarawera">The Experience</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Back to Our Roots</h2>

@@ -9,7 +9,7 @@ type SummitRegistrationProps = {
 export function SummitRegistration({ activeYear, status }: SummitRegistrationProps) {
   return (
     <section id="register" className="w-full py-12 md:py-24 lg:py-32 border-t border-ferra-600 scroll-mt-16 bg-tarawera bg-opacity-30">
-      <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
+      <div className="container mx-auto grid items-center justify-center gap-4 px-4 text-center md:px-6">
         <div className="space-y-3">
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
             {activeYear === DEFAULT_YEAR ? (

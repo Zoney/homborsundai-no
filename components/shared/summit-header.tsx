@@ -17,7 +17,7 @@ export function SummitHeader({ activeYear, title, date, theme, description }: Su
     <>
       {/* Back to Home Link */}
       <div className="w-full pt-6 pb-2">
-        <div className="container px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-rosebud-200 hover:text-rosebud transition-colors duration-200 group"
@@ -29,7 +29,7 @@ export function SummitHeader({ activeYear, title, date, theme, description }: Su
       </div>
 
       <section className="w-full py-8 md:py-12">
-        <div className="container px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-row justify-center gap-3 md:gap-4 mb-10 md:mb-12">
             {Object.keys(SUMMIT_METADATA).map((summitYear) => (
               <Link
