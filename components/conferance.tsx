@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { HelpCircle, Lightbulb, Users } from "lucide-react"; // Added lucide-react icons
+import { HelpCircle, Lightbulb, Users, ArrowLeft } from "lucide-react"; // Added ArrowLeft icon
 
 type SummitData = {
   title: string;
@@ -130,8 +130,21 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
   }, []);
 
   return (
-    <main className="flex flex-col min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-teal-900 text-white">
-      <section className="w-full py-12 md:py-16"> {/* Updated padding and removed old background */}
+    <main className="flex flex-col min-h-screen bg-gradient-cool text-white">
+      {/* Back to Home Link */}
+      <div className="w-full pt-6 pb-2">
+        <div className="container px-4 md:px-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-rosebud-200 hover:text-rosebud transition-colors duration-200 group"
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
+            <span className="text-sm font-medium">Back to Home</span>
+          </Link>
+        </div>
+      </div>
+
+      <section className="w-full py-8 md:py-12"> {/* Reduced top padding since we added the back link */}
         <div className="container px-4 md:px-6">
           <div className="flex flex-row justify-center gap-3 md:gap-4 mb-10 md:mb-12"> {/* Adjusted gap and margin */}
             {Object.keys(summits).map((summitYear) => (
@@ -140,13 +153,13 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
                 href={`/summit/${summitYear}`}
                 className={`px-5 py-3 md:px-6 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 ${
                   activeYear === summitYear
-                    ? "bg-cyan-600 text-white shadow-lg"
-                    : "bg-slate-700 hover:bg-slate-600 text-gray-300 border border-slate-600"
+                    ? "bg-copperrose text-white shadow-lg"
+                    : "bg-ferra-700 hover:bg-ferra-600 text-rosebud-200 border border-ferra-600"
                 }`}
               >
                 Summit {summitYear}
                 {summits[summitYear].status === "Upcoming" && summitYear === DEFAULT_YEAR && (
-                  <span className="ml-2 text-xs bg-green-400 text-slate-900 px-2 py-0.5 rounded-full"> {/* Adjusted badge color */}
+                  <span className="ml-2 text-xs bg-rosebud text-tarawera px-2 py-0.5 rounded-full"> {/* Adjusted badge color */}
                     Next
                   </span>
                 )}
@@ -155,12 +168,12 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
           </div>
 
           <div className="flex flex-col items-center text-center space-y-3 md:space-y-4"> {/* Adjusted space-y */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">{activeSummit.title}</h1>
-            <p className="text-3xl md:text-4xl text-cyan-400 mb-2">{activeSummit.date}</p>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mb-6">{activeSummit.theme}</p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">{activeSummit.title}</h1>
+            <p className="text-3xl md:text-4xl text-rosebud mb-2">{activeSummit.date}</p>
+            <p className="text-xl md:text-2xl text-rosebud-200 max-w-3xl mb-6">{activeSummit.theme}</p>
             <div className="space-y-3"> {/* Added wrapper for description paragraphs */}
               {activeSummit.description.map((paragraph, index) => (
-                <p key={index} className="text-lg text-gray-400 max-w-2xl mx-auto">
+                <p key={index} className="text-lg text-rosebud-300 max-w-2xl mx-auto">
                   {paragraph}
                 </p>
               ))}
@@ -169,30 +182,30 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
             {/* Navigation links for 2025.1 */}
             {activeYear === "2025.1" && (
               <div className="w-full max-w-4xl mt-10 md:mt-12"> {/* Adjusted margin */}
-                <h3 className="text-2xl font-semibold mb-6 text-center text-gray-200">Jump to a section:</h3>
+                <h3 className="text-2xl font-semibold mb-6 text-center text-rosebud-200">Jump to a section:</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"> {/* Adjusted gap */}
-                  <Button asChild variant="outline" size="lg" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-slate-900 flex items-center justify-center text-base py-3">
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
                     <a href="#schedule">Schedule</a>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-slate-900 flex items-center justify-center text-base py-3">
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
                     <a href="#topics">Hot Topics</a>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-slate-900 flex items-center justify-center text-base py-3">
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
                     <a href="#norwegian">Norwegian ML</a>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-slate-900 flex items-center justify-center text-base py-3">
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
                     <a href="#attend">How to Attend</a>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-slate-900 flex items-center justify-center text-base py-3">
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
                     <a href="#speakers">Speakers</a>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-slate-900 flex items-center justify-center text-base py-3">
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
                     <a href="#venue">Venue</a>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-slate-900 flex items-center justify-center text-base py-3">
+                  <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
                     <a href="#experience">Experience</a>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="border-rose-500 text-rose-400 hover:bg-rose-500 hover:text-slate-900 flex items-center justify-center text-base py-3 col-span-2 md:col-span-1 lg:col-span-1">
+                  <Button asChild variant="outline" size="lg" className="border-rosebud text-rosebud hover:bg-rosebud hover:text-tarawera flex items-center justify-center text-base py-3 col-span-2 md:col-span-1 lg:col-span-1">
                     <a href="#register">Register Now</a>
                   </Button>
                 </div>
@@ -201,29 +214,29 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
           </div>
         </div>
       </section>
-      <section id="schedule" className="w-full scroll-mt-16 bg-slate-800 bg-opacity-50"> {/* Updated section background */}
+      <section id="schedule" className="w-full scroll-mt-16 bg-ferra bg-opacity-50"> {/* Updated section background */}
         <div className="container mx-auto px-4 md:px-6 py-12 md:py-16"> {/* Added inner div with padding */}
           <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12"> {/* Added margin-bottom */}
-            <div className="bg-cyan-500 text-slate-900 font-semibold px-4 py-1 rounded-full text-sm">Schedule</div> {/* Updated small "Schedule" div */}
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-3">Summit Schedule</h2> {/* Updated h2 */}
-            <p className="max-w-[700px] text-gray-300 md:text-lg"> {/* Updated descriptive paragraph */}
+            <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">Schedule</div> {/* Updated small "Schedule" div */}
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Summit Schedule</h2> {/* Updated h2 */}
+            <p className="max-w-[700px] text-rosebud-200 md:text-lg"> {/* Updated descriptive paragraph */}
               Explore the lineup of thought-provoking talks and interactive sessions.
             </p>
           </div>
           <div className="mx-auto max-w-3xl w-full"> {/* Wrapper for the Card */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg">
+            <Card className="bg-ferra border-ferra-600 shadow-lg">
               <CardHeader>
-                <CardTitle className="text-3xl font-semibold text-center text-gray-100">
+                <CardTitle className="text-3xl font-semibold text-center text-rosebud-100">
                   Day 1 {/* Assuming "Day 1" for now */}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6 px-6 py-8"> {/* Increased padding */}
                 {activeSummit.schedule.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-slate-700 bg-opacity-50 hover:bg-slate-600/70 transition-colors duration-200">
-                    <Badge variant="outline" className="border-cyan-500 text-cyan-400 text-sm font-semibold px-3 py-1 whitespace-nowrap">
+                  <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-ferra-700 bg-opacity-50 hover:bg-ferra-600/70 transition-colors duration-200">
+                    <Badge variant="outline" className="border-copperrose text-copperrose text-sm font-semibold px-3 py-1 whitespace-nowrap">
                       {item.time}
                     </Badge>
-                    <p className="text-gray-300 text-base leading-relaxed">{item.event}</p>
+                    <p className="text-rosebud-200 text-base leading-relaxed">{item.event}</p>
                   </div>
                 ))}
               </CardContent>
@@ -233,12 +246,12 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
       </section>
       {/* Add Hot Topics section between Schedule and Speakers sections */}
       {activeYear === "2025.1" && (
-        <section id="topics" className="w-full py-12 md:py-16 scroll-mt-16 bg-slate-800 bg-opacity-50">
+        <section id="topics" className="w-full py-12 md:py-16 scroll-mt-16 bg-tarawera bg-opacity-50">
           <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
-              <div className="bg-cyan-500 text-slate-900 font-semibold px-4 py-1 rounded-full text-sm inline-block">Hot Topics</div>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-3">2025&apos;s Cutting-Edge AI Trends</h2>
-              <p className="max-w-[700px] text-gray-300 md:text-lg mx-auto">
+              <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm inline-block">Hot Topics</div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">2025&apos;s Cutting-Edge AI Trends</h2>
+              <p className="max-w-[700px] text-rosebud-200 md:text-lg mx-auto">
                 Our summit will explore the most revolutionary AI developments just emerging in 2025, including agentic models like OpenAI&apos;s o4-mini.
               </p>
             </div>
@@ -253,15 +266,15 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
                 { title: "Benchmarking Agent Intelligence", description: "How do we measure the &apos;intelligence&apos; of models like o4-mini when they can use tools and interact multimodally? Explore the latest benchmarks and evaluation techniques.", number: "06" },
                 { title: "General Purpose Agents & Robotics", description: "Beyond specialized tasks: discussing the roadmap towards general-purpose AI agents that can learn, adapt, and potentially operate in the physical world as robots.", number: "07" }
               ].map((topic, index) => (
-                <Card key={index} className="bg-slate-800 border-slate-700 shadow-xl rounded-xl overflow-hidden hover:shadow-cyan-500/30 hover:border-cyan-500/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                <Card key={index} className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden hover:shadow-rosebud/30 hover:border-rosebud/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl font-semibold text-gray-100">{topic.title}</CardTitle>
-                      <Badge variant="outline" className="border-cyan-500 text-cyan-400 text-lg font-bold">{topic.number}</Badge>
+                      <CardTitle className="text-xl font-semibold text-rosebud-100">{topic.title}</CardTitle>
+                      <Badge variant="outline" className="border-copperrose text-copperrose text-lg font-bold">{topic.number}</Badge>
                     </div>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-gray-400 text-sm">{topic.description}</p>
+                    <p className="text-rosebud-300 text-sm">{topic.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -274,29 +287,29 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
         <section id="norwegian" className="w-full py-12 md:py-16 scroll-mt-16 bg-transparent"> {/* Updated background */}
           <div className="container mx-auto px-4 md:px-6"> {/* Added container */}
             <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
-              <div className="bg-cyan-500 text-slate-900 font-semibold px-4 py-1 rounded-full text-sm inline-block">Norwegian ML Experience</div>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-3">Machine Learning, Norwegian Style</h2>
-              <p className="max-w-[700px] text-gray-300 md:text-lg mx-auto">
+              <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm inline-block">Norwegian ML Experience</div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Machine Learning, Norwegian Style</h2>
+              <p className="max-w-[700px] text-rosebud-200 md:text-lg mx-auto">
                 What Norway lacks in silicon, we make up for in scenic beauty and philosophical clarity.
               </p>
             </div>
             
             <div className="mx-auto max-w-3xl w-full"> {/* Wrapper for the Card */}
-              <Card className="bg-slate-800 border-slate-700 shadow-xl rounded-xl overflow-hidden p-6 md:p-8"> {/* Added padding to card */}
+              <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden p-6 md:p-8"> {/* Added padding to card */}
                 <CardHeader className="p-0 pb-6"> {/* Removed default padding, added bottom padding */}
-                  <CardTitle className="text-3xl font-semibold text-gray-100 text-center">The Norwegian ML Philosophy</CardTitle>
+                  <CardTitle className="text-3xl font-semibold text-rosebud-100 text-center">The Norwegian ML Philosophy</CardTitle>
                 </CardHeader>
-                <CardContent className="p-0 text-gray-300 text-left space-y-4"> {/* Removed default padding */}
+                <CardContent className="p-0 text-rosebud-200 text-left space-y-4"> {/* Removed default padding */}
                   <p>
                     While Silicon Valley argues about which $100 million model is best, Norwegians have been quietly applying ML in practical ways that actually help people. Learn how:
                   </p>
-                  <ul className="list-disc pl-6 space-y-2 marker:text-cyan-400">
-                    <li><span className="font-semibold text-gray-200">Neural nets for fishing forecasts:</span> Local ML models predict optimal fishing conditions with 85% accuracy using 1000x less compute than a single ChatGPT query</li>
-                    <li><span className="font-semibold text-gray-200">Random forests for actual forests:</span> Predicting bark beetle outbreaks using lightweight ML that runs on solar power</li>
-                    <li><span className="font-semibold text-gray-200">Gradient boosting vs. avalanches:</span> How a 5MB model saves lives every winter</li>
-                    <li><span className="font-semibold text-gray-200">When your utedo needs AI:</span> (Trick topic - utedos definitely don&apos;t need AI, and that&apos;s the point!)</li>
+                  <ul className="list-disc pl-6 space-y-2 marker:text-copperrose">
+                    <li><span className="font-semibold text-rosebud-100">Neural nets for fishing forecasts:</span> Local ML models predict optimal fishing conditions with 85% accuracy using 1000x less compute than a single ChatGPT query</li>
+                    <li><span className="font-semibold text-rosebud-100">Random forests for actual forests:</span> Predicting bark beetle outbreaks using lightweight ML that runs on solar power</li>
+                    <li><span className="font-semibold text-rosebud-100">Gradient boosting vs. avalanches:</span> How a 5MB model saves lives every winter</li>
+                    <li><span className="font-semibold text-rosebud-100">When your utedo needs AI:</span> (Trick topic - utedos definitely don&apos;t need AI, and that&apos;s the point!)</li>
                   </ul>
-                  <p className="italic text-cyan-300 pt-2">
+                  <p className="italic text-copperrose pt-2">
                     &quot;Sometimes the most advanced technology is knowing when to use no technology at all.&quot; — Norwegian proverb we just made up but sounds legit
                   </p>
                 </CardContent>
@@ -307,216 +320,216 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
       )}
       {/* Add How to Attend section for 2025 summit */}
       {activeYear === "2025.1" && (
-        <section id="attend" className="w-full py-12 md:py-16 scroll-mt-16 bg-slate-800 bg-opacity-50">
+        <section id="attend" className="w-full py-12 md:py-16 scroll-mt-16 bg-ferra bg-opacity-50">
           <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
-              <div className="bg-cyan-500 text-slate-900 font-semibold px-4 py-1 rounded-full text-sm inline-block">How to Attend</div>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-3">Join the Conversation</h2>
-              <p className="max-w-[700px] text-gray-300 md:text-lg mx-auto">
+              <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm inline-block">How to Attend</div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Join the Conversation</h2>
+              <p className="max-w-[700px] text-rosebud-200 md:text-lg mx-auto">
                 The Homborsund AI Summit is an invitation... that you extend to yourself.
               </p>
             </div>
             
             <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-              <Card className="bg-slate-800 border-slate-700 shadow-xl rounded-xl overflow-hidden hover:shadow-cyan-500/30 hover:border-cyan-500/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6">
-                <HelpCircle className="w-16 h-16 text-cyan-400 mb-6" />
+              <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden hover:shadow-rosebud/30 hover:border-rosebud/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6">
+                <HelpCircle className="w-16 h-16 text-copperrose mb-6" />
                 <CardHeader className="p-0 pb-3">
-                  <CardTitle className="text-2xl font-semibold text-gray-100">Want to Attend?</CardTitle>
+                  <CardTitle className="text-2xl font-semibold text-rosebud-100">Want to Attend?</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 flex-grow">
-                  <p className="text-gray-400">
+                  <p className="text-rosebud-300">
                     That&apos;s the first and most important step. If you&apos;re reading this and thinking &quot;I&apos;d like to be there&quot; - congratulations, you&apos;ve completed the most crucial part of the registration process.
                   </p>
                 </CardContent>
               </Card>
               
-              <Card className="bg-slate-800 border-slate-700 shadow-xl rounded-xl overflow-hidden hover:shadow-cyan-500/30 hover:border-cyan-500/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6">
-                <Lightbulb className="w-16 h-16 text-cyan-400 mb-6" />
+              <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden hover:shadow-rosebud/30 hover:border-rosebud/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6">
+                <Lightbulb className="w-16 h-16 text-copperrose mb-6" />
                 <CardHeader className="p-0 pb-3">
-                  <CardTitle className="text-2xl font-semibold text-gray-100">Know Something</CardTitle>
+                  <CardTitle className="text-2xl font-semibold text-rosebud-100">Know Something</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 flex-grow">
-                  <p className="text-gray-400">
+                  <p className="text-rosebud-300">
                     Bring your knowledge—whether it&apos;s vast expertise in transformer architectures or just a persistent curiosity about why ChatGPT hallucinates your birthday. What matters is what YOU know, and what YOU want to learn.
                   </p>
                 </CardContent>
               </Card>
               
-              <Card className="bg-slate-800 border-slate-700 shadow-xl rounded-xl overflow-hidden hover:shadow-cyan-500/30 hover:border-cyan-500/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6">
-                <Users className="w-16 h-16 text-cyan-400 mb-6" />
+              <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden hover:shadow-rosebud/30 hover:border-rosebud/60 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6">
+                <Users className="w-16 h-16 text-copperrose mb-6" />
                 <CardHeader className="p-0 pb-3">
-                  <CardTitle className="text-2xl font-semibold text-gray-100">Tell Someone</CardTitle>
+                  <CardTitle className="text-2xl font-semibold text-rosebud-100">Tell Someone</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0 flex-grow">
-                  <p className="text-gray-400">
+                  <p className="text-rosebud-300">
                     Invite yourself by clicking the registration link, then tell a fellow AI enthusiast about the summit. The best learning happens in small groups of passionate people—each person you invite enriches the experience for everyone.
                   </p>
                 </CardContent>
               </Card>
             </div>
 
-            <Card className="bg-slate-800 border-slate-700 shadow-xl rounded-xl overflow-hidden p-6 md:p-8 border-l-4 border-cyan-500 mb-12">
+            <Card className="bg-ferra border-ferra-600 shadow-xl rounded-xl overflow-hidden p-6 md:p-8 border-l-4 border-copperrose mb-12">
               <CardHeader className="p-0 pb-4">
-                <CardTitle className="text-2xl font-semibold text-gray-100">The Self-Invitation Philosophy</CardTitle>
+                <CardTitle className="text-2xl font-semibold text-rosebud-100">The Self-Invitation Philosophy</CardTitle>
               </CardHeader>
-              <CardContent className="p-0 text-gray-300 space-y-3">
+              <CardContent className="p-0 text-rosebud-200 space-y-3">
                 <p>
                   Unlike mainstream conferences with prohibitive price tags and elaborate registration processes, we believe in simplicity. If you feel called to join our gathering of minds, we trust that you&apos;ll:
                 </p>
-                <ul className="list-disc pl-6 space-y-2 marker:text-cyan-400">
+                <ul className="list-disc pl-6 space-y-2 marker:text-copperrose">
                   <li><strong>Bring the right spirit</strong> — A blend of curiosity, openness, and willingness to disconnect from technology to connect with ideas and people</li>
                   <li><strong>Contribute to the potluck</strong> — Both literally (bring food/drinks) and figuratively (bring ideas, questions, and enthusiasm)</li>
                   <li><strong>Extend the circle</strong> — Invite someone who would add value to our discussions (but remember space is limited to 30 participants)</li>
                 </ul>
-                <p className="italic text-cyan-300 pt-2">
+                <p className="italic text-copperrose pt-2">
                   &quot;The best gatherings are those where each person feels personally responsible for its success.&quot;
                 </p>
               </CardContent>
             </Card>
             
             <div className="flex flex-col items-center">
-              <Button size="lg" asChild className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105">
+              <Button size="lg" asChild className="bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white font-semibold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-rosebud/50 transition-all duration-300 transform hover:scale-105">
                 <Link href="https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ">
                   I&apos;m Inviting Myself
                 </Link>
               </Button>
-              <p className="text-sm text-gray-400 mt-3">
+              <p className="text-sm text-rosebud-300 mt-3">
                 Join our WhatsApp community and introduce yourself
               </p>
             </div>
           </div>
         </section>
       )}
-      <section id="speakers" className="w-full py-12 md:py-16 scroll-mt-16 bg-slate-900"> {/* Updated padding and background */}
+      <section id="speakers" className="w-full py-12 md:py-16 scroll-mt-16 bg-tarawera bg-opacity-50"> {/* Updated padding and background */}
         <div className="container mx-auto px-4 md:px-6"> {/* Added container with padding */}
           <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12"> {/* Added margin-bottom */}
-            <div className="bg-cyan-500 text-slate-900 font-semibold px-4 py-1 rounded-full text-sm">Speakers</div> {/* Updated small "Speakers" div */}
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 mb-3">Meet the Speakers</h2> {/* Updated h2 */}
-            <p className="max-w-[700px] text-gray-300 md:text-lg"> {/* Updated descriptive paragraph */}
+            <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">Speakers</div> {/* Updated small "Speakers" div */}
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Meet the Speakers</h2> {/* Updated h2 */}
+            <p className="max-w-[700px] text-rosebud-200 md:text-lg"> {/* Updated descriptive paragraph */}
               Learn from industry experts and thought leaders in the field of AI.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"> {/* Updated grid layout and gap */}
             
             {/* Eivind */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Eivind" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">EI</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">EI</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Eivind</h3>
-              <p className="text-cyan-400 text-sm">Random TOGAF nerd</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Eivind</h3>
+              <p className="text-copperrose text-sm">Random TOGAF nerd</p>
             </Card>
 
             {/* Øyvind */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Øyvind" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">ØY</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">ØY</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Øyvind</h3>
-              <p className="text-cyan-400 text-sm">Random dev nerd</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Øyvind</h3>
+              <p className="text-copperrose text-sm">Random dev nerd</p>
             </Card>
 
             {/* Rebekka */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Rebekka (please come!)" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">RE</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">RE</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Rebekka (please come!)</h3>
-              <p className="text-cyan-400 text-sm">Random AI nerd</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Rebekka (please come!)</h3>
+              <p className="text-copperrose text-sm">Random AI nerd</p>
             </Card>
 
             {/* Lars */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Lars" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">LA</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">LA</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Lars</h3>
-              <p className="text-cyan-400 text-sm">Random ERP nerd</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Lars</h3>
+              <p className="text-copperrose text-sm">Random ERP nerd</p>
             </Card>
 
             {/* Andreas */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Andreas" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">AN</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">AN</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Andreas</h3>
-              <p className="text-cyan-400 text-sm">Random robotics nerd</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Andreas</h3>
+              <p className="text-copperrose text-sm">Random robotics nerd</p>
             </Card>
 
             {/* Michael */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Michael" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">MI</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">MI</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Michael</h3>
-              <p className="text-cyan-400 text-sm">Ex-Game Dev, AI/GIS wizard, public sector value creator & year-round swimmer.</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Michael</h3>
+              <p className="text-copperrose text-sm">Ex-Game Dev, AI/GIS wizard, public sector value creator & year-round swimmer.</p>
             </Card>
 
             {/* Christoffer */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Christoffer" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">CH</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">CH</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Christoffer</h3>
-              <p className="text-cyan-400 text-sm">Random puzzle-solving business nerd</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Christoffer</h3>
+              <p className="text-copperrose text-sm">Random puzzle-solving business nerd</p>
             </Card>
 
             {/* Kjetil */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Kjetil" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">KJ</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">KJ</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Kjetil</h3>
-              <p className="text-cyan-400 text-sm">Random bicycle-powered system dev nerd</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Kjetil</h3>
+              <p className="text-copperrose text-sm">Random bicycle-powered system dev nerd</p>
             </Card>
             
             {/* And you! */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="And you!" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">AY</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">AY</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">And you!</h3>
-              <p className="text-cyan-400 text-sm">...</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">And you!</h3>
+              <p className="text-copperrose text-sm">...</p>
             </Card>
 
             {/* Ofc, you! */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Ofc, you!" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">OY</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">OY</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Ofc, you!</h3>
-              <p className="text-cyan-400 text-sm">....</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Ofc, you!</h3>
+              <p className="text-copperrose text-sm">....</p>
             </Card>
 
             {/* Erik */}
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Erik" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">ER</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">ER</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Erik</h3>
-              <p className="text-cyan-400 text-sm">Enterprise Architecture & economic wiz</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Erik</h3>
+              <p className="text-copperrose text-sm">Enterprise Architecture & economic wiz</p>
             </Card>
 
             {/* Knut - conditional */}
             {parseFloat(activeYear) >= 2025.2 && (
-            <Card className="bg-slate-800 border-slate-700 shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
-              <Avatar className="w-32 h-32 mb-6 border-4 border-slate-700 shadow-md">
+            <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+              <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt="Knut" />
-                <AvatarFallback className="text-2xl bg-slate-600 text-gray-300">KN</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">KN</AvatarFallback>
               </Avatar>
-              <h3 className="text-2xl font-semibold text-gray-100 mb-1">Knut</h3>
-              <p className="text-cyan-400 text-sm">Random chatty boat maker</p>
+              <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Knut</h3>
+              <p className="text-copperrose text-sm">Random chatty boat maker</p>
             </Card>
             )}
           </div>
@@ -525,15 +538,15 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
       <section id="venue" className="w-full py-12 md:py-24 lg:py-32 scroll-mt-16">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4">
-            <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">Venue</div>
+            <div className="inline-block rounded-lg bg-rosebud px-3 py-1 text-sm text-tarawera">Venue</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               {activeYear === DEFAULT_YEAR ? (
-                <span className="bg-gradient-to-r from-gray-900 to-rose-800 bg-clip-text text-transparent">Homborsund Community Center</span>
+                <span className="bg-gradient-to-r from-tarawera to-copperrose bg-clip-text text-transparent">Homborsund Community Center</span>
               ) : (
-                "Homborsund Community Center"
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Homborsund Community Center</span>
               )}
             </h2>
-            <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+            <p className="max-w-[700px] text-rosebud-200 md:text-xl">
               The summit will be held at the Vågsholt skole, a historic building located in the heart
               of Krømpe.
             </p>
@@ -549,57 +562,57 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
             />
             <div className="space-y-4">
               <div className="grid gap-1">
-                <h3 className="text-xl font-bold">Address</h3>
-                <p className="text-gray-500 dark:text-gray-400">Krømpe 16, Grimstad, Eide, Norway</p>
+                <h3 className="text-xl font-bold text-rosebud-100">Address</h3>
+                <p className="text-rosebud-300">Krømpe 16, Grimstad, Eide, Norway</p>
               </div>
               <div className="grid gap-1">
-                <h3 className="text-xl font-bold">Parking</h3>
-                <p className="text-gray-500 dark:text-gray-400">Free parking is available on-site.</p>
+                <h3 className="text-xl font-bold text-rosebud-100">Parking</h3>
+                <p className="text-rosebud-300">Free parking is available on-site.</p>
               </div>
               <div className="grid gap-1">
-                <h3 className="text-xl font-bold">Accessibility</h3>
-                <p className="text-gray-500 dark:text-gray-400">The venue is wheelchair accessible.</p>
+                <h3 className="text-xl font-bold text-rosebud-100">Accessibility</h3>
+                <p className="text-rosebud-300">The venue is wheelchair accessible.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section id="experience" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900 scroll-mt-16">
+      <section id="experience" className="w-full py-12 md:py-24 lg:py-32 bg-ferra bg-opacity-30 scroll-mt-16">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4">
-            <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">The Experience</div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Back to Our Roots</h2>
-            <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+            <div className="inline-block rounded-lg bg-rosebud px-3 py-1 text-sm text-tarawera">The Experience</div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Back to Our Roots</h2>
+            <p className="max-w-[700px] text-rosebud-200 md:text-xl">
               Embracing the authentic Norwegian experience, our summit offers a refreshing departure from the usual tech-laden conferences.
             </p>
             
             <div className="mx-auto grid max-w-5xl items-center gap-8 py-12 lg:grid-cols-2 lg:gap-12">
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold">Authentic Facilities</h3>
+                <h3 className="text-2xl font-bold text-rosebud-100">Authentic Facilities</h3>
                 <div className="space-y-2">
-                  <p className="text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Traditional &quot;Utedo&quot;:</span> Experience our charming Norwegian outdoor toilet facility, a perfect opportunity to connect with nature while disconnecting from technology.
+                  <p className="text-rosebud-300">
+                    <span className="font-semibold text-rosebud-100">Traditional &quot;Utedo&quot;:</span> Experience our charming Norwegian outdoor toilet facility, a perfect opportunity to connect with nature while disconnecting from technology.
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">No Electricity or Running Water:</span> Detach completely from digital dependencies. We&apos;ll use candles, lanterns, and stars to light our discussions—just like the pioneers of science and philosophy did for centuries.
+                  <p className="text-rosebud-300">
+                    <span className="font-semibold text-rosebud-100">No Electricity or Running Water:</span> Detach completely from digital dependencies. We&apos;ll use candles, lanterns, and stars to light our discussions—just like the pioneers of science and philosophy did for centuries.
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">What to Bring:</span> A flashlight, comfortable warm clothes, your favorite drinks, and food to share. We&apos;ll provide basic necessities, warm fires, and plenty of inspiration.
+                  <p className="text-rosebud-300">
+                    <span className="font-semibold text-rosebud-100">What to Bring:</span> A flashlight, comfortable warm clothes, your favorite drinks, and food to share. We&apos;ll provide basic necessities, warm fires, and plenty of inspiration.
                   </p>
                 </div>
               </div>
               
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold">Why Unplug?</h3>
+                <h3 className="text-2xl font-bold text-rosebud-100">Why Unplug?</h3>
                 <div className="space-y-2">
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="text-rosebud-300">
                     As AI models like GPT-4.5 Orion and Claude 3.7 become increasingly natural in conversation and ever more capable, our summit offers a counterpoint: genuine human connection in its purest form.
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="text-rosebud-300">
                     In a world where AI can now generate working code, create interactive visualizations, and solve complex math problems with ease, we believe that human creativity still flourishes best in nature, away from screens.
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    <span className="italic">&quot;Some of my best ideas came when I was furthest from technology.&quot;</span> — Previous attendee
+                  <p className="text-rosebud-300">
+                    <span className="italic text-copperrose">&quot;Some of my best ideas came when I was furthest from technology.&quot;</span> — Previous attendee
                   </p>
                 </div>
               </div>
@@ -607,17 +620,17 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
           </div>
         </div>
       </section>
-      <section id="register" className="w-full py-12 md:py-24 lg:py-32 border-t scroll-mt-16">
+      <section id="register" className="w-full py-12 md:py-24 lg:py-32 border-t border-ferra-600 scroll-mt-16 bg-tarawera bg-opacity-30">
         <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
           <div className="space-y-3">
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
               {activeYear === DEFAULT_YEAR ? (
-                <span className="bg-gradient-to-r from-rose-800 to-indigo-700 bg-clip-text text-transparent">Join us at the Homborsund AI Summit {activeYear}</span>
+                <span className="bg-gradient-to-r from-rosebud to-copperrose bg-clip-text text-transparent">Join us at the Homborsund AI Summit {activeYear}</span>
               ) : (
-                `Join us at the Homborsund AI Summit ${activeYear}`
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Join us at the Homborsund AI Summit {activeYear}</span>
               )}
             </h2>
-            <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+            <p className="mx-auto max-w-[600px] text-rosebud-200 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               {activeSummit.status === "Upcoming" 
                 ? "Register now to secure your spot and be a part of this exciting event where cutting-edge AI concepts meet authentic human connection."
                 : "This event has concluded. Check out our upcoming summit!"}
@@ -627,21 +640,21 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
             {activeSummit.status === "Upcoming" ? (
               <>
                 <Link
-                  className={`inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium text-gray-50 shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 ${
+                  className={`inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 ${
                     activeYear === DEFAULT_YEAR
-                      ? "bg-gradient-to-r from-rose-800 to-purple-700 hover:from-rose-700 hover:to-purple-600 focus-visible:ring-rose-500"
-                      : "bg-gray-900 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                      ? "bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
+                      : "bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
                   }`}
                   href="https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ"
                 >
                   Register Now
                 </Link>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Early bird tickets available until March 1st, 2025. Limited to 30 participants for an intimate experience. Join our WhatsApp community.</p>
+                <p className="text-xs text-rosebud-300">Early bird tickets available until March 1st, 2025. Limited to 30 participants for an intimate experience. Join our WhatsApp community.</p>
               </>
             ) : (
               <Link
                 href={`/summit/${DEFAULT_YEAR}`}
-                className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                className="inline-flex h-10 items-center justify-center rounded-md bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 px-8 text-sm font-medium text-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-rosebud disabled:pointer-events-none disabled:opacity-50 shadow-lg hover:shadow-rosebud/50"
               >
                 View Upcoming Summit
               </Link>
@@ -652,23 +665,23 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
       
       {/* Past Summits Section - Only shown when viewing past summits */}
       {activeSummit.status === "Completed" && (
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-ferra bg-opacity-50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">Archive</div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Past Summits</h2>
-              <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+              <div className="inline-block rounded-lg bg-rosebud px-3 py-1 text-sm text-tarawera">Archive</div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Past Summits</h2>
+              <p className="max-w-[700px] text-rosebud-200 md:text-xl">
                 Take a look at our previous AI summits and the amazing discussions we had.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                 {/* Photo gallery from past summit */}
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-semibold">Photo Highlights</h3>
+                  <h3 className="text-2xl font-semibold text-rosebud-100">Photo Highlights</h3>
                   <div className="grid grid-cols-2 gap-2">
                     {[1, 2, 3, 4].map((num) => (
-                      <div key={num} className="aspect-square bg-gray-200 rounded-md flex items-center justify-center">
-                        <span className="text-gray-500">Photo {num}</span>
+                      <div key={num} className="aspect-square bg-ferra-700 border border-ferra-600 rounded-md flex items-center justify-center">
+                        <span className="text-rosebud-300">Photo {num}</span>
                       </div>
                     ))}
                   </div>
@@ -676,15 +689,15 @@ export function Conferance({ year = DEFAULT_YEAR }: ConferanceProps) {
                 
                 {/* Testimonials from past summit */}
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-semibold">Attendee Feedback</h3>
+                  <h3 className="text-2xl font-semibold text-rosebud-100">Attendee Feedback</h3>
                   <div className="space-y-4">
-                    <blockquote className="border-l-4 border-rose-800 pl-4 italic">
+                    <blockquote className="border-l-4 border-copperrose pl-4 italic text-rosebud-200">
                       &quot;The discussions were eye-opening. Can&apos;t wait for next year&apos;s summit!&quot;
-                      <footer className="text-sm mt-2">— Previous Attendee</footer>
+                      <footer className="text-sm mt-2 text-rosebud-300">— Previous Attendee</footer>
                     </blockquote>
-                    <blockquote className="border-l-4 border-rose-800 pl-4 italic">
+                    <blockquote className="border-l-4 border-copperrose pl-4 italic text-rosebud-200">
                       &quot;A perfect blend of technical insights and practical applications.&quot;
-                      <footer className="text-sm mt-2">— AI Enthusiast</footer>
+                      <footer className="text-sm mt-2 text-rosebud-300">— AI Enthusiast</footer>
                     </blockquote>
                   </div>
                 </div>
