@@ -19,7 +19,7 @@ export default function Summit2025_2Page() {
 
   const schedule = [
     { time: "16:00 - 17:00", event: "Arrival, snacks and mingling" },
-    { time: "17:00 - 18:00", event: "Keynote: 'Agents Everywhere'" },
+    { time: "17:00 - 18:00", event: "Keynote: &apos;Agents Everywhere&apos;" },
     { time: "18:00 - 19:30", event: "Demo Jam & Breakouts" },
     { time: "19:30 - Late", event: "BBQ, bonfire and lightning talks" }
   ];

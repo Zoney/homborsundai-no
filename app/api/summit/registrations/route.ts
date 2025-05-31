@@ -1,6 +1,8 @@
 import { Redis } from '@upstash/redis';
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 // Initialize Redis with custom environment variables
 const redis = new Redis({
   url: process.env.UPSTASH_HAI_KV_REST_API_URL!,

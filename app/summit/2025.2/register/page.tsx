@@ -78,9 +78,11 @@ export default function RegisterPage() {
           'error-callback': () => {
             setTurnstileToken("");
             setErrorMessage("Security verification failed. Please try again.");
+            setTurnstileWidgetId("");
           },
           'expired-callback': () => {
             setTurnstileToken("");
+            setTurnstileWidgetId("");
           },
           theme: 'dark',
           size: 'normal'
@@ -104,6 +106,7 @@ export default function RegisterPage() {
       setTurnstileWidgetId("");
       setTurnstileToken("");
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTurnstileScriptApiAvailable, errorMessage]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -209,7 +212,7 @@ export default function RegisterPage() {
                 Thank you for registering for the Homborsund AI Summit 2025.2!
               </p>
               <p className="text-rosebud-300 text-sm">
-                We'll be in touch with more details as the event approaches.
+                We&apos;ll be in touch with more details as the event approaches.
               </p>
               <Button 
                 onClick={() => router.push('/summit/2025.2')}
