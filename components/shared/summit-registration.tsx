@@ -38,9 +38,9 @@ export function SummitRegistration({ activeYear, status }: SummitRegistrationPro
                 Register Now
               </Link>
               <p className="text-xs text-rosebud-300">
-                {activeYear === "2025.2" 
-                  ? "Fill out our registration form to secure your spot. Limited to 30 participants for an intimate experience."
-                  : "Early bird tickets available until March 1st, 2025. Limited to 30 participants for an intimate experience. Join our WhatsApp community."
+                {activeYear === "2025.2"
+                  ? "Fill out our registration form to secure your spot."
+                  : "Early bird tickets available until March 1st, 2025. Join our WhatsApp community."
                 }
               </p>
             </>
