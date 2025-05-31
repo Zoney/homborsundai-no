@@ -33,11 +33,16 @@ export function SummitRegistration({ activeYear, status }: SummitRegistrationPro
                     ? "bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
                     : "bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
                 }`}
-                href="https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ"
+                href={activeYear === "2025.2" ? `/summit/${activeYear}/register` : "https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ"}
               >
                 Register Now
               </Link>
-              <p className="text-xs text-rosebud-300">Early bird tickets available until March 1st, 2025. Limited to 30 participants for an intimate experience. Join our WhatsApp community.</p>
+              <p className="text-xs text-rosebud-300">
+                {activeYear === "2025.2" 
+                  ? "Fill out our registration form to secure your spot. Limited to 30 participants for an intimate experience."
+                  : "Early bird tickets available until March 1st, 2025. Limited to 30 participants for an intimate experience. Join our WhatsApp community."
+                }
+              </p>
             </>
           ) : (
             <Link
