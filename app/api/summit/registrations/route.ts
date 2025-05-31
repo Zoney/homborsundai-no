@@ -1,5 +1,6 @@
 import { Redis } from '@upstash/redis';
 import { NextRequest, NextResponse } from 'next/server';
+import { unstable_cache, revalidateTag } from 'next/cache';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,16 +10,13 @@ const redis = new Redis({
   token: process.env.UPSTASH_HAI_KV_REST_API_TOKEN!,
 });
 
-export async function GET(request: NextRequest) {
-  try {
+const getRegistrations = unstable_cache(
+  async () => {
     // Get all registration IDs
     const registrationIds = await redis.lrange('summit:registrations', 0, -1);
     
     if (!registrationIds || registrationIds.length === 0) {
-      return NextResponse.json(
-        { summitCounts: {}, totalCount: 0 },
-        { status: 200 }
-      );
+      return { summitCounts: {}, totalCount: 0 };
     }
     
     // Get all registration data
@@ -41,13 +39,16 @@ export async function GET(request: NextRequest) {
     // Get total count from the length of valid registrations, or from Redis if preferred
     const totalCount = validRegistrations.length;
     
-    return NextResponse.json(
-      {
-        summitCounts: summitCounts,
-        totalCount: totalCount
-      },
-      { status: 200 }
-    );
+    return { summitCounts, totalCount };
+  },
+  ['summit-registrations'], // Cache key
+  { tags: ['summit-registrations-tag'] } // Cache tag for revalidation
+);
+
+export async function GET(request: NextRequest) {
+  try {
+    const data = await getRegistrations();
+    return NextResponse.json(data, { status: 200 });
     
   } catch (error) {
     console.error('Error fetching registrations:', error);

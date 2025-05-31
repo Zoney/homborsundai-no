@@ -1,5 +1,6 @@
 import { Redis } from '@upstash/redis';
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidateTag } from 'next/cache';
 
 // Initialize Redis with custom environment variables
 const redis = new Redis({
@@ -82,6 +83,9 @@ export async function POST(request: NextRequest) {
     
     // Optionally, keep a count
     await redis.incr('summit:registration_count');
+    
+    // Invalidate the cache for summit registrations
+    revalidateTag('summit-registrations-tag');
     
     return NextResponse.json(
       { 
