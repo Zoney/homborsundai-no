@@ -230,7 +230,7 @@ export default function Summit2025_1Page() {
               <ul className="list-disc pl-6 space-y-2 marker:text-copperrose">
                 <li><strong>Bring the right spirit</strong> — A blend of curiosity, openness, and willingness to disconnect from technology to connect with ideas and people</li>
                 <li><strong>Contribute to the potluck</strong> — Both literally (bring food/drinks) and figuratively (bring ideas, questions, and enthusiasm)</li>
-                <li><strong>Extend the circle</strong> — Invite someone who would add value to our discussions (but remember space is limited to 30 participants)</li>
+                <li><strong>Extend the circle</strong> — Invite someone who would add value to our discussions (but remember space is limited)</li>
               </ul>
               <p className="italic text-copperrose pt-2">
                 &quot;The best gatherings are those where each person feels personally responsible for its success.&quot;

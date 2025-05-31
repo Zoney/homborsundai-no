@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SummitHeader, SummitSchedule, SummitSpeakers, SummitVenue, SummitRegistration } from "@/components/shared";
 import { SUMMIT_METADATA } from "@/lib/summit-config";
 
@@ -8,7 +8,6 @@ const YEAR = "2025.2";
 
 export default function Summit2025_2Page() {
   const summitInfo = SUMMIT_METADATA[YEAR];
-  const [registeredCount, setRegisteredCount] = useState(0);
   
   // Inline summit content
   const description = [
@@ -45,23 +44,6 @@ export default function Summit2025_2Page() {
     return () => document.removeEventListener('click', handleAnchorClick);
   }, []);
 
-  useEffect(() => {
-    const fetchRegisteredCount = async () => {
-      try {
-        const response = await fetch('/api/summit/register');
-        if (response.ok) {
-          const data = await response.json();
-          setRegisteredCount(data.count);
-        } else {
-          console.error('Failed to fetch registered count');
-        }
-      } catch (error) {
-        console.error('Error fetching registered count:', error);
-      }
-    };
-
-    fetchRegisteredCount();
-  }, []);
 
   return (
     <main className="flex flex-col min-h-screen bg-gradient-cool text-white">
@@ -76,11 +58,6 @@ export default function Summit2025_2Page() {
       <SummitSpeakers activeYear={YEAR} />
       <SummitVenue activeYear={YEAR} />
       <SummitRegistration activeYear={YEAR} status={summitInfo.status} />
-      <div className="py-8 text-center">
-        <p className="text-xl">
-          So far registered: {registeredCount}
-        </p>
-      </div>
     </main>
   );
 } 
