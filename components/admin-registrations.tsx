@@ -50,13 +50,27 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
             value={form.phone}
             onChange={e => setForm({ ...form, phone: e.target.value })}
           />
-          <Button onClick={save}>Save</Button>
+          <textarea
+            className="w-full border p-1 text-black"
+            value={form.comment}
+            onChange={e => setForm({ ...form, comment: e.target.value })}
+            placeholder="Comment"
+          />
+          <div className="flex space-x-2">
+            <Button onClick={save}>Save</Button>
+            <Button variant="outline" onClick={() => {
+              setEdit(false);
+              setForm(reg); // Reset form to original data
+            }}>Cancel</Button>
+          </div>
         </div>
       ) : (
         <div className="flex items-center justify-between">
           <div>
             <p className="font-semibold">{reg.name}</p>
             <p className="text-sm text-gray-400">{reg.email}</p>
+            {reg.phone && <p className="text-sm text-gray-400">{reg.phone}</p>}
+            {reg.comment && <p className="text-sm text-gray-500 mt-1">Comment: {reg.comment}</p>}
           </div>
           <Button variant="secondary" onClick={() => setEdit(true)}>
             Edit
