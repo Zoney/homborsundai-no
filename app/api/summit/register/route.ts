@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidateTag } from 'next/cache';
 import { db } from '@/lib/firebaseAdmin'; // Import Firestore instance
+import { sendTicketEmail } from '@/lib/email';
 
 const REGISTRATIONS_COLLECTION = 'summitRegistrations';
 
@@ -78,9 +79,13 @@ export async function POST(request: NextRequest) {
     console.log(`POST /api/summit/register: Attempting to save to Firestore collection '${REGISTRATIONS_COLLECTION}', document ID '${registrationId}'`);
     await db.collection(REGISTRATIONS_COLLECTION).doc(registrationId).set(registrationData);
     console.log('POST /api/summit/register: Successfully saved to Firestore.');
-        
+
     revalidateTag('summit-registrations-tag');
     console.log('POST /api/summit/register: Revalidated tag summit-registrations-tag.');
+
+    if (registrationData.email) {
+      await sendTicketEmail(registrationData.email, registrationId);
+    }
     
     return NextResponse.json(
       { 
