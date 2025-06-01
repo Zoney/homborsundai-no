@@ -1,12 +1,8 @@
-import { Redis } from '@upstash/redis';
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidateTag } from 'next/cache';
+import { db } from '@/lib/firebaseAdmin'; // Import Firestore instance
 
-// Initialize Redis with custom environment variables
-const redis = new Redis({
-  url: process.env.UPSTASH_HAI_KV_REST_API_URL!,
-  token: process.env.UPSTASH_HAI_KV_REST_API_TOKEN!,
-});
+const REGISTRATIONS_COLLECTION = 'summitRegistrations';
 
 // Validate Turnstile token
 async function validateTurnstileToken(token: string, ip: string): Promise<boolean> {
@@ -30,10 +26,11 @@ async function validateTurnstileToken(token: string, ip: string): Promise<boolea
 }
 
 export async function POST(request: NextRequest) {
+  console.log('POST /api/summit/register: Received request');
   try {
     const body = await request.json();
+    console.log('POST /api/summit/register: Request body:', body);
     
-    // Validate required fields
     if (!body.name || !body.name.trim()) {
       return NextResponse.json(
         { error: 'Name is required' },
@@ -41,7 +38,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate Turnstile token
     if (!body.turnstileToken) {
       return NextResponse.json(
         { error: 'Security verification is required' },
@@ -50,19 +46,21 @@ export async function POST(request: NextRequest) {
     }
 
     const clientIP = request.ip || request.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown';
+    console.log('POST /api/summit/register: Client IP:', clientIP);
     const isValidToken = await validateTurnstileToken(body.turnstileToken, clientIP);
+    console.log('POST /api/summit/register: Turnstile token validation result:', isValidToken);
     
     if (!isValidToken) {
+      console.error('POST /api/summit/register: Turnstile validation failed.');
       return NextResponse.json(
         { error: 'Security verification failed. Please try again.' },
         { status: 400 }
       );
     }
     
-    // Create a unique ID for this registration
     const registrationId = `registration:${Date.now()}:${Math.random().toString(36).substr(2, 9)}`;
+    console.log('POST /api/summit/register: Generated Registration ID:', registrationId);
     
-    // Prepare the registration data
     const registrationData = {
       id: registrationId,
       name: body.name.trim(),
@@ -74,18 +72,15 @@ export async function POST(request: NextRequest) {
       ip: clientIP,
       userAgent: request.headers.get('user-agent') || 'unknown'
     };
+    console.log('POST /api/summit/register: Registration data to save:', registrationData);
     
-    // Save to Redis
-    await redis.set(registrationId, registrationData);
-    
-    // Also add to a list for easy retrieval
-    await redis.lpush('summit:registrations', registrationId);
-    
-    // Optionally, keep a count
-    await redis.incr('summit:registration_count');
-    
-    // Invalidate the cache for summit registrations
+    // Save to Firestore
+    console.log(`POST /api/summit/register: Attempting to save to Firestore collection '${REGISTRATIONS_COLLECTION}', document ID '${registrationId}'`);
+    await db.collection(REGISTRATIONS_COLLECTION).doc(registrationId).set(registrationData);
+    console.log('POST /api/summit/register: Successfully saved to Firestore.');
+        
     revalidateTag('summit-registrations-tag');
+    console.log('POST /api/summit/register: Revalidated tag summit-registrations-tag.');
     
     return NextResponse.json(
       { 
@@ -97,7 +92,7 @@ export async function POST(request: NextRequest) {
     );
     
   } catch (error) {
-    console.error('Registration error:', error);
+    console.error('POST /api/summit/register: Registration error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -107,7 +102,8 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const count = await redis.get('summit:registration_count');
+    const snapshot = await db.collection(REGISTRATIONS_COLLECTION).count().get();
+    const count = snapshot.data().count;
     return NextResponse.json(
       { count: count || 0 },
       { status: 200 }

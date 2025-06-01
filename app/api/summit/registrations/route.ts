@@ -1,42 +1,32 @@
-import { Redis } from '@upstash/redis';
 import { NextRequest, NextResponse } from 'next/server';
 import { unstable_cache, revalidateTag } from 'next/cache';
+import { db } from '@/lib/firebaseAdmin'; // Import Firestore instance
+import { DocumentData, QueryDocumentSnapshot } from 'firebase-admin/firestore';
 
 export const dynamic = 'force-dynamic';
 
-// Initialize Redis with custom environment variables
-const redis = new Redis({
-  url: process.env.UPSTASH_HAI_KV_REST_API_URL!,
-  token: process.env.UPSTASH_HAI_KV_REST_API_TOKEN!,
-});
+const REGISTRATIONS_COLLECTION = 'summitRegistrations';
+
+interface RegistrationDoc {
+  summit: string;
+  // Add other fields from your registration data if needed for this route
+}
 
 const getRegistrations = unstable_cache(
   async () => {
-    // Get all registration IDs
-    const registrationIds = await redis.lrange('summit:registrations', 0, -1);
+    const snapshot = await db.collection(REGISTRATIONS_COLLECTION).get();
     
-    if (!registrationIds || registrationIds.length === 0) {
+    if (snapshot.empty) {
       return { summitCounts: {}, totalCount: 0 };
     }
     
-    // Get all registration data
-    const registrations = await Promise.all(
-      registrationIds.map(async (id) => {
-        const data = await redis.get(id) as { summit: string } | null;
-        return data;
-      })
-    );
+    const validRegistrations = snapshot.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => doc.data() as RegistrationDoc);
     
-    // Filter out any null results
-    const validRegistrations = registrations.filter(reg => reg !== null) as { summit: string }[];
-    
-    // Group by summit and count
-    const summitCounts = validRegistrations.reduce((acc, reg) => {
+    const summitCounts = validRegistrations.reduce((acc: Record<string, number>, reg: RegistrationDoc) => {
       acc[reg.summit] = (acc[reg.summit] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
     
-    // Get total count from the length of valid registrations, or from Redis if preferred
     const totalCount = validRegistrations.length;
     
     return { summitCounts, totalCount };

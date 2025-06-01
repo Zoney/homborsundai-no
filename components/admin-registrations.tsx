@@ -31,6 +31,15 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
     onUpdated();
   };
 
+  const deleteRegistration = async () => {
+    if (window.confirm("Are you sure you want to delete this registration?")) {
+      await fetch(`/api/admin/registrations/${reg.id}`, {
+        method: 'DELETE',
+      });
+      onUpdated();
+    }
+  };
+
   return (
     <div className="border p-4 rounded-md">
       {edit ? (
@@ -72,9 +81,14 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
             {reg.phone && <p className="text-sm text-gray-400">{reg.phone}</p>}
             {reg.comment && <p className="text-sm text-gray-500 mt-1">Comment: {reg.comment}</p>}
           </div>
-          <Button variant="secondary" onClick={() => setEdit(true)}>
-            Edit
-          </Button>
+          <div className="flex space-x-2">
+            <Button variant="secondary" onClick={() => setEdit(true)}>
+              Edit
+            </Button>
+            <Button variant="destructive" onClick={deleteRegistration}>
+              Delete
+            </Button>
+          </div>
         </div>
       )}
     </div>
