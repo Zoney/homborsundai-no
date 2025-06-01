@@ -1,25 +1,54 @@
-import { Redis } from '@upstash/redis';
+import { db } from './firebaseAdmin';
+import { DocumentData, QueryDocumentSnapshot } from 'firebase-admin/firestore';
 
-const redis = new Redis({
-  url: process.env.UPSTASH_HAI_KV_REST_API_URL!,
-  token: process.env.UPSTASH_HAI_KV_REST_API_TOKEN!,
-});
+const REGISTRATIONS_COLLECTION = 'summitRegistrations';
 
-export async function getAllRegistrations() {
-  const ids = await redis.lrange('summit:registrations', 0, -1);
-  if (!ids) return [];
-  const regs = await Promise.all(ids.map(id => redis.get(id)));
-  return regs.filter(Boolean) as any[];
+// Define a type for the registration data
+interface RegistrationData {
+  id: string;
+  name: string;
+  email?: string;
+  phone?: string;
+  comment?: string;
+  summit: string;
+  timestamp: string;
+  ip: string;
+  userAgent: string;
+  [key: string]: any; // Allow other fields
 }
 
-export async function getRegistration(id: string) {
-  return (await redis.get(id)) as any | null;
+export async function getAllRegistrations(): Promise<RegistrationData[]> {
+  const snapshot = await db.collection(REGISTRATIONS_COLLECTION).get();
+  if (snapshot.empty) {
+    return [];
+  }
+  return snapshot.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => doc.data() as RegistrationData);
 }
 
-export async function updateRegistration(id: string, data: Record<string, any>) {
-  const existing = await redis.get(id);
-  if (!existing) return null;
-  const updated = { ...(existing as any), ...data };
-  await redis.set(id, updated);
-  return updated;
+export async function getRegistration(id: string): Promise<RegistrationData | null> {
+  const docRef = db.collection(REGISTRATIONS_COLLECTION).doc(id);
+  const doc = await docRef.get();
+  if (!doc.exists) {
+    return null;
+  }
+  return doc.data() as RegistrationData;
+}
+
+export async function updateRegistration(id: string, data: Partial<RegistrationData>): Promise<RegistrationData | null | undefined> {
+  const docRef = db.collection(REGISTRATIONS_COLLECTION).doc(id);
+  // Check if the document exists before attempting to update
+  const doc = await docRef.get();
+  if (!doc.exists) {
+    // Or throw an error, or handle as appropriate for your application
+    console.warn(`Document with id ${id} not found. Cannot update.`);
+    return null; 
+  }
+  await docRef.update(data);
+  const updatedDoc = await docRef.get();
+  return updatedDoc.data() as RegistrationData | undefined;
+}
+
+export async function deleteRegistration(id: string): Promise<void> {
+  const docRef = db.collection(REGISTRATIONS_COLLECTION).doc(id);
+  await docRef.delete();
 }
