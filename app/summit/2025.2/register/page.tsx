@@ -7,6 +7,8 @@ import Script from "next/script";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import QRCode from 'qrcode';
+import Image from 'next/image';
 
 // Declare turnstile global object
 declare global {
@@ -40,6 +42,7 @@ export default function RegisterPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState("");
+  const [registrationSuccessDetails, setRegistrationSuccessDetails] = useState<{ id: string; ticketUrl: string } | null>(null);
   const turnstileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -157,7 +160,9 @@ export default function RegisterPage() {
       });
       
       if (response.ok) {
+        const successData = await response.json();
         setSubmitStatus('success');
+        setRegistrationSuccessDetails({ id: successData.id, ticketUrl: successData.ticketUrl });
         // Reset form
         setFormData({
           name: "",
@@ -181,7 +186,20 @@ export default function RegisterPage() {
     }
   };
 
-  if (submitStatus === 'success') {
+  const [qrDataUrl, setQrDataUrl] = useState('');
+
+  useEffect(() => {
+    if (registrationSuccessDetails?.ticketUrl) {
+      QRCode.toDataURL(registrationSuccessDetails.ticketUrl, { width: 200 })
+        .then(url => setQrDataUrl(url))
+        .catch(err => {
+          console.error('Failed to generate QR code', err);
+          setErrorMessage("Failed to generate QR code for your ticket.");
+        });
+    }
+  }, [registrationSuccessDetails]);
+
+  if (submitStatus === 'success' && registrationSuccessDetails) {
     return (
       <main className="flex flex-col min-h-screen bg-gradient-cool text-white">
         <Script
@@ -211,8 +229,20 @@ export default function RegisterPage() {
               <p className="text-rosebud-200">
                 Thank you for registering for the Homborsund AI Summit 2025.2!
               </p>
+              {qrDataUrl ? (
+                <div className="flex flex-col items-center space-y-2">
+                  <Image src={qrDataUrl} alt="Ticket QR Code" className="bg-white p-2 rounded" width={200} height={200} />
+                  <Link href={registrationSuccessDetails.ticketUrl} target="_blank" rel="noopener noreferrer" className="text-rosebud-300 hover:text-rosebud-100 underline text-sm">
+                    {`${window.location.origin}${registrationSuccessDetails.ticketUrl}`}
+                  </Link>
+                </div>
+              ) : (
+                <p className="text-red-500">Could not display QR code. Your ticket ID is: {registrationSuccessDetails.id}</p>
+              )}
               <p className="text-rosebud-300 text-sm">
-                We&apos;ll be in touch with more details as the event approaches.
+                Your ticket QR code and link are shown above.
+                {formData.email && " You will also receive this by email when it&apos;s closer to the summit."}
+                {" "}You can also present your name or email at the summit entrance, and we&apos;ll find your registration.
               </p>
               <Button 
                 onClick={() => router.push('/summit/2025.2')}
