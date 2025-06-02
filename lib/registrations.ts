@@ -31,7 +31,7 @@ export async function getRegistration(id: string): Promise<RegistrationData | nu
   if (!doc.exists) {
     return null;
   }
-  return doc.data() as RegistrationData;
+  return { id: doc.id, ...doc.data() } as RegistrationData;
 }
 
 export async function updateRegistration(id: string, data: Partial<RegistrationData>): Promise<RegistrationData | null | undefined> {

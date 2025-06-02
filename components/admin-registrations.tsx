@@ -80,6 +80,8 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
             <p className="text-sm text-gray-400">{reg.email}</p>
             {reg.phone && <p className="text-sm text-gray-400">{reg.phone}</p>}
             {reg.comment && <p className="text-sm text-gray-500 mt-1">Comment: {reg.comment}</p>}
+            <p className="text-sm text-gray-400">ID: {reg.id}</p>
+            {reg.timestamp && <p className="text-sm text-gray-400">Timestamp: {new Date(reg.timestamp).toUTCString()}</p>}
           </div>
           <div className="flex space-x-2">
             <Button variant="secondary" onClick={() => setEdit(true)}>

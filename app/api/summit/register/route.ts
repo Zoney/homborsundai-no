@@ -87,11 +87,14 @@ export async function POST(request: NextRequest) {
       await sendTicketEmail(registrationData.email, registrationId);
     }
     
+    const ticketUrl = `/ticket/${registrationId}`;
+    
     return NextResponse.json(
       { 
         success: true, 
         message: 'Registration successful',
-        id: registrationId 
+        id: registrationId,
+        ticketUrl: ticketUrl
       },
       { status: 200 }
     );
