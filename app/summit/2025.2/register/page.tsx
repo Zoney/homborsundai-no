@@ -8,6 +8,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import QRCode from 'qrcode';
+import Image from 'next/image';
 
 // Declare turnstile global object
 declare global {
@@ -230,7 +231,7 @@ export default function RegisterPage() {
               </p>
               {qrDataUrl ? (
                 <div className="flex flex-col items-center space-y-2">
-                  <img src={qrDataUrl} alt="Ticket QR Code" className="bg-white p-2 rounded" />
+                  <Image src={qrDataUrl} alt="Ticket QR Code" className="bg-white p-2 rounded" width={200} height={200} />
                   <Link href={registrationSuccessDetails.ticketUrl} target="_blank" rel="noopener noreferrer" className="text-rosebud-300 hover:text-rosebud-100 underline text-sm">
                     {`${window.location.origin}${registrationSuccessDetails.ticketUrl}`}
                   </Link>
@@ -240,8 +241,8 @@ export default function RegisterPage() {
               )}
               <p className="text-rosebud-300 text-sm">
                 Your ticket QR code and link are shown above.
-                {formData.email && " You will also receive this by email when it's closer to the summit."}
-                {" "}You can also present your name or email at the summit entrance, and we'll find your registration.
+                {formData.email && " You will also receive this by email when it&apos;s closer to the summit."}
+                {" "}You can also present your name or email at the summit entrance, and we&apos;ll find your registration.
               </p>
               <Button 
                 onClick={() => router.push('/summit/2025.2')}

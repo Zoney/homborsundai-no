@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 
@@ -11,6 +11,23 @@ export default function VerifyTicket() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showScanner, setShowScanner] = useState(false);
+
+  const checkTicket = useCallback(async (currentCode?: string) => {
+    const codeToVerify = currentCode || code;
+    if (!codeToVerify) return;
+
+    setLoading(true);
+    setError('');
+    setResult(null);
+    const res = await fetch(`/api/admin/registrations/${encodeURIComponent(codeToVerify)}`);
+    if (res.ok) {
+      const data = await res.json();
+      setResult(data);
+    } else {
+      setError('Ticket not found');
+    }
+    setLoading(false);
+  }, [code]);
 
   useEffect(() => {
     let scanner: Html5QrcodeScanner | null = null;
@@ -56,24 +73,7 @@ export default function VerifyTicket() {
         });
       }
     };
-  }, [showScanner]); // Re-run effect when showScanner changes
-
-  const checkTicket = async (currentCode?: string) => {
-    const codeToVerify = currentCode || code;
-    if (!codeToVerify) return;
-
-    setLoading(true);
-    setError('');
-    setResult(null);
-    const res = await fetch(`/api/admin/registrations/${encodeURIComponent(codeToVerify)}`);
-    if (res.ok) {
-      const data = await res.json();
-      setResult(data);
-    } else {
-      setError('Ticket not found');
-    }
-    setLoading(false);
-  };
+  }, [showScanner, checkTicket]); // Re-run effect when showScanner changes
 
   return (
     <div className="space-y-4">
