@@ -165,7 +165,7 @@ export default function LandingPage() {
       </section>
 
       <footer className="py-8 text-center text-rosebud-300 border-t border-ferra-600">
-        <p>&copy; {new Date().getFullYear()} Homborsund AI. The Future is Collaborative.</p>
+        <p>&copy; {new Date().getFullYear()} Homborsund AI. Org. nr: 935616913. The Future is Collaborative.</p>
       </footer>
     </div>
   );
