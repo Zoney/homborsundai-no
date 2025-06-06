@@ -4,6 +4,9 @@ This repository uses **pnpm** with a Next.js + TypeScript setup. UI components c
 
 ## Setup
 - Install dependencies with `pnpm install`.
+- Run `pnpm install` again whenever starting a new workspace before running
+  other `pnpm` commands like `pnpm lint` or `pnpm test`. Missing dependencies
+  will cause these tasks to fail.
 - Copy `.env.example` to `.env` and fill in the required values.
 - All Shadcn UI components are already available in `components/ui`.
 
