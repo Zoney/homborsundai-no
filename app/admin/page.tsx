@@ -15,8 +15,13 @@ export default async function AdminDashboard() {
     );
   }
 
-  const res = await fetch(`${process.env.NEXTAUTH_URL ?? ''}/api/summit/registrations`, { cache: 'no-store' });
-  const { summitCounts } = await res.json();
+  const res = await fetch(
+    `${process.env.NEXTAUTH_URL ?? ''}/api/summit/registrations`,
+    { cache: 'no-store' }
+  );
+  const { summitCounts } = (await res.json()) as {
+    summitCounts: Record<string, number>;
+  };
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
