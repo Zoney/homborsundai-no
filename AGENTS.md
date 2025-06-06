@@ -1,14 +1,16 @@
 # Repo Guidelines for Codex Agents
 
-This repository uses **pnpm** with a Next.js + TypeScript setup. Follow these steps when working here.
+This repository uses **pnpm** with a Next.js + TypeScript setup. UI components come from **Shadcn UI** with **Tailwind CSS** already configured. Follow these steps when working here.
 
 ## Setup
 - Install dependencies with `pnpm install`.
 - Copy `.env.example` to `.env` and fill in the required values.
+- All Shadcn UI components are already available in `components/ui`.
 
 ## Development
 - Start the local server with `pnpm dev`. The app runs on <http://localhost:3000>.
 - Create a production build with `pnpm build`.
+- The `/admin` route is protected by Google Workspace authentication.
 
 ## Quality Checks
 - Run `pnpm lint` to check code style.
