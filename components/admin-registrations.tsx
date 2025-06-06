@@ -1,12 +1,16 @@
 "use client";
 import useSWR from "swr";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function AdminRegistrations() {
-  const { data, mutate } = useSWR('/api/admin/registrations', fetcher);
+  const searchParams = useSearchParams();
+  const summit = searchParams.get('summit');
+  const url = summit ? `/api/admin/registrations?summit=${summit}` : '/api/admin/registrations';
+  const { data, mutate } = useSWR(url, fetcher);
   if (!data) return <p>Loading...</p>;
   return (
     <div className="space-y-4">

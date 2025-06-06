@@ -25,6 +25,18 @@ export async function getAllRegistrations(): Promise<RegistrationData[]> {
   return snapshot.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => doc.data() as RegistrationData);
 }
 
+export async function getRegistrationsForSummit(summit: string): Promise<RegistrationData[]> {
+  const snapshot = await db
+    .collection(REGISTRATIONS_COLLECTION)
+    .where('summit', '==', summit)
+    .get();
+
+  if (snapshot.empty) {
+    return [];
+  }
+  return snapshot.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => doc.data() as RegistrationData);
+}
+
 export async function getRegistration(id: string): Promise<RegistrationData | null> {
   const docRef = db.collection(REGISTRATIONS_COLLECTION).doc(id);
   const doc = await docRef.get();
