@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"; // Assuming these are now available
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"; // Assuming these are now available
 import { Button } from "@/components/ui/button"; // Assuming this is now available
+import { useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react"; // Assuming lucide-react is available
 
 // Placeholder icons (actual icons would be imported from lucide-react or similar)
@@ -19,19 +20,18 @@ import { ArrowRight } from "lucide-react"; // Assuming lucide-react is available
 
 
 export default function LandingPage() {
+  const t = useTranslations("Landing");
   return (
     <div className="flex flex-col min-h-screen bg-gradient-cool text-white">
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center py-20 md:py-32 lg:py-40 px-4 md:px-6 bg-opacity-50">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 animate-fade-in-down">
-          Homborsund AI: <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Ignite Your AI Journey</span>
-        </h1>
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 animate-fade-in-down" dangerouslySetInnerHTML={{__html: t('heroTitle')}} />
         <p className="text-lg md:text-xl lg:text-2xl text-rosebud-200 max-w-3xl mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          Step into the epicenter of AI innovation. Connect with brilliant minds, explore groundbreaking ideas, and collaboratively shape the future. This is where AI&apos;s brightest sparks converge. Don&apos;t just witness the future – create it with us.
+          {t('heroSubtitle')}
         </p>
         <Link href="/summit">
           <Button size="lg" className="bg-copperrose hover:bg-copperrose-600 text-white font-semibold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-bounce-slow" style={{ animationDelay: '0.4s' }}>
-            Explore the Summit <ArrowRight className="ml-2 h-5 w-5" />
+            {t('exploreButton')} <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </Link>
       </section>
@@ -150,22 +150,20 @@ export default function LandingPage() {
       {/* Final Call to Action */}
       <section className="py-20 md:py-32 text-center bg-tarawera bg-opacity-80">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-            Ready to Be Part of the <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Next Wave</span>?
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight" dangerouslySetInnerHTML={{__html: t('callHeading')}} />
           <p className="text-lg md:text-xl text-rosebud-200 max-w-2xl mx-auto mb-10">
-            The future of AI is not just coming; it's being built right here, right now. Join Homborsund AI and leave your mark.
+            {t('callText')}
           </p>
           <Link href="/summit">
             <Button size="lg" className="bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-2xl hover:shadow-rosebud/50 transition-all duration-300 transform hover:scale-105">
-              Dive Into the Summit Details
+              {t('diveButton')}
             </Button>
           </Link>
         </div>
       </section>
 
       <footer className="py-8 text-center text-rosebud-300 border-t border-ferra-600">
-        <p>&copy; {new Date().getFullYear()} Homborsund AI. Org. nr: 935616913. The Future is Collaborative.</p>
+        <p dangerouslySetInnerHTML={{__html: t('footer', {year: new Date().getFullYear()})}} />
       </footer>
     </div>
   );

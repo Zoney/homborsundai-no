@@ -3,15 +3,17 @@ import useSWR from "swr";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function AdminRegistrations() {
+  const t = useTranslations('AdminRegistrations');
   const searchParams = useSearchParams();
   const summit = searchParams.get('summit');
   const url = summit ? `/api/admin/registrations?summit=${summit}` : '/api/admin/registrations';
   const { data, mutate } = useSWR(url, fetcher);
-  if (!data) return <p>Loading...</p>;
+  if (!data) return <p>{t('loading')}</p>;
   return (
     <div className="space-y-4">
       {data.registrations.map((reg: any) => (
@@ -22,6 +24,7 @@ export default function AdminRegistrations() {
 }
 
 function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void }) {
+  const t = useTranslations('AdminRegistrations');
   const [edit, setEdit] = useState(false);
   const [form, setForm] = useState(reg);
 
@@ -36,7 +39,7 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
   };
 
   const deleteRegistration = async () => {
-    if (window.confirm("Are you sure you want to delete this registration?")) {
+    if (window.confirm(t('confirmDelete'))) {
       await fetch(`/api/admin/registrations/${reg.id}`, {
         method: 'DELETE',
       });
@@ -67,14 +70,14 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
             className="w-full border p-1 text-black"
             value={form.comment}
             onChange={e => setForm({ ...form, comment: e.target.value })}
-            placeholder="Comment"
+            placeholder={t('commentPlaceholder')}
           />
           <div className="flex space-x-2">
-            <Button onClick={save}>Save</Button>
+            <Button onClick={save}>{t('save')}</Button>
             <Button variant="outline" onClick={() => {
               setEdit(false);
               setForm(reg); // Reset form to original data
-            }}>Cancel</Button>
+            }}>{t('cancel')}</Button>
           </div>
         </div>
       ) : (
@@ -83,16 +86,16 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
             <p className="font-semibold">{reg.name}</p>
             <p className="text-sm text-gray-400">{reg.email}</p>
             {reg.phone && <p className="text-sm text-gray-400">{reg.phone}</p>}
-            {reg.comment && <p className="text-sm text-gray-500 mt-1">Comment: {reg.comment}</p>}
-            <p className="text-sm text-gray-400">ID: {reg.id}</p>
-            {reg.timestamp && <p className="text-sm text-gray-400">Timestamp: {new Date(reg.timestamp).toUTCString()}</p>}
+            {reg.comment && <p className="text-sm text-gray-500 mt-1">{t('commentDisplay')} {reg.comment}</p>}
+            <p className="text-sm text-gray-400">{t('idLabel')} {reg.id}</p>
+            {reg.timestamp && <p className="text-sm text-gray-400">{t('timestampLabel')} {new Date(reg.timestamp).toUTCString()}</p>}
           </div>
           <div className="flex space-x-2">
             <Button variant="secondary" onClick={() => setEdit(true)}>
-              Edit
+              {t('edit')}
             </Button>
             <Button variant="destructive" onClick={deleteRegistration}>
-              Delete
+              {t('delete')}
             </Button>
           </div>
         </div>

@@ -7,28 +7,22 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { HelpCircle, Lightbulb, Users } from "lucide-react";
 import { SummitHeader, SummitSchedule, SummitSpeakers, SummitVenue, SummitRegistration } from "@/components/shared";
 import { SUMMIT_METADATA } from "@/lib/summit-config";
+import messages from "../../../messages/en.json";
+import { useTranslations } from "next-intl";
 
 const YEAR = "2025.1";
 
 export default function Summit2025_1Page() {
   const summitInfo = SUMMIT_METADATA[YEAR];
   
-  // Inline summit content
-  const description = [
-    "The second annual gathering for AI enthusiasts and professionals to discuss real-world applications and the future of artificial intelligence, focusing on agentic capabilities and multimodal interaction.",
-    "Experience the latest breakthroughs just weeks after the expected release of OpenAI's o4-mini and o3 models, alongside competitors like GPT-4.5 Orion, Claude 3.7 Sonnet, and Grok 3 — exploring the shift towards AI agents that can reason, use tools (like Codex CLI!), understand diverse data types, and perhaps one day, take physical form.",
-    "But it's not all about GenAI! This year we're diving deep into the silicon battles, the rise of agentic frameworks, multimodal understanding, the path towards general-purpose agents, and the ML approaches that power our AI.",
-    "No tech allowed, just you and your curiosity — we'll provide the inspiration in nature's own environment, far from the hum of NVIDIA's H200 server farms."
-  ];
+  const t = useTranslations('Summits.2025.1');
 
-  const schedule = [
-    { time: "16:00 - 18:00", event: "Welcome reception and networking (please bring food and drinks to share - bring something that even a trained chef ML model would approve of!)" },
-    { time: "18:00 - 19:00", event: "Opening keynote: 'The Great GPU Hunger Games' - How NVIDIA went from gaming company to AI overlord, and why Jensen Huang's leather jacket contains more computing power than the entire Internet circa 2005" },
-    { time: "19:00 - 20:00", event: "Panel: 'DeepSeek vs NVIDIA: David's Slingshot Moment' - How DeepSeek's R1 model is challenging NVIDIA's dominance by bypassing traditional GPU constraints" },
-    { time: "20:00 - 21:00", event: "Workshop: 'Traditional ML's Revenge: When Simple Models Beat Giant Transformers' - Interactive demonstrations of when good old decision trees and random forests outperform their ChatGPT cousins" },
-    { time: "21:00 - 22:00", event: "Debate: 'ML vs GenAI: The Battle for AI's Soul' - Has the GenAI hype overshadowed the steady progress in traditional ML? Two teams, one utedo toilet break, unlimited philosophical ammunition" },
-    { time: "22:00 - Late", event: "Campfire discussions under the stars - 'Ghost Stories About Runaway Training Jobs and Other AI Horrors' - Bring blankets, warm drinks, and your most expensive failed experiment stories" }
-  ];
+  const description = messages.Summits["2025.1"].description;
+
+  const schedule = messages.Summits["2025.1"].schedule.map((item) => {
+    const [time, event] = item.split('|');
+    return { time, event };
+  });
 
   // Add smooth scrolling for anchor links
   useEffect(() => {
@@ -65,31 +59,31 @@ export default function Summit2025_1Page() {
       <section className="w-full py-8">
         <div className="container mx-auto px-4 md:px-6">
           <div className="w-full max-w-4xl mx-auto">
-            <h3 className="text-2xl font-semibold mb-6 text-center text-rosebud-200">Jump to a section:</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-center text-rosebud-200">{t('navHeading')}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
-                <a href="#schedule">Schedule</a>
+                <a href="#schedule">{t('navLinks.schedule')}</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
-                <a href="#topics">Hot Topics</a>
+                <a href="#topics">{t('navLinks.topics')}</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
-                <a href="#norwegian">Norwegian ML</a>
+                <a href="#norwegian">{t('navLinks.norwegian')}</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
-                <a href="#attend">How to Attend</a>
+                <a href="#attend">{t('navLinks.attend')}</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
-                <a href="#speakers">Speakers</a>
+                <a href="#speakers">{t('navLinks.speakers')}</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
-                <a href="#venue">Venue</a>
+                <a href="#venue">{t('navLinks.venue')}</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-copperrose text-copperrose hover:bg-copperrose hover:text-white flex items-center justify-center text-base py-3">
-                <a href="#experience">Experience</a>
+                <a href="#experience">{t('navLinks.experience')}</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-rosebud text-rosebud hover:bg-rosebud hover:text-tarawera flex items-center justify-center text-base py-3 col-span-2 md:col-span-1 lg:col-span-1">
-                <a href="#register">Register Now</a>
+                <a href="#register">{t('navLinks.register')}</a>
               </Button>
             </div>
           </div>

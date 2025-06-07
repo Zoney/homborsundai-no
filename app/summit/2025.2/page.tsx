@@ -3,25 +3,17 @@
 import { useEffect } from "react";
 import { SummitHeader, SummitSchedule, SummitSpeakers, SummitVenue, SummitRegistration } from "@/components/shared";
 import { SUMMIT_METADATA } from "@/lib/summit-config";
+import messages from "../../../messages/en.json";
 
 const YEAR = "2025.2";
 
 export default function Summit2025_2Page() {
   const summitInfo = SUMMIT_METADATA[YEAR];
-  
-  // Inline summit content
-  const description = [
-    "Our third gathering pushes AI into the physical world with robots, drones and more.",
-    "Expect shiny demos and hands-on sessions powered by the latest agentic models.",
-    "Full program will drop after the summer—keep your calendars open!"
-  ];
-
-  const schedule = [
-    { time: "16:00 - 17:00", event: "Arrival, snacks and mingling" },
-    { time: "17:00 - 18:00", event: "Keynote: 'Agents Everywhere'" },
-    { time: "18:00 - 19:30", event: "Demo Jam & Breakouts" },
-    { time: "19:30 - Late", event: "BBQ, bonfire and lightning talks" }
-  ];
+  const description = messages.Summits["2025.2"].description;
+  const schedule = messages.Summits["2025.2"].schedule.map((item) => {
+    const [time, event] = item.split('|');
+    return { time, event };
+  });
 
   // Add smooth scrolling for anchor links
   useEffect(() => {
