@@ -3,15 +3,17 @@ import { authOptions } from '@/lib/auth';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { headers } from 'next/headers';
+import { getTranslations } from 'next-intl/server';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboard() {
+  const t = await getTranslations('Admin');
   const session = await getServerSession(authOptions);
   if (!session) {
     return (
       <div className="container mx-auto py-10 text-center">
-        <a className="underline" href="/api/auth/signin">Sign in with Google</a>
+        <a className="underline" href="/api/auth/signin">{t('signIn')}</a>
       </div>
     );
   }
@@ -36,11 +38,11 @@ export default async function AdminDashboard() {
       {Object.entries(summitCounts).map(([summit, count]) => (
         <Card key={summit}>
           <CardHeader>
-            <CardTitle>Summit {summit}</CardTitle>
+            <CardTitle>{t('summitLabel', { year: summit })}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <p>{count} registrations</p>
-            <Link className="underline" href={`/api/admin/registrations?summit=${summit}`}>Download JSON</Link>
+            <p>{t('registrationsCount', { count })}</p>
+            <Link className="underline" href={`/api/admin/registrations?summit=${summit}`}>{t('downloadJson')}</Link>
           </CardContent>
         </Card>
       ))}

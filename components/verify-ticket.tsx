@@ -2,10 +2,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from 'html5-qrcode';
+import { useTranslations } from 'next-intl';
 
 const QR_SCANNER_ELEMENT_ID = "qr-code-full-region";
 
 export default function VerifyTicket() {
+  const t = useTranslations('VerifyTicket');
   const [code, setCode] = useState('');
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState('');
@@ -24,7 +26,7 @@ export default function VerifyTicket() {
       const data = await res.json();
       setResult(data);
     } else {
-      setError('Ticket not found');
+      setError(t('ticketNotFound'));
     }
     setLoading(false);
   }, [code]);
@@ -50,7 +52,7 @@ export default function VerifyTicket() {
           codeToVerify = unescapedText;
         } catch (e) {
           console.error("Failed to decode URI component, using raw value:", e);
-          setError("Failed to decode QR code, attempting to use raw value.");
+          setError(t('decodeError'));
           // codeToVerify remains decodedText
         }
         setCode(codeToVerify);
@@ -78,7 +80,7 @@ export default function VerifyTicket() {
   return (
     <div className="space-y-4">
       <Button onClick={() => setShowScanner(!showScanner)} variant="outline">
-        {showScanner ? 'Close Scanner' : 'Scan QR Code'}
+        {showScanner ? t('closeScanner') : t('scanQr')}
       </Button>
 
       {showScanner && <div id={QR_SCANNER_ELEMENT_ID} className="w-full md:w-1/2 mx-auto"></div>}
@@ -89,11 +91,11 @@ export default function VerifyTicket() {
             type="text"
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            placeholder="Scan or enter ticket code"
+            placeholder={t('placeholder')}
             className="w-full p-2 border rounded text-black"
           />
           <Button onClick={() => checkTicket()} disabled={!code || loading}>
-            {loading ? 'Checking...' : 'Verify Manually'}
+            {loading ? t('checking') : t('verify')}
           </Button>
         </>
       )}

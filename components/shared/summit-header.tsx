@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { DEFAULT_YEAR, SUMMIT_METADATA, type SummitMetadata } from "@/lib/summit-config";
 
 type SummitHeaderProps = {
@@ -13,6 +14,7 @@ type SummitHeaderProps = {
 }
 
 export function SummitHeader({ activeYear, title, date, theme, description }: SummitHeaderProps) {
+  const t = useTranslations('Shared');
   return (
     <>
       {/* Back to Home Link */}
@@ -23,7 +25,7 @@ export function SummitHeader({ activeYear, title, date, theme, description }: Su
             className="inline-flex items-center gap-2 text-rosebud-200 hover:text-rosebud transition-colors duration-200 group"
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-            <span className="text-sm font-medium">Back to Home</span>
+            <span className="text-sm font-medium">{t('backToHome')}</span>
           </Link>
         </div>
       </div>
@@ -41,10 +43,10 @@ export function SummitHeader({ activeYear, title, date, theme, description }: Su
                     : "bg-ferra-700 hover:bg-ferra-600 text-rosebud-200 border border-ferra-600"
                 }`}
               >
-                Summit {summitYear}
+                {t('summitLabel', { year: summitYear })}
                 {SUMMIT_METADATA[summitYear].status === "Upcoming" && summitYear === DEFAULT_YEAR && (
                   <span className="ml-2 text-xs bg-rosebud text-tarawera px-2 py-0.5 rounded-full">
-                    Next
+                    {t('nextBadge')}
                   </span>
                 )}
               </Link>

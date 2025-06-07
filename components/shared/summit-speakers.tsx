@@ -1,19 +1,21 @@
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useTranslations } from "next-intl";
 
 type SummitSpeakersProps = {
   activeYear: string;
 }
 
 export function SummitSpeakers({ activeYear }: SummitSpeakersProps) {
+  const t = useTranslations('Speakers');
   return (
     <section id="speakers" className="w-full py-12 md:py-16 scroll-mt-16 bg-tarawera bg-opacity-50">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
-          <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">Speakers</div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Meet the Speakers</h2>
+          <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">{t('badge')}</div>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">{t('heading')}</h2>
           <p className="max-w-[700px] text-rosebud-200 md:text-lg">
-            Learn from industry experts and thought leaders in the field of AI.
+            {t('intro')}
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import QRCode from 'qrcode';
 import Image from 'next/image';
+import { useTranslations } from "next-intl";
 
 // Declare turnstile global object
 declare global {
@@ -29,6 +30,7 @@ declare global {
 }
 
 export default function RegisterPage() {
+  const t = useTranslations('Ticket');
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -231,7 +233,7 @@ export default function RegisterPage() {
               </p>
               {qrDataUrl ? (
                 <div className="flex flex-col items-center space-y-2">
-                  <Image src={qrDataUrl} alt="Ticket QR Code" className="bg-white p-2 rounded" width={200} height={200} />
+                  <Image src={qrDataUrl} alt={t('qrCodeAlt')} className="bg-white p-2 rounded" width={200} height={200} />
                   <Link href={registrationSuccessDetails.ticketUrl} target="_blank" rel="noopener noreferrer" className="text-rosebud-300 hover:text-rosebud-100 underline text-sm">
                     {`${window.location.origin}${registrationSuccessDetails.ticketUrl}`}
                   </Link>
