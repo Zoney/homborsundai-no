@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "title": "Kom i gang med bruk av KI-assistenter",
+    "children": [
+      { "id": "1.1", "title": "Målgruppe for denne veilederen" },
+      { "id": "1.2", "title": "Hvordan finne frem i denne veilederen?" }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Er hensikten med å innføre en KI-assistent klar?",
+    "children": [
+      { "id": "2.1", "title": "Innledning" },
+      { "id": "2.2", "title": "Hva ønsker du å oppnå ved bruk av KI" }
+    ]
+  }
+]
