@@ -1,8 +1,22 @@
 [
-  { "id": "1.1", "title": "Definition", "html": "<p>This section explains the purpose of AI assistants in the workplace.</p>" },
-  { "id": "1.2", "title": "Scope", "html": "<p>This section outlines where the guide applies.</p>" },
-  { "id": "2.1", "title": "Policies", "html": "<p>Guidance on crafting internal AI policies.</p>" },
-  { "id": "2.2", "title": "Training", "html": "<p>Tips for educating staff on responsible AI use.</p>" },
-  { "id": "3.1", "title": "Data Protection", "html": "<p>Legal considerations around personal data.</p>" },
-  { "id": "3.2", "title": "Procurement", "html": "<p>Advice on procuring AI systems.</p>" }
+  {
+    "id": "1.1",
+    "title": "Målgruppe for denne veilederen",
+    "html": "<p>KI-assistenter er i ferd med å bli like hverdagslige som e-post og videomøter, men de krever nye ferdigheter, rutiner og ansvar. Mange norske virksomheter lurer på hvordan de skal komme i gang uten å løpe større risiko enn nødvendig. Veilederen gir konkrete sjekklister, eksempler fra norske organisasjoner og korte forklaringer av regelverk og teknologi. Målet er å hjelpe deg med å starte trygt og dele erfaringene dere gjør.</p>"
+  },
+  {
+    "id": "1.2",
+    "title": "Hvordan finne frem i denne veilederen?",
+    "html": "<p>Innholdsfortegnelsen er den raskeste måten å navigere. Her finner du en kort forklaring av hva som inngår i hvert kapittel og vedlegg. Kapitlene er satt opp i en rekkefølge fra hvorfor bruke KI til hvordan drifte og skalere, men du kan hoppe frem og tilbake etter behov. Noen kapitler kan være mindre relevante, mens andre er helt sentrale.</p>"
+  },
+  {
+    "id": "2.1",
+    "title": "Innledning",
+    "html": "<p>Dette kapittelet viser praktisk hvordan dere kan gå fra løse idéer til et tydelig prosjektmandat og luke ut bruksområder med liten verdi. Et vellykket KI-prosjekt starter ikke med spørsmålet ‘Hvilken modell skal vi bruke?’, men med ‘Hvor trykker skoen?’. Det dere gjør her bestemmer hvor dyr, lang og risikabel resten av reisen blir. Bruk nok tid på å bli enige om hvorfor dere skal ta i bruk en KI-assistent, hva den skal løse og hvem som blir påvirket.</p>"
+  },
+  {
+    "id": "2.2",
+    "title": "Hva ønsker du å oppnå ved bruk av KI",
+    "html": "<p>For å ende opp med verdiskapende KI-assistenter må flere ting vurderes i sammenheng. Tenk gjennom hele prosessen og gjør deg kjent med relevante vurderinger før innføringen kan starte. Selv ved kjøp av åpne KI-assistenter bør man vurdere hva man vil bruke dem til, hvilken effekt bruken har, hvilken kompetanse som trengs og hva som skjer om man ikke lykkes. Prosessen kan deles i tre faser med et sett vurderinger for hver fase.</p>"
+  }
 ]
