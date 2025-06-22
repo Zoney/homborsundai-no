@@ -1,0 +1,8 @@
+[
+  { "id": "1.1", "title": "Definition", "html": "<p>This section explains the purpose of AI assistants in the workplace.</p>" },
+  { "id": "1.2", "title": "Scope", "html": "<p>This section outlines where the guide applies.</p>" },
+  { "id": "2.1", "title": "Policies", "html": "<p>Guidance on crafting internal AI policies.</p>" },
+  { "id": "2.2", "title": "Training", "html": "<p>Tips for educating staff on responsible AI use.</p>" },
+  { "id": "3.1", "title": "Data Protection", "html": "<p>Legal considerations around personal data.</p>" },
+  { "id": "3.2", "title": "Procurement", "html": "<p>Advice on procuring AI systems.</p>" }
+]

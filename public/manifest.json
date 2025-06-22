@@ -1,0 +1,15 @@
+{
+  "name": "KI-Assistant Guide",
+  "short_name": "KI Guide",
+  "start_url": "/guide",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e293b",
+  "icons": [
+    {
+      "src": "/vercel.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
