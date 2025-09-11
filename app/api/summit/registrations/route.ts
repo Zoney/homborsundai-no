@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { unstable_cache, revalidateTag } from 'next/cache';
-import { db } from '@/lib/firebaseAdmin'; // Import Firestore instance
-import { DocumentData, QueryDocumentSnapshot } from 'firebase-admin/firestore';
+import { unstable_cache } from 'next/cache';
+import { getAllRegistrations } from '@/lib/registrations';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,13 +13,7 @@ interface RegistrationDoc {
 
 const getRegistrations = unstable_cache(
   async () => {
-    const snapshot = await db.collection(REGISTRATIONS_COLLECTION).get();
-    
-    if (snapshot.empty) {
-      return { summitCounts: {}, totalCount: 0 };
-    }
-    
-    const validRegistrations = snapshot.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => doc.data() as RegistrationDoc);
+    const validRegistrations = await getAllRegistrations();
     
     const summitCounts = validRegistrations.reduce((acc: Record<string, number>, reg: RegistrationDoc) => {
       acc[reg.summit] = (acc[reg.summit] || 0) + 1;

@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Homborsund.no – Development, Convex, and Deployment
 
-## Getting Started
+## Setup
 
-First, run the development server:
+- Install dependencies: `pnpm install`
+- Copy `.env.example` to `.env.local` and fill in values
+  - Set `NEXT_PUBLIC_CONVEX_URL` as described below
+- Start the app: `pnpm dev` (http://localhost:3000)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Convex
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This repo uses Convex for registrations and related server functions. The app reads `NEXT_PUBLIC_CONVEX_URL` to know which Convex deployment to talk to.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Create or link a Convex project
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1) Start a dev deployment (cloud, interactive):
+- `pnpm run convex:dev`
+- Log in / select or create a Convex project when prompted.
+- The CLI prints a stable Development URL. Put that in `.env.local` as `NEXT_PUBLIC_CONVEX_URL` for local development when not using `--local`.
 
-## Learn More
+2) Optional: create Production deployment (from dashboard or CLI):
+- `pnpm run convex:deploy` (after you’re ready to publish changes to Production)
+- Copy the Production URL from the dashboard for use in Vercel Production.
 
-To learn more about Next.js, take a look at the following resources:
+### Local development (`--local`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Use a fully local Convex dev server when you want everything to run locally.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Start local Convex: `pnpm run convex:local`
+- Copy the Local URL printed by the CLI into `.env.local` as `NEXT_PUBLIC_CONVEX_URL`
+- In a separate terminal: `pnpm dev`
 
-## Deploy on Vercel
+Notes:
+- Keep the Convex terminal running while developing; it hot-reloads functions and regenerates types.
+- If types are missing in CI, we run `convex codegen` on install (see package.json).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Environment matrix
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Local (`--local`): `.env.local` → `NEXT_PUBLIC_CONVEX_URL` is the local URL printed by `convex dev --local`.
+- Preview (Vercel): set `NEXT_PUBLIC_CONVEX_URL` in Vercel “Preview” environment to the Convex Development URL (shared dev deployment).
+- Production (Vercel): set `NEXT_PUBLIC_CONVEX_URL` in Vercel “Production” environment to the Convex Production URL.
+
+### Useful Convex commands
+
+- `pnpm run convex:dev` – Start cloud dev deployment (watch server).
+- `pnpm run convex:local` – Start local dev server.
+- `pnpm run convex:deploy` – Deploy functions/schema to Production.
+- `pnpm exec convex codegen` – Regenerate types in `convex/_generated/`.
+
+## Vercel Deployment
+
+The project deploys on Vercel using standard Next.js defaults.
+
+- Install Command: `pnpm install`
+- Build Command: `pnpm build`
+- Output: `.next`
+
+### Environment variables on Vercel
+
+Set these in Vercel Project Settings → Environment Variables:
+
+- Preview:
+  - `NEXT_PUBLIC_CONVEX_URL` → Convex Development URL
+- Production:
+  - `NEXT_PUBLIC_CONVEX_URL` → Convex Production URL
+
+Other variables from `.env.example` should be filled appropriately for each environment.
+
+### Notes
+
+- The repo runs `convex codegen` on install to ensure generated types exist during Vercel builds.
+- For local dev, you can choose between `--local` (fully local) or the shared cloud Development server.
