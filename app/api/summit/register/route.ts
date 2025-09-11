@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidateTag } from 'next/cache';
-import { db } from '@/lib/firebaseAdmin'; // Import Firestore instance
+import { createRegistration } from '@/lib/registrations';
 import { sendTicketEmail } from '@/lib/email';
 
 const REGISTRATIONS_COLLECTION = 'summitRegistrations';
@@ -75,10 +75,10 @@ export async function POST(request: NextRequest) {
     };
     console.log('POST /api/summit/register: Registration data to save:', registrationData);
     
-    // Save to Firestore
-    console.log(`POST /api/summit/register: Attempting to save to Firestore collection '${REGISTRATIONS_COLLECTION}', document ID '${registrationId}'`);
-    await db.collection(REGISTRATIONS_COLLECTION).doc(registrationId).set(registrationData);
-    console.log('POST /api/summit/register: Successfully saved to Firestore.');
+    // Save to Convex
+    console.log(`POST /api/summit/register: Attempting to save to Convex collection '${REGISTRATIONS_COLLECTION}', document ID '${registrationId}'`);
+    await createRegistration(registrationData);
+    console.log('POST /api/summit/register: Successfully saved to Convex.');
 
     revalidateTag('summit-registrations-tag');
     console.log('POST /api/summit/register: Revalidated tag summit-registrations-tag.');
@@ -110,8 +110,12 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const snapshot = await db.collection(REGISTRATIONS_COLLECTION).count().get();
-    const count = snapshot.data().count;
+    // Optional: Implement a Convex count or compute on the fly
+    // Keeping simple by querying all and counting may be heavy at scale; using Convex query 'count' instead.
+    const { ConvexHttpClient } = await import('convex/browser');
+    const { api } = await import('@/convex/_generated/api');
+    const client = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+    const count = (await client.query(api.registrations.count, {})) as number;
     return NextResponse.json(
       { count: count || 0 },
       { status: 200 }
@@ -123,4 +127,4 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-} 
+}

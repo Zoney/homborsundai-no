@@ -3,6 +3,7 @@ import { authOptions } from '@/lib/auth';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
+import SignOutButton from '@/components/signout-button';
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const session = await getServerSession(authOptions);
@@ -27,6 +28,9 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <Button asChild variant="link" className="justify-start">
             <Link href="/admin/verify">Verify Ticket</Link>
           </Button>
+          <div className="pt-2 border-t mt-2">
+            <SignOutButton />
+          </div>
         </nav>
       </aside>
       <main className="flex-1 p-4">{children}</main>
