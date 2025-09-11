@@ -22,8 +22,8 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
   },
   "2025.2": {
     title: "Homborsund AI Festival",
-    date: "TBD",
+    date: "18. oktober 2025",
     theme: "Flashy Agents & Friendly Robots",
     status: "Upcoming"
   }
-}; 
+};

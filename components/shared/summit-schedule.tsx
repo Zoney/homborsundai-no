@@ -8,9 +8,10 @@ type ScheduleItem = {
 
 type SummitScheduleProps = {
   schedule: ScheduleItem[];
+  note?: string;
 }
 
-export function SummitSchedule({ schedule }: SummitScheduleProps) {
+export function SummitSchedule({ schedule, note }: SummitScheduleProps) {
   return (
     <section id="schedule" className="w-full scroll-mt-16 bg-ferra bg-opacity-50">
       <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
@@ -20,6 +21,11 @@ export function SummitSchedule({ schedule }: SummitScheduleProps) {
           <p className="max-w-[700px] text-rosebud-200 md:text-lg">
             Explore the lineup of thought-provoking talks and interactive sessions.
           </p>
+          {note && (
+            <p className="max-w-[700px] text-rosebud-300 text-sm italic">
+              {note}
+            </p>
+          )}
         </div>
         <div className="mx-auto max-w-3xl w-full">
           <Card className="bg-ferra border-ferra-600 shadow-lg">
