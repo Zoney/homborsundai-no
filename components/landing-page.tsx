@@ -171,6 +171,38 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Community Notes Preview */}
+      <section className="py-16 md:py-24 bg-tarawera bg-opacity-70">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex items-end justify-between mb-8">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Community <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Notes</span>
+            </h2>
+            <Link href="/notes">
+              <Button variant="secondary" className="bg-ferra/70 hover:bg-ferra">View all</Button>
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="bg-ferra bg-opacity-60 border-ferra-600">
+              <CardHeader>
+                <CardTitle className="text-rosebud-50">Claude Code vs Codex: Agentic Coding Gets Real</CardTitle>
+                <CardDescription className="text-rosebud-300">Thoughts on practical coding agents, and how we pair Convex with Codex for type-safe velocity.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-4">
+                  <Link href="/notes/coding-agents-2025">
+                    <Button className="bg-copperrose hover:bg-copperrose-600">Read note</Button>
+                  </Link>
+                  <Link href="/summit">
+                    <Button variant="outline" className="border-rosebud text-rosebud-100 hover:bg-rosebud/10">We’ll discuss at the summit</Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Final Call to Action */}
       <section className="py-20 md:py-32 text-center bg-tarawera bg-opacity-80">
         <div className="container mx-auto px-4 md:px-6">
