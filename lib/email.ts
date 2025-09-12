@@ -81,7 +81,6 @@ export async function sendCampaignEmail({ to, subject, html, tags }: CampaignEma
       subject,
       html,
       // Resend supports tagging for analytics; optional
-      // @ts-expect-error: tags is supported in Resend API
       tags,
     } as any);
 
