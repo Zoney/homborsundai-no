@@ -26,7 +26,13 @@ export default async function AdminLayout({ children }: { children: ReactNode })
             <Link href="/admin/registrations">Registrations</Link>
           </Button>
           <Button asChild variant="link" className="justify-start">
+            <Link href="/admin/registrations/2025.2">2025.2 Lists</Link>
+          </Button>
+          <Button asChild variant="link" className="justify-start">
             <Link href="/admin/verify">Verify Ticket</Link>
+          </Button>
+          <Button asChild variant="link" className="justify-start">
+            <Link href="/admin/email">Email Campaigns</Link>
           </Button>
           <div className="pt-2 border-t mt-2">
             <SignOutButton />

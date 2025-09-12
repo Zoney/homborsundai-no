@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pnpm lint && pnpm test:ci",
+  "installCommand": "pnpm install --frozen-lockfile"
+}
+

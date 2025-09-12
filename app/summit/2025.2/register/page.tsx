@@ -154,7 +154,8 @@ export default function RegisterPage() {
         body: JSON.stringify({
           ...formData,
           turnstileToken,
-          summit: '2025.2',
+          // Tag confirmed signups distinctly for 2025.2
+          summit: '2025.2.signedup',
           timestamp: new Date().toISOString()
         }),
       });

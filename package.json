@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "pnpm build && jest",
+    "test:ci": "pnpm build && jest --ci --runInBand",
     "postinstall": "convex codegen",
     "convex:dev": "convex dev",
     "convex:local": "convex dev --local",

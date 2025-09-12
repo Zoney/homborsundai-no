@@ -17,14 +17,21 @@ describe('LandingPage', () => {
     expect(heading).toBeInTheDocument();
   });
 
-  it('renders the "Explore the Summit" button', () => {
+  it('shows next summit with links to details and registration', () => {
     render(<LandingPage />);
 
-    // Check for the main call to action button that links to the summit page
-    const summitButton = screen.getByRole('link', {
-      name: /Explore the Summit/i
-    });
-    expect(summitButton).toBeInTheDocument();
-    expect(summitButton).toHaveAttribute('href', '/summit');
+    // Title and date from next summit metadata should be visible
+    expect(screen.getByText(/Homborsund AI Festival/i)).toBeInTheDocument();
+    expect(screen.getByText(/18\. oktober 2025/i)).toBeInTheDocument();
+
+    // "Les mer" should link to the summit details page
+    const detailsLink = screen.getByRole('link', { name: /Les mer/i });
+    expect(detailsLink).toBeInTheDocument();
+    expect(detailsLink).toHaveAttribute('href', '/summit/2025.2');
+
+    // "Påmelding" should link to the register page
+    const signupLink = screen.getByRole('link', { name: /Påmelding/i });
+    expect(signupLink).toBeInTheDocument();
+    expect(signupLink).toHaveAttribute('href', '/summit/2025.2/register');
   });
 });

@@ -5,7 +5,8 @@ import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"; // Assuming these are now available
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"; // Assuming these are now available
 import { Button } from "@/components/ui/button"; // Assuming this is now available
-import { ArrowRight } from "lucide-react"; // Assuming lucide-react is available
+import { ArrowRight, CalendarDays, Quote } from "lucide-react"; // Assuming lucide-react is available
+import { DEFAULT_YEAR, SUMMIT_METADATA } from "@/lib/summit-config";
 
 // Placeholder icons (actual icons would be imported from lucide-react or similar)
 // import { Users, Zap, Lightbulb, Eye, Brain, UsersRound, MessageSquare } from "lucide-react";
@@ -19,21 +20,44 @@ import { ArrowRight } from "lucide-react"; // Assuming lucide-react is available
 
 
 export default function LandingPage() {
+  const nextSummit = SUMMIT_METADATA[DEFAULT_YEAR];
+  const nextSummitPath = `/summit/${DEFAULT_YEAR}`;
+  const registrationPath = `${nextSummitPath}/register`;
   return (
     <div className="flex flex-col min-h-screen bg-gradient-cool text-white">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center py-20 md:py-32 lg:py-40 px-4 md:px-6 bg-opacity-50">
+      <section className="flex flex-col items-center justify-center text-center py-20 md:py-28 lg:py-32 px-4 md:px-6 bg-opacity-50">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 animate-fade-in-down">
           Homborsund AI: <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Ignite Your AI Journey</span>
         </h1>
-        <p className="text-lg md:text-xl lg:text-2xl text-rosebud-200 max-w-3xl mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          Step into the epicenter of AI innovation. Connect with brilliant minds, explore groundbreaking ideas, and collaboratively shape the future. This is where AI&apos;s brightest sparks converge. Don&apos;t just witness the future – create it with us.
-        </p>
-        <Link href="/summit">
-          <Button size="lg" className="bg-copperrose hover:bg-copperrose-600 text-white font-semibold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-bounce-slow" style={{ animationDelay: '0.4s' }}>
-            Explore the Summit <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </Link>
+        <div className="w-full max-w-4xl mx-auto bg-tarawera/70 border border-ferra-600 rounded-2xl p-6 md:p-8 shadow-xl backdrop-blur-sm animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="flex items-center justify-center gap-2 text-rosebud-200 text-sm md:text-base mb-2">
+            <CalendarDays className="h-5 w-5" aria-hidden />
+            <span>Neste samling</span>
+          </div>
+          <p className="text-2xl md:text-3xl font-semibold text-rosebud-100">
+            {nextSummit.title}
+          </p>
+          <p className="text-lg md:text-xl text-rosebud-200 mt-1">
+            {nextSummit.date}
+          </p>
+          <div className="mt-4 flex items-start justify-center gap-2 text-rosebud-200">
+            <Quote className="h-5 w-5 mt-0.5" aria-hidden />
+            <span className="italic">{nextSummit.theme}</span>
+          </div>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link href={nextSummitPath} className="w-full sm:w-auto">
+              <Button size="lg" variant="secondary" className="w-full sm:w-auto bg-ferra/70 hover:bg-ferra text-white font-semibold py-3 px-6 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all">
+                Les mer <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link href={registrationPath} className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto bg-copperrose hover:bg-copperrose-600 text-white font-semibold py-3 px-6 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all">
+                Påmelding
+              </Button>
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* Carousel Section: "Why Homborsund AI?" */}

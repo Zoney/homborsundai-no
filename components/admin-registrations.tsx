@@ -4,12 +4,16 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
+type AdminRegistrationsProps = {
+  summit?: string; // optional override; if not provided, uses ?summit= from URL
+};
+
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-export default function AdminRegistrations() {
+export default function AdminRegistrations({ summit: summitProp }: AdminRegistrationsProps) {
   const searchParams = useSearchParams();
-  const summit = searchParams.get('summit');
-  const url = summit ? `/api/admin/registrations?summit=${summit}` : '/api/admin/registrations';
+  const summit = summitProp ?? searchParams.get('summit') ?? undefined;
+  const url = summit ? `/api/admin/registrations?summit=${encodeURIComponent(summit)}` : '/api/admin/registrations';
   const { data, mutate } = useSWR(url, fetcher);
   if (!data) return <p>Loading...</p>;
   return (
@@ -80,6 +84,9 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
       ) : (
         <div className="flex items-center justify-between">
           <div>
+            {reg.summit && (
+              <p className="text-xs mb-1 text-gray-400">Summit: {reg.summit}</p>
+            )}
             <p className="font-semibold">{reg.name}</p>
             <p className="text-sm text-gray-400">{reg.email}</p>
             {reg.phone && <p className="text-sm text-gray-400">{reg.phone}</p>}

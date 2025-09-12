@@ -68,7 +68,9 @@ export async function POST(request: NextRequest) {
       email: body.email?.trim() || '',
       phone: body.phone?.trim() || '',
       comment: body.comment?.trim() || '',
-      summit: body.summit || '2025.2',
+      // Use a distinct summit key for confirmed signups for 2025.2
+      // Older entries may exist under '2025.2' as interest-only
+      summit: body.summit || '2025.2.signedup',
       timestamp: body.timestamp || new Date().toISOString(),
       ip: clientIP,
       userAgent: request.headers.get('user-agent') || 'unknown'
