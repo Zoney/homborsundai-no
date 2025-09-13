@@ -6,7 +6,10 @@ import { Button } from "@/components/ui/button";
 export const metadata = {
   title: "Community Notes | Homborsund AI",
   description: "Updates, ideas, and notes from the Homborsund AI community.",
+  alternates: { canonical: "/notes" },
 };
+
+export const revalidate = 3600;
 
 export default function NotesIndexPage() {
   return (
@@ -39,4 +42,3 @@ export default function NotesIndexPage() {
     </div>
   );
 }
-

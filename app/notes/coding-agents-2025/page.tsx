@@ -10,12 +10,31 @@ export const metadata = {
   title: "Claude Code vs Codex: Agentic Coding Gets Real | Homborsund AI",
   description:
     "Reflections on agentic coding tools, and how this repo pairs Convex with Codex for type-safe velocity.",
+  alternates: { canonical: "/notes/coding-agents-2025" },
 };
+
+export const revalidate = 86400;
 
 export default function ArticlePage() {
   const note = getNote("coding-agents-2025");
   return (
     <div className="min-h-screen bg-gradient-cool text-white py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Claude Code vs Codex: Agentic Coding Gets Real",
+            datePublished: note?.date ?? undefined,
+            author: { "@type": "Organization", name: "Homborsund AI" },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000") + "/notes/coding-agents-2025",
+            },
+          }),
+        }}
+      />
       <div className="container mx-auto px-4 md:px-6 max-w-3xl">
         <p className="text-rosebud-300 text-sm">Community Notes</p>
         <h1 className="text-4xl md:text-5xl font-bold mt-2">Claude Code vs Codex: Agentic Coding Gets Real</h1>
