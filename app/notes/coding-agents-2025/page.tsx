@@ -4,6 +4,7 @@ import { getNote } from "@/lib/notes";
 import { Button } from "@/components/ui/button";
 import { Quote, LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export const metadata = {
   title: "Claude Code vs Codex: Agentic Coding Gets Real | Homborsund AI",
@@ -46,6 +47,24 @@ export default function ArticlePage() {
             </div>
           </blockquote>
 
+          {/* Øyvind's perspective */}
+          <Card className="bg-ferra/50 border-ferra-600">
+            <CardHeader>
+              <CardTitle className="text-rosebud-50">Øyvind on agentic CLI coding</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-rosebud-200">
+              <p className="italic">
+                “Claude Code was the first to make this feel real. There were earlier agent attempts,
+                but Claude connected models, tools, and context engineering in a way that made CLI‑first
+                development click for a lot of us.”
+              </p>
+              <p className="italic">
+                “You don’t really need a GUI. With text input + intent you get back working applications —
+                fast. That unlocks a different way of building.”
+              </p>
+            </CardContent>
+          </Card>
+
           <h2 className="mt-12 pt-6 border-t border-ferra-600/50 text-3xl md:text-4xl font-bold tracking-tight text-rosebud-50">Why this matters</h2>
           <p>
             The promise isn't just chat that can write functions; it's assistants that understand
@@ -87,6 +106,17 @@ export default function ArticlePage() {
             scriptable workflows you can tailor to your repo. Both are rapidly improving at handling
             multi-file refactors, incremental diffs, and safety checks.
           </p>
+
+          <blockquote className="border-l-4 border-copperrose/70 pl-4 py-2 my-6 bg-ferra/30 rounded-r">
+            <div className="flex items-start gap-2 text-rosebud-100">
+              <Quote className="h-5 w-5 mt-1 flex-shrink-0" />
+              <p className="m-0">
+                “OpenAI’s Codex CLI jumped a level in the last month. In places it’s now on par —
+                sometimes better. Codex Web still lags the CLI; I’m excited to see them meet the same
+                high bar.” — Øyvind
+              </p>
+            </div>
+          </blockquote>
 
           <div className="my-8 grid md:grid-cols-2 gap-4">
             <div className="rounded-md border border-ferra-600 bg-tarawera/50 p-4">
@@ -132,6 +162,58 @@ claude`}
               <a className="underline hover:text-white" href="https://docs.anthropic.com/en/docs/claude-code/setup" target="_blank" rel="noreferrer">Claude Code setup</a>.
             </p>
           </div>
+
+          <h2 className="mt-12 pt-6 border-t border-ferra-600/50 text-3xl md:text-4xl font-bold tracking-tight text-rosebud-50">Beyond SaaS: Build vs Buy in 2025</h2>
+          <p>
+            This isn’t just about our repo. Agentic tooling bends the SaaS calculus: many teams will
+            spin up focused, owned platforms with today’s cloud primitives — whether that’s AWS, GCP,
+            Azure, or (like us) Vercel + Convex — and ship features at a pace that once demanded
+            multiple subscriptions. Authentication, email, admin panels, ticketing, analytics — all
+            increasingly feel “in‑reach” for an in‑house stack powered by strong types and agents.
+          </p>
+          <div className="my-6 grid md:grid-cols-2 gap-4">
+            <Card className="bg-ferra/50 border-ferra-600">
+              <CardHeader>
+                <CardTitle className="text-rosebud-50">Cloud of your choice</CardTitle>
+              </CardHeader>
+              <CardContent className="text-rosebud-200">
+                Compose services on AWS/GCP/Azure or move fast on Vercel + Convex. Agents help wire
+                the plumbing without sacrificing safety.
+              </CardContent>
+            </Card>
+            <Card className="bg-ferra/50 border-ferra-600">
+              <CardHeader>
+                <CardTitle className="text-rosebud-50">Security & ownership</CardTitle>
+              </CardHeader>
+              <CardContent className="text-rosebud-200">
+                Keep data residency and auth under your control. Adopt SaaS selectively where it
+                truly compounds your velocity.
+              </CardContent>
+            </Card>
+          </div>
+
+          <h2 className="mt-10 pt-4 border-t border-ferra-600/40 text-2xl md:text-3xl font-semibold text-rosebud-50">From user stories to intent stories</h2>
+          <p>
+            This may read like it’s only for developers, but the strength here is a crisp
+            specification. “User stories” feel dated when agents can mine org and personal context.
+            We’re moving toward “intent stories”: describe desired outcomes, constraints, and signals
+            of success — then let agents propose plans, patch code, and validate.
+          </p>
+          <ul>
+            <li><strong>Start with intent</strong>: a short brief with goals, constraints, and examples.</li>
+            <li><strong>Plan</strong>: agents draft steps and surface dependencies and risks.</li>
+            <li><strong>Patch</strong>: minimal, reviewable changes grounded in types and tests.</li>
+            <li><strong>Iterate</strong>: keep a living spec; discard experiments freely and start fresh.</li>
+          </ul>
+          <blockquote className="border-l-4 border-copperrose/70 pl-4 py-2 my-6 bg-ferra/30 rounded-r">
+            <div className="flex items-start gap-2 text-rosebud-100">
+              <Quote className="h-5 w-5 mt-1 flex-shrink-0" />
+              <p className="m-0">
+                “The goal isn’t another backlog; it’s faster learning loops. Build, learn, throw away,
+                repeat — as long as the spec lives on, we get better.” — Øyvind
+              </p>
+            </div>
+          </blockquote>
 
           <h2 className="mt-10 pt-4 border-t border-ferra-600/40 text-2xl md:text-3xl font-semibold text-rosebud-50">What this unlocks for us</h2>
           <ul>
