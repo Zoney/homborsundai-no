@@ -9,7 +9,8 @@ export const contentType = "image/png";
 
 export default function TwitterImage() {
   const title = "Homborsund AI";
-  const subtitle = "Summits on agents, robotics, and tools.";
+  const subtitle =
+    "Experience raw, honest dialogue in an intimate setting. No corporate fluff, just genuine passion for AI's potential.";
 
   return new ImageResponse(
     (
@@ -29,7 +30,17 @@ export default function TwitterImage() {
         }}
       >
         <div style={{ fontSize: 72, fontWeight: 800, lineHeight: 1.1 }}>{title}</div>
-        <div style={{ marginTop: 20, fontSize: 34, opacity: 0.9 }}>{subtitle}</div>
+        <div
+          style={{
+            marginTop: 20,
+            fontSize: 34,
+            lineHeight: 1.3,
+            opacity: 0.9,
+            maxWidth: 1000,
+          }}
+        >
+          {subtitle}
+        </div>
       </div>
     ),
     size

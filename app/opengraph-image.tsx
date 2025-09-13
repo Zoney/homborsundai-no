@@ -9,7 +9,8 @@ export const contentType = "image/png";
 
 export default function OpengraphImage() {
   const title = "Homborsund AI";
-  const subtitle = "Agents, robots, tools — friendly and real.";
+  const subtitle =
+    "Experience raw, honest dialogue in an intimate setting. No corporate fluff, just genuine passion for AI's potential.";
 
   return new ImageResponse(
     (
@@ -53,4 +54,3 @@ export default function OpengraphImage() {
     size
   );
 }
-
