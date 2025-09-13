@@ -8,6 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@axiomhq/js':
+        specifier: ^1.3.1
+        version: 1.3.1
+      '@axiomhq/logging':
+        specifier: ^0.1.4
+        version: 0.1.4(@axiomhq/js@1.3.1)
+      '@axiomhq/nextjs':
+        specifier: ^0.1.4
+        version: 0.1.4(@axiomhq/logging@0.1.4(@axiomhq/js@1.3.1))(next@14.2.3(@babel/core@7.27.1)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@axiomhq/react':
+        specifier: ^0.1.4
+        version: 0.1.4(@axiomhq/logging@0.1.4(@axiomhq/js@1.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-avatar':
         specifier: ^1.1.10
         version: 1.1.10(@types/react-dom@18.3.6(@types/react@18.3.20))(@types/react@18.3.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -124,6 +136,31 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
+
+  '@axiomhq/js@1.3.1':
+    resolution: {integrity: sha512-Ytf5V3wKz8FKNiqJxnqZmUhjgJ7TItKUoyHVNE/H2V9dN1ozD6NNnsueenOjKdA48cm2sGRyP432nworst18aA==}
+    engines: {node: '>=16'}
+
+  '@axiomhq/logging@0.1.4':
+    resolution: {integrity: sha512-xsWHv8HI66tczMJg3TeyHcG0xZO4dXSPCRZ2GNU/lZvniwZ3JKlDOs3LWiqHK2tcSY9+XX7I3RmULmZk4kbEzg==}
+    peerDependencies:
+      '@axiomhq/js': 1.3.1
+    peerDependenciesMeta:
+      '@axiomhq/js':
+        optional: true
+
+  '@axiomhq/nextjs@0.1.4':
+    resolution: {integrity: sha512-ixqs6AdbfisRJc5x6N7aJKDOl+joKJLUVajcwEnPjt0utjliJQhK7HnTHTObJwbmHAVEEHTKwP/HFAGgEBbtfg==}
+    peerDependencies:
+      '@axiomhq/logging': 0.1.4
+      next: ^15 || ^14 || ^13
+
+  '@axiomhq/react@0.1.4':
+    resolution: {integrity: sha512-UvRxIkmnD4nje3V693we1CvpRW5Vp3IRxCdzFUfd7KV36dQO4Yz8eth95XROJUrmT/IG17Rv4+gkx7Euq5b9TA==}
+    peerDependencies:
+      '@axiomhq/logging': 0.1.4
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -1861,6 +1898,9 @@ packages:
       picomatch:
         optional: true
 
+  fetch-retry@6.0.0:
+    resolution: {integrity: sha512-BUFj1aMubgib37I3v4q78fYo63Po7t4HUPTpQ6/QE6yK6cIQrP+W43FYToeTEyg5m2Y7eFUtijUuAv/PDlWuag==}
+
   file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
     engines: {node: ^10.12.0 || >=12.0.0}
@@ -3377,6 +3417,11 @@ packages:
       '@types/react':
         optional: true
 
+  use-deep-compare@1.3.0:
+    resolution: {integrity: sha512-94iG+dEdEP/Sl3WWde+w9StIunlV8Dgj+vkt5wTwMoFQLaijiEZSXXy8KtcStpmEDtIptRJiNeD4ACTtVvnIKA==}
+    peerDependencies:
+      react: '>=16.8.0'
+
   use-sidecar@1.1.3:
     resolution: {integrity: sha512-Fedw0aZvkhynoPYlA5WXrMCAMm+nSWdZt6lzJQ7Ok8S6Q+VsHmHpRWndVRJ8Be0ZbkfPc5LRYH+5XrzXcEeLRQ==}
     engines: {node: '>=10'}
@@ -3395,6 +3440,10 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
+
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
@@ -3409,6 +3458,9 @@ packages:
 
   walker@1.0.8:
     resolution: {integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==}
+
+  web-vitals@4.2.4:
+    resolution: {integrity: sha512-r4DIlprAGwJ7YM11VZp4R884m0Vmgr6EAKe3P+kO0PPj3Unqyvv59rczf6UiGcb9Z8QxZVcqKNwv/g0WNdWwsw==}
 
   webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
@@ -3540,6 +3592,28 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
+
+  '@axiomhq/js@1.3.1':
+    dependencies:
+      fetch-retry: 6.0.0
+      uuid: 11.1.0
+
+  '@axiomhq/logging@0.1.4(@axiomhq/js@1.3.1)':
+    optionalDependencies:
+      '@axiomhq/js': 1.3.1
+
+  '@axiomhq/nextjs@0.1.4(@axiomhq/logging@0.1.4(@axiomhq/js@1.3.1))(next@14.2.3(@babel/core@7.27.1)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@axiomhq/logging': 0.1.4(@axiomhq/js@1.3.1)
+      next: 14.2.3(@babel/core@7.27.1)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@axiomhq/react@0.1.4(@axiomhq/logging@0.1.4(@axiomhq/js@1.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@axiomhq/logging': 0.1.4(@axiomhq/js@1.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      use-deep-compare: 1.3.0(react@18.3.1)
+      web-vitals: 4.2.4
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -5448,6 +5522,8 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.2
 
+  fetch-retry@6.0.0: {}
+
   file-entry-cache@6.0.1:
     dependencies:
       flat-cache: 3.2.0
@@ -7266,6 +7342,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.20
 
+  use-deep-compare@1.3.0(react@18.3.1):
+    dependencies:
+      dequal: 2.0.3
+      react: 18.3.1
+
   use-sidecar@1.1.3(@types/react@18.3.20)(react@18.3.1):
     dependencies:
       detect-node-es: 1.1.0
@@ -7279,6 +7360,8 @@ snapshots:
       react: 18.3.1
 
   util-deprecate@1.0.2: {}
+
+  uuid@11.1.0: {}
 
   uuid@8.3.2: {}
 
@@ -7295,6 +7378,8 @@ snapshots:
   walker@1.0.8:
     dependencies:
       makeerror: 1.0.12
+
+  web-vitals@4.2.4: {}
 
   webidl-conversions@7.0.0: {}
 

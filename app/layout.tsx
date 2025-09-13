@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react"
+import { WebVitals } from "@/lib/axiom/client";
 import AuthProvider from "@/components/auth-provider"
 import SiteHeader from "@/components/site-header"
 import "./globals.css";
@@ -20,6 +21,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <WebVitals />
         <AuthProvider>
           <SiteHeader />
           {children}
