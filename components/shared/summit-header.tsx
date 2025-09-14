@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { DEFAULT_YEAR, SUMMIT_METADATA, type SummitMetadata } from "@/lib/summit-config";
+import { DEFAULT_YEAR, SUMMIT_METADATA } from "@/lib/summit-config";
 
 type SummitHeaderProps = {
   activeYear: string;
@@ -15,19 +14,6 @@ type SummitHeaderProps = {
 export function SummitHeader({ activeYear, title, date, theme, description }: SummitHeaderProps) {
   return (
     <>
-      {/* Back to Home Link */}
-      <div className="w-full pt-6 pb-2">
-        <div className="container mx-auto px-4 md:px-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-rosebud-200 hover:text-rosebud transition-colors duration-200 group"
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-            <span className="text-sm font-medium">Back to Home</span>
-          </Link>
-        </div>
-      </div>
-
       <section className="w-full py-8 md:py-12">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-row justify-center gap-3 md:gap-4 mb-10 md:mb-12">
