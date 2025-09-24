@@ -6,6 +6,9 @@ type SummitSpeakersProps = {
 }
 
 export function SummitSpeakers({ activeYear }: SummitSpeakersProps) {
+  const larsDescription = "Random ERP nerd";
+  const ninaDescription = "Random UX freak";
+
   return (
     <section id="speakers" className="w-full py-12 md:py-16 scroll-mt-16 bg-tarawera bg-opacity-50">
       <div className="container mx-auto px-4 md:px-6">
@@ -48,6 +51,16 @@ export function SummitSpeakers({ activeYear }: SummitSpeakersProps) {
             <p className="text-copperrose text-sm">Random AI nerd</p>
           </Card>
 
+          {/* Nina */}
+          <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+            <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+              <AvatarImage src="/placeholder.svg" alt="Nina" />
+              <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">NI</AvatarFallback>
+            </Avatar>
+            <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Nina</h3>
+            <p className="text-copperrose text-sm">{ninaDescription}</p>
+          </Card>
+
           {/* Lars */}
           <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
             <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
@@ -55,7 +68,7 @@ export function SummitSpeakers({ activeYear }: SummitSpeakersProps) {
               <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">LA</AvatarFallback>
             </Avatar>
             <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Lars</h3>
-            <p className="text-copperrose text-sm">Random ERP nerd</p>
+            <p className="text-copperrose text-sm">{larsDescription}</p>
           </Card>
 
           {/* Andreas */}
