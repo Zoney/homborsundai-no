@@ -7,6 +7,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Button } from "@/components/ui/button"; // Assuming this is now available
 import { ArrowRight, CalendarDays, Quote } from "lucide-react"; // Assuming lucide-react is available
 import { DEFAULT_YEAR, SUMMIT_METADATA } from "@/lib/summit-config";
+import { VenueLocation } from "@/components/shared";
 
 // Placeholder icons (actual icons would be imported from lucide-react or similar)
 // import { Users, Zap, Lightbulb, Eye, Brain, UsersRound, MessageSquare } from "lucide-react";
@@ -57,6 +58,25 @@ export default function LandingPage() {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Venue Map Section */}
+      <section className="py-16 md:py-24 bg-ferra bg-opacity-40">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="mx-auto max-w-3xl text-center space-y-4">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Find Us In Krømpe
+            </h2>
+            <p className="text-rosebud-200 md:text-lg">
+              Vågsholt skole is our off-grid playground. There is no running water or mains electricity,
+              but the old schoolhouse stays warm, the stove keeps the chill away and the utedo is kept
+              improbably civilised. Bring a power bank, provisions you actually enjoy and a drink that
+              flatters AI (beer or wine have an enviable track record); we will bring the firewood, the
+              atmosphere and the gentle rebellion against corporate meeting culture.
+            </p>
+          </div>
+          <VenueLocation className="mt-12" />
         </div>
       </section>
 

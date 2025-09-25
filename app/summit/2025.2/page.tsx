@@ -62,13 +62,13 @@ export default function Summit2025_2Page() {
         theme={summitInfo.theme}
         description={description}
       />
+      <SummitRegistration activeYear={YEAR} status={summitInfo.status} />
       <SummitSchedule 
         schedule={schedule}
         note={"Times and order are tentative — we shuffle sessions as the vibe demands. Topics are done when they’re done."}
       />
       <SummitSpeakers activeYear={YEAR} />
       <SummitVenue activeYear={YEAR} />
-      <SummitRegistration activeYear={YEAR} status={summitInfo.status} />
     </main>
   );
 } 
