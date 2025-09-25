@@ -25,7 +25,7 @@ export function SummitVenue({ activeYear }: SummitVenueProps) {
             </span>
           </h2>
           <p className="max-w-[760px] text-rosebud-200 md:text-lg">
-            This little red schoolhouse in Krømpe is where Homborsund AI builds momentum. It is closer to a
+            This little white schoolhouse in Krømpe is where Homborsund AI builds momentum. It is closer to a
             workshop than a conference centre — no running water, no mains electricity, but plenty of
             heating, candlelight and an honest-to-goodness utedo a short walk away. Bring curiosity,
             something thoughtful to eat and a beverage you would trust around robots (beer or wine seem to
