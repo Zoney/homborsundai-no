@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidateTag } from 'next/cache';
-import { createRegistration } from '@/lib/registrations';
+import { createRegistration, getConvexClient } from '@/lib/registrations';
 import { sendTicketEmail } from '@/lib/email';
 
 const REGISTRATIONS_COLLECTION = 'summitRegistrations';
@@ -114,9 +114,8 @@ export async function GET(request: NextRequest) {
   try {
     // Optional: Implement a Convex count or compute on the fly
     // Keeping simple by querying all and counting may be heavy at scale; using Convex query 'count' instead.
-    const { ConvexHttpClient } = await import('convex/browser');
     const { api } = await import('@/convex/_generated/api');
-    const client = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+    const client = getConvexClient();
     const count = (await client.query(api.registrations.count, {})) as number;
     return NextResponse.json(
       { count: count || 0 },
