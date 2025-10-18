@@ -1,14 +1,4 @@
-type SummitRegistration = {
-  id: string;
-  name: string;
-  email?: string;
-  phone?: string;
-  comment?: string;
-  summit: string;
-  timestamp: string;
-  ip: string;
-  userAgent: string;
-};
+import { type RegistrationData } from '@/lib/registrations';
 
 const slackWebhookUrl = process.env.SLACK_SIGNUPS_WEBHOOK_URL;
 
@@ -16,7 +6,7 @@ function formatValue(value?: string) {
   return value && value.trim().length > 0 ? value.trim() : 'N/A';
 }
 
-export async function notifySummitSignup(registration: SummitRegistration) {
+export async function notifySummitSignup(registration: RegistrationData) {
   if (!slackWebhookUrl) {
     console.warn('Slack webhook URL not configured. Skipping signup notification.');
     return;

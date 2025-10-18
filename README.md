@@ -66,6 +66,7 @@ Set these in Vercel Project Settings → Environment Variables:
 
 - All environments:
   - `SLACK_SIGNUPS_WEBHOOK_URL` → Slack incoming webhook for the `#summit-signups` channel.
+  - `SLACK_SIGNING_SECRET` → Slack signing secret (found in App Credentials).
 
 Other variables from `.env.example` should be filled appropriately for each environment.
 
@@ -73,3 +74,15 @@ Other variables from `.env.example` should be filled appropriately for each envi
 
 - The repo runs `convex codegen` on install to ensure generated types exist during Vercel builds.
 - For local dev, you can choose between `--local` (fully local) or the shared cloud Development server.
+
+## Slack Setup
+
+1. In Slack → _Your Apps_, open the summit app.
+2. Enable **Incoming Webhooks** and add a webhook to `#summit-signups`. Paste the URL into `SLACK_SIGNUPS_WEBHOOK_URL`.
+3. Under **Basic Information**, copy the **Signing Secret** into `SLACK_SIGNING_SECRET`.
+4. Add a Slash Command (e.g. `/summit-signups`) with:
+   - Request URL: `https://<your-domain>/api/slack/commands` (use Vercel preview/prod URLs accordingly).
+   - Short description: “Show summit registrations”.
+   - Usage hint: `count | list [summit] [limit]`.
+5. Deploy the updated environment variables to Vercel (`Settings → Environment Variables`) for Preview and Production.
+6. Test the command in Slack: `/summit-signups count` or `/summit-signups list 2025.2 5`.
