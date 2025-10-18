@@ -7,6 +7,7 @@ type SummitSpeakersProps = {
 
 export function SummitSpeakers({ activeYear }: SummitSpeakersProps) {
   const larsDescription = "Random ERP nerd";
+  const janDescription = "Random car buyer who keeps poking holes in insecure AI";
   const ninaDescription = "Random UX freak";
 
   return (
@@ -49,6 +50,16 @@ export function SummitSpeakers({ activeYear }: SummitSpeakersProps) {
             </Avatar>
             <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Rebekka (please come!)</h3>
             <p className="text-copperrose text-sm">Random AI nerd</p>
+          </Card>
+
+          {/* Jan */}
+          <Card className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center p-6 rounded-xl">
+            <Avatar className="w-32 h-32 mb-6 border-4 border-ferra-700 shadow-md">
+              <AvatarImage src="/placeholder.svg" alt="Jan" />
+              <AvatarFallback className="text-2xl bg-ferra-600 text-rosebud-200">JA</AvatarFallback>
+            </Avatar>
+            <h3 className="text-2xl font-semibold text-rosebud-100 mb-1">Jan</h3>
+            <p className="text-copperrose text-sm">{janDescription}</p>
           </Card>
 
           {/* Nina */}
