@@ -64,6 +64,9 @@ Set these in Vercel Project Settings → Environment Variables:
 - Production:
   - `NEXT_PUBLIC_CONVEX_URL` → Convex Production URL
 
+- All environments:
+  - `SLACK_SIGNUPS_WEBHOOK_URL` → Slack incoming webhook for the `#summit-signups` channel.
+
 Other variables from `.env.example` should be filled appropriately for each environment.
 
 ### Notes

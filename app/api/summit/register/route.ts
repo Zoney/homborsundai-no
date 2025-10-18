@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { revalidateTag } from 'next/cache';
 import { createRegistration, getConvexClient } from '@/lib/registrations';
 import { sendTicketEmail } from '@/lib/email';
+import { notifySummitSignup } from '@/lib/slack';
 
 const REGISTRATIONS_COLLECTION = 'summitRegistrations';
 
@@ -81,6 +82,8 @@ export async function POST(request: NextRequest) {
     console.log(`POST /api/summit/register: Attempting to save to Convex collection '${REGISTRATIONS_COLLECTION}', document ID '${registrationId}'`);
     await createRegistration(registrationData);
     console.log('POST /api/summit/register: Successfully saved to Convex.');
+
+    await notifySummitSignup(registrationData);
 
     revalidateTag('summit-registrations-tag');
     console.log('POST /api/summit/register: Revalidated tag summit-registrations-tag.');
