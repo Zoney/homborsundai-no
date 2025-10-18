@@ -12,18 +12,19 @@ export default function Summit2025_2Page() {
   // Inline summit content
   const description = [
     "Agents are still the stars — now with more real-world elbows: robots, drones and tools.",
-    "Five fresh talks to kick things off: ‘Do we have time to wait?’ (Michael), ‘Why start something in 2025?’ (Knut), ‘What Would Jakob Nielsen Tell Nina (If She Let Him)?’ (Nina), ‘HAIway to Hell: A Dystopian Look at AI Run Amok’ (Lars), ‘What I talk about when I talk about Context Engineering’ (Øyvind).",
+    "Five fresh talks to kick things off: ‘Do we have time to wait?’ (Michael), ‘Why start something in 2025?’ (Knut), ‘Boardroom Security Playbooks for AI Agents with Corporate Skeleton Keys’ (Jan), ‘HAIway to Hell: A Dystopian Look at AI Run Amok’ (Lars), ‘What I talk about when I talk about Context Engineering’ (Øyvind).",
     "We shuffle the running order as inspiration hits, so expect the timetable to flex and talks to swap around.",
     "We spell it out because it works: the crowd decides when you wrap. Read the room, be honest about your time, and keep rolling if the audience is still leaning in — even if that means a long-form Q&A before the polite bow.",
     "Come for the ideas, stay for the demos, BBQ and that friendly ‘let’s build it together’ vibe."
   ];
 
   const schedule = [
+    { time: "15:00-ish → 16:30-ish", event: "Frostbite prevention mixer: inside-out house warm-up at the old school" },
     { time: "16:30-ish → 17:15-ish", event: "Arrival, snacks and hello-there high‑fives" },
     { time: "17:15-ish → 17:25-ish", event: "Kickoff & tiny Agents update" },
     { time: "17:30-ish → 18:00-ish", event: "Talk: 'Do we have time to wait?' — Michael" },
     { time: "18:05-ish → 18:35-ish", event: "Talk: 'Why start something in 2025?' — Knut" },
-    { time: "18:40-ish → 19:10-ish", event: "Talk: 'What Would Jakob Nielsen Tell Nina (If She Let Him)?' — Nina" },
+    { time: "18:40-ish → 19:10-ish", event: "Talk: 'Boardroom Security Playbooks for AI Agents with Corporate Skeleton Keys' — Jan" },
     { time: "19:15-ish → 19:45-ish", event: "Talk: 'What I talk about when I talk about Context Engineering' — Øyvind" },
     { time: "19:50-ish → 20:20-ish", event: "Talk: 'HAIway to Hell: A Dystopian Look at AI Run Amok' — Lars" },
     { time: "20:20-ish → 21:00-ish", event: "Dinner break, demos and good conversations" },
