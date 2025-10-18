@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHmac, timingSafeEqual } from 'crypto';
 import { countRegistrations, getRegistrationsForSummit, type RegistrationData } from '@/lib/registrations';
-import { DEFAULT_YEAR, SUMMIT_METADATA } from '@/lib/summit-config';
+import {
+  DEFAULT_YEAR,
+  DEFAULT_SUMMIT_REGISTRATION_KEY,
+  SUMMIT_METADATA,
+  normalizeSummitRegistrationKey,
+  resolveSummitId,
+} from '@/lib/summit-config';
 
 const MAX_LIST_RESULTS = 30;
 const DEFAULT_LIST_RESULTS = 10;
@@ -63,59 +69,76 @@ function resolveSummit(input: string | null | undefined): string | 'all' {
     return DEFAULT_YEAR;
   }
 
-  const normalized = input.toLowerCase();
+  const trimmed = input.trim();
+  if (!trimmed) {
+    return DEFAULT_YEAR;
+  }
+
+  const normalized = trimmed.toLowerCase();
   if (normalized === 'all' || normalized === 'total') {
     return 'all';
   }
 
-  if (normalized === 'current') {
+  if (normalized === 'current' || normalized === 'latest' || normalized === 'default') {
     return DEFAULT_YEAR;
   }
 
-  return input;
+  return resolveSummitId(trimmed);
 }
 
-function parseListOptions(args: string[]): { summit: string; limit: number } {
-  let summit: string | null = null;
-  let limit: number | null = null;
+function parseListOptions(args: string[]): { summit: string | 'all'; limit: number } {
+  let summitArg: string | null = null;
+  let limitArg: number | null = null;
 
-  for (const raw of args) {
-    if (raw.includes('=')) {
-      const [key, value] = raw.split('=');
-      if (key === 'summit' && value) {
-        summit = value;
-      } else if (key === 'limit' && value) {
-        const parsed = Number(value);
-        if (Number.isFinite(parsed)) {
-          limit = parsed;
-        }
+  for (const rawArg of args) {
+    const value = rawArg.trim();
+    if (!value) {
+      continue;
+    }
+
+    const equalsIndex = value.indexOf('=');
+    if (equalsIndex > -1) {
+      const key = value.slice(0, equalsIndex).toLowerCase();
+      const val = value.slice(equalsIndex + 1);
+      if (!val) continue;
+
+      if (key === 'summit' && !summitArg) {
+        summitArg = val;
+        continue;
       }
+
+      if (key === 'limit' && !limitArg) {
+        const parsedLimit = Number(val);
+        if (Number.isFinite(parsedLimit)) {
+          limitArg = parsedLimit;
+        }
+        continue;
+      }
+    }
+
+    if (!summitArg && !/^\d+$/.test(value)) {
+      summitArg = value;
       continue;
     }
 
-    if (!summit && !/^\d+$/.test(raw)) {
-      summit = raw;
-      continue;
-    }
-
-    if (!limit) {
-      const parsed = Number(raw);
-      if (Number.isFinite(parsed)) {
-        limit = parsed;
+    if (!limitArg) {
+      const parsedLimit = Number(value);
+      if (Number.isFinite(parsedLimit)) {
+        limitArg = parsedLimit;
       }
     }
   }
 
-  const resolvedSummitValue = resolveSummit(summit);
-  const resolvedSummit = resolvedSummitValue === 'all' ? DEFAULT_YEAR : resolvedSummitValue;
-  const resolvedLimit = Math.max(1, Math.min(limit ?? DEFAULT_LIST_RESULTS, MAX_LIST_RESULTS));
+  const resolvedSummit = resolveSummit(summitArg);
+  const resolvedLimit = Math.max(1, Math.min(limitArg ?? DEFAULT_LIST_RESULTS, MAX_LIST_RESULTS));
 
   return { summit: resolvedSummit, limit: resolvedLimit };
 }
 
 function formatSummitName(summit: string): string {
-  const metadata = SUMMIT_METADATA[summit];
-  return metadata ? `${metadata.title} (${summit})` : summit;
+  const resolvedId = resolveSummitId(summit);
+  const metadata = SUMMIT_METADATA[resolvedId];
+  return metadata ? `${metadata.title} (${resolvedId})` : summit;
 }
 
 function formatTimestamp(timestamp: string): string {
@@ -181,7 +204,7 @@ async function handleCount(args: string[]): Promise<SlackResponse> {
   if (target === 'all') {
     const [total, currentSummitCount] = await Promise.all([
       countRegistrations(),
-      getRegistrationsForSummit(DEFAULT_YEAR).then((rows) => rows.length).catch(() => 0),
+      getRegistrationsForSummit(DEFAULT_SUMMIT_REGISTRATION_KEY).then((rows) => rows.length).catch(() => 0),
     ]);
 
     return {
@@ -193,7 +216,8 @@ async function handleCount(args: string[]): Promise<SlackResponse> {
     };
   }
 
-  const registrations = await getRegistrationsForSummit(target).catch((error) => {
+  const registrationKey = normalizeSummitRegistrationKey(target);
+  const registrations = await getRegistrationsForSummit(registrationKey).catch((error) => {
     console.error('Slack count command error:', error);
     return null;
   });
@@ -213,7 +237,16 @@ async function handleCount(args: string[]): Promise<SlackResponse> {
 
 async function handleList(args: string[]): Promise<SlackResponse> {
   const { summit, limit } = parseListOptions(args);
-  const registrations = await getRegistrationsForSummit(summit).catch((error) => {
+
+  if (summit === 'all') {
+    return {
+      response_type: 'ephemeral',
+      text: 'Listing registrations across all summits is not supported. Specify a summit (e.g. `list 2025.2`) or use `count all` for totals.',
+    };
+  }
+
+  const registrationKey = normalizeSummitRegistrationKey(summit);
+  const registrations = await getRegistrationsForSummit(registrationKey).catch((error) => {
     console.error('Slack list command error:', error);
     return null;
   });

@@ -3,6 +3,7 @@ import { revalidateTag } from 'next/cache';
 import { createRegistration, getConvexClient } from '@/lib/registrations';
 import { sendTicketEmail } from '@/lib/email';
 import { notifySummitSignup } from '@/lib/slack';
+import { normalizeSummitRegistrationKey } from '@/lib/summit-config';
 
 const REGISTRATIONS_COLLECTION = 'summitRegistrations';
 
@@ -63,15 +64,16 @@ export async function POST(request: NextRequest) {
     const registrationId = `registration:${Date.now()}:${Math.random().toString(36).substr(2, 9)}`;
     console.log('POST /api/summit/register: Generated Registration ID:', registrationId);
     
+    const summitKey = normalizeSummitRegistrationKey(typeof body.summit === 'string' ? body.summit : null);
+
     const registrationData = {
       id: registrationId,
       name: body.name.trim(),
       email: body.email?.trim() || '',
       phone: body.phone?.trim() || '',
       comment: body.comment?.trim() || '',
-      // Use a distinct summit key for confirmed signups for 2025.2
-      // Older entries may exist under '2025.2' as interest-only
-      summit: body.summit || '2025.2.signedup',
+      // Use the normalized summit key so downstream views map correctly.
+      summit: summitKey,
       timestamp: body.timestamp || new Date().toISOString(),
       ip: clientIP,
       userAgent: request.headers.get('user-agent') || 'unknown'

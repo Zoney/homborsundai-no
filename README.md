@@ -81,7 +81,7 @@ Other variables from `.env.example` should be filled appropriately for each envi
 2. Enable **Incoming Webhooks** and add a webhook to `#summit-signups`. Paste the URL into `SLACK_SIGNUPS_WEBHOOK_URL`.
 3. Under **Basic Information**, copy the **Signing Secret** into `SLACK_SIGNING_SECRET`.
 4. Add a Slash Command (e.g. `/summit-signups`) with:
-   - Request URL: `https://<your-domain>/api/slack/commands` (use Vercel preview/prod URLs accordingly).
+   - Request URL: `http://homborsundai.no/api/slack/commands` (use Vercel preview/prod URLs accordingly).
    - Short description: “Show summit registrations”.
    - Usage hint: `count | list [summit] [limit]`.
 5. Deploy the updated environment variables to Vercel (`Settings → Environment Variables`) for Preview and Production.
