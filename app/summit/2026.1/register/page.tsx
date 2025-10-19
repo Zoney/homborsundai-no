@@ -38,7 +38,6 @@ export default function RegisterInterestPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
     phone: "",
     comment: "",
   });
@@ -164,7 +163,6 @@ export default function RegisterInterestPage() {
         setFormData({
           name: "",
           email: "",
-          company: "",
           phone: "",
           comment: "",
         });
@@ -286,21 +284,6 @@ export default function RegisterInterestPage() {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
                   placeholder="you@example.com"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-rosebud-100 mb-1">
-                  Company / Team
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
-                  placeholder="Where you build things"
                 />
               </div>
 

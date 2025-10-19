@@ -64,12 +64,6 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
           />
           <input
             className="w-full border p-1 text-black"
-            value={form.company ?? ""}
-            onChange={e => setForm({ ...form, company: e.target.value })}
-            placeholder="Company / Team"
-          />
-          <input
-            className="w-full border p-1 text-black"
             value={form.phone}
             onChange={e => setForm({ ...form, phone: e.target.value })}
           />
@@ -95,7 +89,6 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
             )}
             <p className="font-semibold">{reg.name}</p>
             <p className="text-sm text-gray-400">{reg.email}</p>
-            {reg.company && <p className="text-sm text-gray-400">{reg.company}</p>}
             {reg.phone && <p className="text-sm text-gray-400">{reg.phone}</p>}
             {reg.comment && <p className="text-sm text-gray-500 mt-1">Comment: {reg.comment}</p>}
             <p className="text-sm text-gray-400">ID: {reg.id}</p>

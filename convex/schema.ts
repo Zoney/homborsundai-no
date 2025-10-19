@@ -7,7 +7,6 @@ export default defineSchema({
     name: v.string(),
     email: v.optional(v.string()),
     phone: v.optional(v.string()),
-    company: v.optional(v.string()),
     comment: v.optional(v.string()),
     summit: v.string(),
     timestamp: v.string(),

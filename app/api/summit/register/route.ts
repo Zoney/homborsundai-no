@@ -72,7 +72,6 @@ export async function POST(request: NextRequest) {
       email: body.email?.trim() || '',
       phone: body.phone?.trim() || '',
       comment: body.comment?.trim() || '',
-      company: body.company?.trim() || '',
       // Use the normalized summit key so downstream views map correctly.
       summit: summitKey,
       timestamp: body.timestamp || new Date().toISOString(),
