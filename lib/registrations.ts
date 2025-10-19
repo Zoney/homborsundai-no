@@ -25,6 +25,7 @@ export interface RegistrationData {
   name: string;
   email?: string;
   phone?: string;
+  company?: string;
   comment?: string;
   summit: string;
   timestamp: string;
@@ -73,4 +74,3 @@ export async function countRegistrations(): Promise<number> {
   const count = await convex.query(api.registrations.count, {});
   return count as number;
 }
-

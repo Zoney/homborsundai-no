@@ -39,6 +39,7 @@ export default function RegisterInterestPage() {
     name: "",
     email: "",
     company: "",
+    phone: "",
     comment: "",
   });
   const [turnstileToken, setTurnstileToken] = useState<string>("");
@@ -164,6 +165,7 @@ export default function RegisterInterestPage() {
           name: "",
           email: "",
           company: "",
+          phone: "",
           comment: "",
         });
         setTurnstileToken("");
@@ -299,6 +301,21 @@ export default function RegisterInterestPage() {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
                   placeholder="Where you build things"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-rosebud-100 mb-1">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
+                  placeholder="+47 123 45 678"
                 />
               </div>
 

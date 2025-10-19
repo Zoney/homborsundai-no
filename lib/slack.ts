@@ -31,6 +31,7 @@ export async function notifySummitSignup(registration: RegistrationData) {
         fields: [
           { type: 'mrkdwn', text: `*Name:*\n${registration.name}` },
           { type: 'mrkdwn', text: `*Email:*\n${formatValue(registration.email)}` },
+          { type: 'mrkdwn', text: `*Company:*\n${formatValue(registration.company)}` },
           { type: 'mrkdwn', text: `*Phone:*\n${formatValue(registration.phone)}` },
           { type: 'mrkdwn', text: `*Summit:*\n${registration.summit}` },
           { type: 'mrkdwn', text: `*Registered:*\n${registeredAtDisplay}` },
