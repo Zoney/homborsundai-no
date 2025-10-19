@@ -299,7 +299,7 @@ export default function Summit2025_1Page() {
         </div>
       </section>
 
-      <SummitRegistration activeYear={YEAR} status={summitInfo.status} />
+      <SummitRegistration activeYear={YEAR} summit={summitInfo} />
     </main>
   );
 } 

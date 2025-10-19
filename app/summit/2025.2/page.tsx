@@ -64,7 +64,7 @@ export default function Summit2025_2Page() {
         theme={summitInfo.theme}
         description={description}
       />
-      <SummitRegistration activeYear={YEAR} status={summitInfo.status} />
+      <SummitRegistration activeYear={YEAR} summit={summitInfo} />
       <SummitSchedule
         schedule={schedule}
         note={"Time ranges are pencilled in — think of them as vibe guardrails. If a talk's mid-flight or morphs into a sprawling Q&A, we ride it out so long as the room explicitly begs for more (no fishing for the encore, comedians)."}

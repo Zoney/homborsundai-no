@@ -56,7 +56,7 @@ export default function Summit2024Page() {
       <SummitSchedule schedule={schedule} />
       <SummitSpeakers activeYear={YEAR} />
       <SummitVenue activeYear={YEAR} />
-      <SummitRegistration activeYear={YEAR} status={summitInfo.status} />
+      <SummitRegistration activeYear={YEAR} summit={summitInfo} />
       
       {/* Past Summits Section - Only shown for completed summits */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-ferra bg-opacity-50">

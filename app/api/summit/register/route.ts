@@ -3,7 +3,7 @@ import { revalidateTag } from 'next/cache';
 import { createRegistration, getConvexClient } from '@/lib/registrations';
 import { sendTicketEmail } from '@/lib/email';
 import { notifySummitSignup } from '@/lib/slack';
-import { normalizeSummitRegistrationKey } from '@/lib/summit-config';
+import { normalizeSummitRegistrationKey, findSummitIdByRegistrationKey, SUMMIT_METADATA } from '@/lib/summit-config';
 
 const REGISTRATIONS_COLLECTION = 'summitRegistrations';
 
@@ -72,6 +72,7 @@ export async function POST(request: NextRequest) {
       email: body.email?.trim() || '',
       phone: body.phone?.trim() || '',
       comment: body.comment?.trim() || '',
+      company: body.company?.trim() || '',
       // Use the normalized summit key so downstream views map correctly.
       summit: summitKey,
       timestamp: body.timestamp || new Date().toISOString(),
@@ -90,7 +91,11 @@ export async function POST(request: NextRequest) {
     revalidateTag('summit-registrations-tag');
     console.log('POST /api/summit/register: Revalidated tag summit-registrations-tag.');
 
-    if (registrationData.email) {
+    const summitId = findSummitIdByRegistrationKey(summitKey);
+    const summitDetails = summitId ? SUMMIT_METADATA[summitId] : undefined;
+    const shouldSendTicketEmail = summitDetails?.cta?.type !== 'info';
+
+    if (registrationData.email && shouldSendTicketEmail) {
       await sendTicketEmail(registrationData.email, registrationId);
     }
     

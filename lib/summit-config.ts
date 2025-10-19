@@ -1,4 +1,12 @@
-export const DEFAULT_YEAR = "2025.2";
+export const DEFAULT_YEAR = "2026.1";
+
+export type SummitCta = {
+  label: string;
+  href: string;
+  description?: string;
+  isExternal?: boolean;
+  type?: 'register' | 'info' | 'community';
+};
 
 export type SummitMetadata = {
   title: string;
@@ -6,6 +14,13 @@ export type SummitMetadata = {
   theme: string;
   status: 'Upcoming' | 'Completed';
   registrationKey?: string;
+  cta?: SummitCta;
+  infoNotice?: string;
+  speakers?: Array<{
+    name: string;
+    description: string;
+    activeFrom?: string;
+  }>;
 }
 
 export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
@@ -25,8 +40,23 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
     title: "Homborsund AI Festival",
     date: "18. oktober 2025",
     theme: "Flashy Agents & Friendly Robots",
+    status: "Completed",
+    registrationKey: "2025.2.signedup",
+    infoNotice: "This gathering just wrapped. Relive the sparks below and keep your eyes on the spring 2026 plans."
+  },
+  "2026.1": {
+    title: "Homborsund AI Summit",
+    date: "April 2026 (weekend, date TBA)",
+    theme: "Agents, autonomy and building resilient teams when the AI landscape keeps mutating every quarter.",
     status: "Upcoming",
-    registrationKey: "2025.2.signedup"
+    registrationKey: "2026.1.info",
+    cta: {
+      label: "Get Summit Updates",
+      href: "/summit/2026.1/register",
+      type: "info",
+    },
+    infoNotice: "We’re still shaping the agenda and lining up speakers. Expect a full reveal once the spring shipping season calms down.",
+   
   }
 };
 

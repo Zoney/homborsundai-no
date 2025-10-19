@@ -34,7 +34,7 @@ export default function LandingPage() {
         <div className="w-full max-w-4xl mx-auto bg-tarawera/70 border border-ferra-600 rounded-2xl p-6 md:p-8 shadow-xl backdrop-blur-sm animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
           <div className="flex items-center justify-center gap-2 text-rosebud-200 text-sm md:text-base mb-2">
             <CalendarDays className="h-5 w-5" aria-hidden />
-            <span>Neste samling</span>
+            <span>Next gathering</span>
           </div>
           <p className="text-2xl md:text-3xl font-semibold text-rosebud-100">
             {nextSummit.title}
@@ -49,12 +49,12 @@ export default function LandingPage() {
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link href={nextSummitPath} className="w-full sm:w-auto">
               <Button size="lg" variant="secondary" className="w-full sm:w-auto bg-ferra/70 hover:bg-ferra text-white font-semibold py-3 px-6 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all">
-                Les mer <ArrowRight className="ml-2 h-5 w-5" />
+                Learn more <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link href={registrationPath} className="w-full sm:w-auto">
               <Button size="lg" className="w-full sm:w-auto bg-copperrose hover:bg-copperrose-600 text-white font-semibold py-3 px-6 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all">
-                Påmelding
+                Register
               </Button>
             </Link>
           </div>
