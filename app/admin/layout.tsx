@@ -1,9 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import Link from 'next/link';
 import { ReactNode } from 'react';
-import { Button } from '@/components/ui/button';
-import SignOutButton from '@/components/signout-button';
+import AdminShell from '@/components/admin-shell';
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const session = await getServerSession(authOptions);
@@ -15,31 +13,16 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     );
   }
 
+  const navItems = [
+    { href: '/admin', label: 'Dashboard' },
+    { href: '/admin/registrations', label: 'Registrations' },
+    { href: '/admin/verify', label: 'Verify Ticket' },
+    { href: '/admin/email', label: 'Email Campaigns' },
+  ];
+
   return (
-    <div className="flex min-h-screen">
-      <aside className="w-60 border-r p-4 space-y-2 bg-gray-100 dark:bg-gray-900">
-        <nav className="flex flex-col space-y-2">
-          <Button asChild variant="link" className="justify-start">
-            <Link href="/admin">Dashboard</Link>
-          </Button>
-          <Button asChild variant="link" className="justify-start">
-            <Link href="/admin/registrations">Registrations</Link>
-          </Button>
-          <Button asChild variant="link" className="justify-start">
-            <Link href="/admin/registrations/2025.2">2025.2 Lists</Link>
-          </Button>
-          <Button asChild variant="link" className="justify-start">
-            <Link href="/admin/verify">Verify Ticket</Link>
-          </Button>
-          <Button asChild variant="link" className="justify-start">
-            <Link href="/admin/email">Email Campaigns</Link>
-          </Button>
-          <div className="pt-2 border-t mt-2">
-            <SignOutButton />
-          </div>
-        </nav>
-      </aside>
-      <main className="flex-1 p-4">{children}</main>
-    </div>
+    <AdminShell navItems={navItems}>
+      {children}
+    </AdminShell>
   );
 }

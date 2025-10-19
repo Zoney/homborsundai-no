@@ -1,8 +1,9 @@
 "use client";
 import useSWR from "swr";
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState, useTransition } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { DEFAULT_YEAR, SUMMIT_METADATA } from "@/lib/summit-config";
 
 type AdminRegistrationsProps = {
   summit?: string; // optional override; if not provided, uses ?summit= from URL
@@ -10,22 +11,108 @@ type AdminRegistrationsProps = {
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
+const SUMMIT_OPTIONS = Object.entries(SUMMIT_METADATA)
+  .map(([id, metadata]) => ({
+    id,
+    title: metadata.title,
+  }))
+  .sort((a, b) => {
+    if (a.id === DEFAULT_YEAR) return -1;
+    if (b.id === DEFAULT_YEAR) return 1;
+    return b.id.localeCompare(a.id, undefined, { numeric: true, sensitivity: "base" });
+  });
+
 export default function AdminRegistrations({ summit: summitProp }: AdminRegistrationsProps) {
   const searchParams = useSearchParams();
-  const summit = summitProp ?? searchParams.get('summit') ?? undefined;
-  const url = summit ? `/api/admin/registrations?summit=${encodeURIComponent(summit)}` : '/api/admin/registrations';
-  const { data, mutate } = useSWR(url, fetcher);
-  if (!data) return <p>Loading...</p>;
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isRouting, startTransition] = useTransition();
+
+  const searchParamSummit = summitProp ?? searchParams.get("summit") ?? undefined;
+  const resolvedSummit = useMemo(() => {
+    if (searchParamSummit && SUMMIT_METADATA[searchParamSummit]) {
+      return searchParamSummit;
+    }
+    return DEFAULT_YEAR;
+  }, [searchParamSummit]);
+
+  const [activeSummit, setActiveSummit] = useState<string>(resolvedSummit);
+
+  useEffect(() => {
+    setActiveSummit(prev => (prev === resolvedSummit ? prev : resolvedSummit));
+  }, [resolvedSummit]);
+
+  const requestUrl = useMemo(() => {
+    return `/api/admin/registrations?summit=${encodeURIComponent(activeSummit)}`;
+  }, [activeSummit]);
+
+  const { data, mutate, error } = useSWR(requestUrl, fetcher, {
+    keepPreviousData: true,
+  });
+
+  const handleSummitChange = (value: string) => {
+    setActiveSummit(value);
+    const nextParams = new URLSearchParams(searchParams?.toString() ?? "");
+    nextParams.set("summit", value);
+    const queryString = nextParams.toString();
+    startTransition(() => {
+      router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+    });
+  };
+
+  if (error) {
+    return <p className="text-destructive">Failed to load registrations. Please refresh.</p>;
+  }
+
   return (
-    <div className="space-y-4">
-      {data.registrations.map((reg: any) => (
+    <div className="space-y-6">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="text-sm text-muted-foreground">Showing registrations for</p>
+          <h2 className="text-2xl font-semibold">
+            {SUMMIT_METADATA[activeSummit]?.title ?? `Summit ${activeSummit}`}
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Summit ID: {activeSummit}
+          </p>
+        </div>
+        <label className="flex flex-col text-sm font-medium text-muted-foreground md:text-right">
+          Select summit
+          <select
+            className="mt-1 rounded-md border border-input bg-background px-3 py-2 text-sm font-normal text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            value={activeSummit}
+            onChange={e => handleSummitChange(e.target.value)}
+            disabled={isRouting}
+          >
+            {SUMMIT_OPTIONS.map(option => (
+              <option key={option.id} value={option.id}>
+                {option.title} ({option.id})
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      {!data && !error ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="space-y-4">
+          {data?.registrations?.length ? (
+            data.registrations.map((reg: any) => (
         <RegistrationItem key={reg.id} reg={reg} onUpdated={mutate} />
-      ))}
+            ))
+          ) : (
+            <div className="rounded-md border border-dashed p-6 text-center text-sm text-muted-foreground">
+              No registrations found for {activeSummit}.
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
-function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void }) {
+function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void | Promise<unknown> }) {
   const [edit, setEdit] = useState(false);
   const [form, setForm] = useState(reg);
 
@@ -36,7 +123,7 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
       body: JSON.stringify(form),
     });
     setEdit(false);
-    onUpdated();
+    await onUpdated();
   };
 
   const deleteRegistration = async () => {
@@ -44,7 +131,7 @@ function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void 
       await fetch(`/api/admin/registrations/${reg.id}`, {
         method: 'DELETE',
       });
-      onUpdated();
+      await onUpdated();
     }
   };
 
