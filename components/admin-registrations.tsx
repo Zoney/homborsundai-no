@@ -3,7 +3,13 @@ import useSWR from "swr";
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { DEFAULT_YEAR, SUMMIT_METADATA } from "@/lib/summit-config";
+import {
+  DEFAULT_YEAR,
+  SUMMIT_METADATA,
+  findSummitIdByRegistrationKey,
+  getSummitRegistrationKey,
+  normalizeSummitRegistrationKey,
+} from "@/lib/summit-config";
 
 type AdminRegistrationsProps = {
   summit?: string; // optional override; if not provided, uses ?summit= from URL
@@ -14,6 +20,7 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 const SUMMIT_OPTIONS = Object.entries(SUMMIT_METADATA)
   .map(([id, metadata]) => ({
     id,
+    registrationKey: getSummitRegistrationKey(id),
     title: metadata.title,
   }))
   .sort((a, b) => {
@@ -28,12 +35,9 @@ export default function AdminRegistrations({ summit: summitProp }: AdminRegistra
   const pathname = usePathname();
   const [isRouting, startTransition] = useTransition();
 
-  const searchParamSummit = summitProp ?? searchParams.get("summit") ?? undefined;
+  const searchParamSummit = summitProp ?? searchParams.get("summit") ?? null;
   const resolvedSummit = useMemo(() => {
-    if (searchParamSummit && SUMMIT_METADATA[searchParamSummit]) {
-      return searchParamSummit;
-    }
-    return DEFAULT_YEAR;
+    return normalizeSummitRegistrationKey(searchParamSummit);
   }, [searchParamSummit]);
 
   const [activeSummit, setActiveSummit] = useState<string>(resolvedSummit);
@@ -41,6 +45,23 @@ export default function AdminRegistrations({ summit: summitProp }: AdminRegistra
   useEffect(() => {
     setActiveSummit(prev => (prev === resolvedSummit ? prev : resolvedSummit));
   }, [resolvedSummit]);
+
+  const activeSummitId = useMemo(() => findSummitIdByRegistrationKey(activeSummit), [activeSummit]);
+  const activeSummitMetadata = activeSummitId ? SUMMIT_METADATA[activeSummitId] : undefined;
+
+  const summitOptions = useMemo(() => {
+    if (SUMMIT_OPTIONS.some(option => option.registrationKey === activeSummit)) {
+      return SUMMIT_OPTIONS;
+    }
+    return [
+      {
+        id: activeSummit,
+        registrationKey: activeSummit,
+        title: `Summit ${activeSummit}`,
+      },
+      ...SUMMIT_OPTIONS,
+    ];
+  }, [activeSummit]);
 
   const requestUrl = useMemo(() => {
     return `/api/admin/registrations?summit=${encodeURIComponent(activeSummit)}`;
@@ -51,9 +72,11 @@ export default function AdminRegistrations({ summit: summitProp }: AdminRegistra
   });
 
   const handleSummitChange = (value: string) => {
-    setActiveSummit(value);
+    const normalized = normalizeSummitRegistrationKey(value);
+    setActiveSummit(normalized);
     const nextParams = new URLSearchParams(searchParams?.toString() ?? "");
-    nextParams.set("summit", value);
+    const shareableValue = findSummitIdByRegistrationKey(normalized) ?? normalized;
+    nextParams.set("summit", shareableValue);
     const queryString = nextParams.toString();
     startTransition(() => {
       router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
@@ -70,11 +93,17 @@ export default function AdminRegistrations({ summit: summitProp }: AdminRegistra
         <div>
           <p className="text-sm text-muted-foreground">Showing registrations for</p>
           <h2 className="text-2xl font-semibold">
-            {SUMMIT_METADATA[activeSummit]?.title ?? `Summit ${activeSummit}`}
+            {activeSummitMetadata?.title ??
+              (activeSummitId ? `Summit ${activeSummitId}` : `Summit ${activeSummit}`)}
           </h2>
           <p className="text-sm text-muted-foreground">
-            Summit ID: {activeSummit}
+            Summit ID: {activeSummitId ?? "Unknown"}
           </p>
+          {(!activeSummitId || activeSummitId !== activeSummit) && (
+            <p className="text-sm text-muted-foreground">
+              Registration key: {activeSummit}
+            </p>
+          )}
         </div>
         <label className="flex flex-col text-sm font-medium text-muted-foreground md:text-right">
           Select summit
@@ -84,9 +113,10 @@ export default function AdminRegistrations({ summit: summitProp }: AdminRegistra
             onChange={e => handleSummitChange(e.target.value)}
             disabled={isRouting}
           >
-            {SUMMIT_OPTIONS.map(option => (
-              <option key={option.id} value={option.id}>
-                {option.title} ({option.id})
+            {summitOptions.map(option => (
+              <option key={option.registrationKey} value={option.registrationKey}>
+                {option.title} ({option.id}
+                {option.registrationKey !== option.id ? ` • ${option.registrationKey}` : ""})
               </option>
             ))}
           </select>
