@@ -10,7 +10,7 @@ export default async function AdminDashboard() {
   if (!session) {
     return (
       <div className="container mx-auto py-10 text-center">
-        <a className="underline" href="/api/auth/signin">Sign in with Google</a>
+        <Link className="underline" href="/api/auth/signin">Sign in with Google</Link>
       </div>
     );
   }

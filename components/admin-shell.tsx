@@ -25,10 +25,16 @@ type AdminShellProps = {
   navItems: AdminNavItem[];
 };
 
-export default function AdminShell({ children, navItems }: AdminShellProps) {
-  const pathname = usePathname();
-
-  const NavLinks = ({ closeOnClick }: { closeOnClick?: boolean }) => (
+function NavLinks({
+  navItems,
+  pathname,
+  closeOnClick,
+}: {
+  navItems: AdminNavItem[];
+  pathname: string;
+  closeOnClick?: boolean;
+}) {
+  return (
     <nav className="flex flex-col space-y-2">
       {navItems.map(({ href, label }) => {
         const isActive = pathname === href;
@@ -64,11 +70,15 @@ export default function AdminShell({ children, navItems }: AdminShellProps) {
       </div>
     </nav>
   );
+}
+
+export default function AdminShell({ children, navItems }: AdminShellProps) {
+  const pathname = usePathname();
 
   return (
     <div className="flex min-h-screen">
       <aside className="hidden w-64 border-r bg-muted/30 p-4 md:block">
-        <NavLinks />
+        <NavLinks navItems={navItems} pathname={pathname} />
       </aside>
       <div className="flex min-h-screen flex-1 flex-col">
         <header className="flex items-center justify-between border-b bg-background px-4 py-3 md:hidden">
@@ -85,7 +95,7 @@ export default function AdminShell({ children, navItems }: AdminShellProps) {
                   Admin navigation
                 </div>
                 <div className="flex-1 overflow-y-auto px-6 py-4">
-                  <NavLinks closeOnClick />
+                  <NavLinks navItems={navItems} pathname={pathname} closeOnClick />
                 </div>
               </div>
             </SheetContent>

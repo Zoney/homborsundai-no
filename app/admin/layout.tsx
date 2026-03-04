@@ -1,5 +1,6 @@
 import { auth } from '@/lib/auth';
 import { ReactNode } from 'react';
+import Link from 'next/link';
 import AdminShell from '@/components/admin-shell';
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
@@ -7,7 +8,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   if (!session) {
     return (
       <div className="container mx-auto py-10 text-center">
-        <a className="underline" href="/api/auth/signin">Sign in with Google</a>
+        <Link className="underline" href="/api/auth/signin">Sign in with Google</Link>
       </div>
     );
   }

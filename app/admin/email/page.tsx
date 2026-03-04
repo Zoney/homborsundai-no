@@ -1,4 +1,5 @@
 import { auth } from '@/lib/auth';
+import Link from 'next/link';
 import AdminEmail from '@/components/admin-email';
 
 export default async function AdminEmailPage() {
@@ -6,7 +7,7 @@ export default async function AdminEmailPage() {
   if (!session) {
     return (
       <div className="container mx-auto py-10 text-center">
-        <a className="underline" href="/api/auth/signin">Sign in with Google</a>
+        <Link className="underline" href="/api/auth/signin">Sign in with Google</Link>
       </div>
     );
   }

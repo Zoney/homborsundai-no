@@ -1,6 +1,6 @@
 "use client";
 import useSWR from "swr";
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,9 +42,9 @@ export default function AdminRegistrations({ summit: summitProp }: AdminRegistra
 
   const [activeSummit, setActiveSummit] = useState<string>(resolvedSummit);
 
-  useEffect(() => {
-    setActiveSummit(prev => (prev === resolvedSummit ? prev : resolvedSummit));
-  }, [resolvedSummit]);
+  if (activeSummit !== resolvedSummit) {
+    setActiveSummit(resolvedSummit);
+  }
 
   const activeSummitId = useMemo(() => findSummitIdByRegistrationKey(activeSummit), [activeSummit]);
   const activeSummitMetadata = activeSummitId ? SUMMIT_METADATA[activeSummitId] : undefined;
