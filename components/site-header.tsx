@@ -27,10 +27,10 @@ export default function SiteHeader() {
   const isActive = (href: string) => pathname === href || pathname?.startsWith(href + "/");
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-ferra-600/50 bg-tarawera/70 backdrop-blur supports-[backdrop-filter]:bg-tarawera/60">
+    <header className="sticky top-0 z-40 w-full border-b border-ferra-600/50 bg-tarawera/70 backdrop-blur-sm supports-backdrop-filter:bg-tarawera/60">
       <div className="container mx-auto h-14 px-4 md:px-6 flex items-center justify-between">
         <div className="flex items-center gap-3 md:gap-6">
-          <Link href="/" className="font-bold tracking-tight text-white focus:outline-none focus:ring-2 focus:ring-rosebud-300 rounded px-1">
+          <Link href="/" className="font-bold tracking-tight text-white focus:outline-hidden focus:ring-2 focus:ring-rosebud-300 rounded-sm px-1">
             Homborsund AI
           </Link>
           <nav className="hidden md:flex items-center gap-4 text-rosebud-200">
@@ -38,7 +38,7 @@ export default function SiteHeader() {
               <Link
                 key={n.href}
                 href={n.href}
-                className={`transition-colors focus:outline-none focus:ring-2 focus:ring-rosebud-300 rounded px-1 ${
+                className={`transition-colors focus:outline-hidden focus:ring-2 focus:ring-rosebud-300 rounded px-1 ${
                   isActive(n.href) ? "text-white" : "hover:text-white"
                 }`}
               >
@@ -72,7 +72,7 @@ export default function SiteHeader() {
                     href={n.href}
                     ref={i === 0 ? firstLinkRef : undefined}
                     onClick={() => setOpen(false)}
-                    className={`flex items-center justify-between rounded-md px-3 py-3 text-base transition-colors focus:outline-none focus:ring-2 focus:ring-rosebud-300 ${
+                    className={`flex items-center justify-between rounded-md px-3 py-3 text-base transition-colors focus:outline-hidden focus:ring-2 focus:ring-rosebud-300 ${
                       isActive(n.href)
                         ? "bg-ferra/50 text-white"
                         : "text-rosebud-200 hover:bg-ferra/40 hover:text-white"

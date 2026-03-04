@@ -2,7 +2,8 @@ import { getRegistration } from '@/lib/registrations';
 import QRCode from 'qrcode';
 import Image from 'next/image';
 
-export default async function TicketPage({ params }: { params: { id: string } }) {
+export default async function TicketPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const decodedId = decodeURIComponent(params.id);
   const reg = await getRegistration(decodedId);
 
@@ -26,7 +27,7 @@ export default async function TicketPage({ params }: { params: { id: string } })
     <main className="flex flex-col items-center justify-center min-h-screen gap-4 bg-gradient-cool text-white">
       <h1 className="text-2xl font-bold">Your Ticket</h1>
       {qrDataUrl ? (
-        <Image src={qrDataUrl} alt="Ticket QR" className="bg-white p-2 rounded" width={200} height={200} />
+        <Image src={qrDataUrl} alt="Ticket QR" className="bg-white p-2 rounded-sm" width={200} height={200} />
       ) : (
         <p>Could not generate QR code.</p>
       )}

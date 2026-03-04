@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { getAllRegistrations } from '@/lib/registrations';
 
 type Cohort = 'interested_2025_2' | 'signedup_2025_2' | 'previous_events';
@@ -15,7 +14,7 @@ function parseEmails(input?: string[] | string): string[] {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

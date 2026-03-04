@@ -90,7 +90,7 @@ export default function VerifyTicket() {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             placeholder="Scan or enter ticket code"
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-2 border rounded-sm text-black"
           />
           <Button onClick={() => checkTicket()} disabled={!code || loading}>
             {loading ? 'Checking...' : 'Verify Manually'}

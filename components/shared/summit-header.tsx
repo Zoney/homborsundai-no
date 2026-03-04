@@ -33,9 +33,9 @@ export function SummitHeader({ activeYear, title, date, theme, description }: Su
         type: "register" as const,
       });
 
-  const primaryCtaClasses = `inline-flex h-12 items-center justify-center rounded-lg px-8 text-base font-semibold shadow-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rosebud focus-visible:ring-offset-tarawera ${
+  const primaryCtaClasses = `inline-flex h-12 items-center justify-center rounded-lg px-8 text-base font-semibold shadow-lg transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rosebud focus-visible:ring-offset-tarawera ${
     isUpcoming
-      ? "bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white"
+      ? "bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white"
       : "bg-transparent border border-rosebud text-rosebud hover:bg-rosebud/10"
   }`;
 
@@ -63,7 +63,7 @@ export function SummitHeader({ activeYear, title, date, theme, description }: Su
                 {summit.status}
               </span>
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">
               {title}
             </h1>
             <p className="text-3xl md:text-4xl text-rosebud mb-2">{date}</p>
@@ -88,7 +88,7 @@ export function SummitHeader({ activeYear, title, date, theme, description }: Su
                     <Link
                       key={href}
                       href={href}
-                      className="inline-flex h-12 flex-1 min-w-[180px] items-center justify-center rounded-lg border border-ferra-500 px-6 text-base font-semibold text-rosebud-200 transition-colors hover:bg-ferra-700/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ferra focus-visible:ring-offset-tarawera"
+                      className="inline-flex h-12 flex-1 min-w-[180px] items-center justify-center rounded-lg border border-ferra-500 px-6 text-base font-semibold text-rosebud-200 transition-colors hover:bg-ferra-700/40 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ferra focus-visible:ring-offset-tarawera"
                     >
                       {label}
                     </Link>

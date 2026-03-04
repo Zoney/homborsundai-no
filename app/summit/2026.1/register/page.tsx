@@ -214,7 +214,7 @@ export default function RegisterInterestPage() {
               </p>
               <Button
                 onClick={() => router.push(`/summit/${YEAR}`)}
-                className="w-full bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600"
+                className="w-full bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600"
               >
                 Return to Summit Page
               </Button>
@@ -267,7 +267,7 @@ export default function RegisterInterestPage() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
+                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-hidden focus:ring-2 focus:ring-copperrose focus:border-transparent"
                   placeholder="Your full name"
                 />
               </div>
@@ -282,7 +282,7 @@ export default function RegisterInterestPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
+                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-hidden focus:ring-2 focus:ring-copperrose focus:border-transparent"
                   placeholder="you@example.com"
                 />
               </div>
@@ -297,7 +297,7 @@ export default function RegisterInterestPage() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
+                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-hidden focus:ring-2 focus:ring-copperrose focus:border-transparent"
                   placeholder="+47 123 45 678"
                 />
               </div>
@@ -312,7 +312,7 @@ export default function RegisterInterestPage() {
                   value={formData.comment}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent resize-none"
+                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-hidden focus:ring-2 focus:ring-copperrose focus:border-transparent resize-none"
                   placeholder="Tell us what you hope to test, share or learn in April 2026."
                 />
               </div>
@@ -339,7 +339,7 @@ export default function RegisterInterestPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting || !turnstileToken || !formData.name.trim()}
-                className="w-full bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? "Submitting..." : "Save my spot on the update list"}
               </Button>

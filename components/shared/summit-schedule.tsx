@@ -17,7 +17,7 @@ export function SummitSchedule({ schedule, note }: SummitScheduleProps) {
       <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
         <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
           <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">Schedule</div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Summit Schedule</h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose mb-3">Summit Schedule</h2>
           <p className="max-w-[700px] text-rosebud-200 md:text-lg">
             Explore the lineup of thought-provoking talks and interactive sessions.
           </p>

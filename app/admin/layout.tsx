@@ -1,10 +1,9 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { ReactNode } from 'react';
 import AdminShell from '@/components/admin-shell';
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) {
     return (
       <div className="container mx-auto py-10 text-center">

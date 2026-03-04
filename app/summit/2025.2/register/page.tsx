@@ -232,7 +232,7 @@ export default function RegisterPage() {
               </p>
               {qrDataUrl ? (
                 <div className="flex flex-col items-center space-y-2">
-                  <Image src={qrDataUrl} alt="Ticket QR Code" className="bg-white p-2 rounded" width={200} height={200} />
+                  <Image src={qrDataUrl} alt="Ticket QR Code" className="bg-white p-2 rounded-sm" width={200} height={200} />
                   <Link href={registrationSuccessDetails.ticketUrl} target="_blank" rel="noopener noreferrer" className="text-rosebud-300 hover:text-rosebud-100 underline text-sm">
                     {`${window.location.origin}${registrationSuccessDetails.ticketUrl}`}
                   </Link>
@@ -247,7 +247,7 @@ export default function RegisterPage() {
               </p>
               <Button 
                 onClick={() => router.push('/summit/2025.2')}
-                className="w-full bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600"
+                className="w-full bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600"
               >
                 Return to Summit Page
               </Button>
@@ -301,7 +301,7 @@ export default function RegisterPage() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
+                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-hidden focus:ring-2 focus:ring-copperrose focus:border-transparent"
                   placeholder="Your full name"
                 />
               </div>
@@ -316,7 +316,7 @@ export default function RegisterPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
+                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-hidden focus:ring-2 focus:ring-copperrose focus:border-transparent"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -331,7 +331,7 @@ export default function RegisterPage() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent"
+                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-hidden focus:ring-2 focus:ring-copperrose focus:border-transparent"
                   placeholder="+47 123 45 678"
                 />
               </div>
@@ -346,7 +346,7 @@ export default function RegisterPage() {
                   value={formData.comment}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-none focus:ring-2 focus:ring-copperrose focus:border-transparent resize-none"
+                  className="w-full px-3 py-2 bg-ferra-700 border border-ferra-600 rounded-md text-white placeholder-rosebud-400 focus:outline-hidden focus:ring-2 focus:ring-copperrose focus:border-transparent resize-none"
                   placeholder="Any questions or comments about the summit..."
                 />
               </div>
@@ -373,7 +373,7 @@ export default function RegisterPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting || !turnstileToken || !formData.name.trim()}
-                className="w-full bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? "Registering..." : "Register for Summit"}
               </Button>

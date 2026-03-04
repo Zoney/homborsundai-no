@@ -29,9 +29,9 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center py-20 md:py-28 lg:py-32 px-4 md:px-6 bg-opacity-50">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 animate-fade-in-down">
-          Homborsund AI: <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Ignite Your AI Journey</span>
+          Homborsund AI: <span className="text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">Ignite Your AI Journey</span>
         </h1>
-        <div className="w-full max-w-4xl mx-auto bg-tarawera/70 border border-ferra-600 rounded-2xl p-6 md:p-8 shadow-xl backdrop-blur-sm animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <div className="w-full max-w-4xl mx-auto bg-tarawera/70 border border-ferra-600 rounded-2xl p-6 md:p-8 shadow-xl backdrop-blur-xs animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
           <div className="flex items-center justify-center gap-2 text-rosebud-200 text-sm md:text-base mb-2">
             <CalendarDays className="h-5 w-5" aria-hidden />
             <span>Next gathering</span>
@@ -84,7 +84,7 @@ export default function LandingPage() {
       <section className="py-16 md:py-24 bg-tarawera bg-opacity-70">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 tracking-tight">
-            Why <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Homborsund AI</span>?
+            Why <span className="text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">Homborsund AI</span>?
           </h2>
           <Carousel
             opts={{
@@ -108,7 +108,7 @@ export default function LandingPage() {
                         <div className="w-8 h-8 bg-rosebud rounded-full animate-pulse" /> {/* Simple animated placeholder for icon */}
                         <CardTitle className="text-2xl font-semibold text-rosebud-100">{item.title}</CardTitle>
                       </CardHeader>
-                      <CardContent className="flex-grow"> {/* Added flex-grow to allow content to expand */}
+                      <CardContent className="grow"> {/* Added grow to allow content to expand */}
                         <p className="text-rosebud-300">{item.description}</p>
                       </CardContent>
                     </Card>
@@ -126,7 +126,7 @@ export default function LandingPage() {
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 tracking-tight">
-            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Homborsund AI</span> Advantage
+            The <span className="text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">Homborsund AI</span> Advantage
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -140,7 +140,7 @@ export default function LandingPage() {
                   <div className="w-10 h-10 bg-copperrose rounded-lg mb-4 animate-pulse" /> {/* Simple animated placeholder */}
                   <CardTitle className="text-3xl font-bold text-rosebud-100">{feature.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="flex-grow"> {/* Added flex-grow */}
+                <CardContent className="grow"> {/* Added grow */}
                   <p className="text-rosebud-200 text-lg">{feature.description}</p>
                 </CardContent>
               </Card>
@@ -153,7 +153,7 @@ export default function LandingPage() {
       <section className="py-16 md:py-24 bg-ferra bg-opacity-40">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 tracking-tight">
-            Glimpse into 2025: <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">The AI Horizon</span>
+            Glimpse into 2025: <span className="text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">The AI Horizon</span>
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -182,7 +182,7 @@ export default function LandingPage() {
                   <div className="w-10 h-10 bg-rosebud rounded-lg mb-4 animate-pulse" /> {/* Simple animated placeholder for icon */}
                   <CardTitle className="text-2xl font-bold text-rosebud-100">{trend.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="flex-grow">
+                <CardContent className="grow">
                   <p className="text-rosebud-200 text-lg">{trend.description}</p>
                 </CardContent>
               </Card>
@@ -196,7 +196,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-end justify-between mb-8">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Community <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Notes</span>
+              Community <span className="text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">Notes</span>
             </h2>
             <Link href="/notes">
               <Button variant="secondary" className="bg-ferra/70 hover:bg-ferra">View all</Button>
@@ -227,13 +227,13 @@ export default function LandingPage() {
       <section className="py-20 md:py-32 text-center bg-tarawera bg-opacity-80">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-            Ready to Be Part of the <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Next Wave</span>?
+            Ready to Be Part of the <span className="text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">Next Wave</span>?
           </h2>
           <p className="text-lg md:text-xl text-rosebud-200 max-w-2xl mx-auto mb-10">
             The future of AI is not just coming; it's being built right here, right now. Join Homborsund AI and leave your mark.
           </p>
           <Link href="/summit">
-            <Button size="lg" className="bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-2xl hover:shadow-rosebud/50 transition-all duration-300 transform hover:scale-105">
+            <Button size="lg" className="bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white font-bold py-4 px-10 rounded-xl text-xl shadow-2xl hover:shadow-rosebud/50 transition-all duration-300 transform hover:scale-105">
               Dive Into the Summit Details
             </Button>
           </Link>

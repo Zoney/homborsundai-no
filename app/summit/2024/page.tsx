@@ -63,7 +63,7 @@ export default function Summit2024Page() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4">
             <div className="inline-block rounded-lg bg-rosebud px-3 py-1 text-sm text-tarawera">Archive</div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Past Summits</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">Past Summits</h2>
             <p className="max-w-[700px] text-rosebud-200 md:text-xl">
               Take a look at our previous AI summits and the amazing discussions we had.
             </p>

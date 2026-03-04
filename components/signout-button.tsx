@@ -7,10 +7,9 @@ export default function SignOutButton() {
     <Button
       variant="link"
       className="justify-start"
-      onClick={() => signOut({ callbackUrl: "/" })}
+      onClick={() => signOut({ redirectTo: "/" })}
     >
       Sign out
     </Button>
   );
 }
-

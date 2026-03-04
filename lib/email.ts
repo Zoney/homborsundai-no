@@ -1,7 +1,7 @@
 import { Resend } from 'resend';
 
 export async function sendTicketEmail(to: string, ticketId: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXTAUTH_URL || '';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.AUTH_URL || '';
   const ticketUrl = `${baseUrl}/ticket/${ticketId}`;
   const subject = 'Your Homborsund AI Summit Ticket';
   const htmlBody = `<p>Thank you for registering for the Homborsund AI Summit.</p><p>Your ticket is available <a href="${ticketUrl}">here</a>.</p>`;
@@ -141,7 +141,7 @@ export function renderCampaignEmail(params: {
     <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
       <tr>
         <td align="center" style="padding: 32px 0;">
-          <table role="presentation" cellpadding="0" cellspacing="0" width="600" class="container card shadow" style="max-width:600px; background:#0F2C35;">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="600" class="container card shadow-sm" style="max-width:600px; background:#0F2C35;">
             <tr>
               <td style="background: linear-gradient(90deg, #C2767A, #644C54); padding: 28px 24px; text-align:center;">
                 <h1 style="margin:0; font-size: 26px; line-height: 1.2; color:#ffffff; font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">${escapeHtml(title)}</h1>

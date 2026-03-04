@@ -137,45 +137,45 @@ export default function AdminEmail() {
           </div>
           <div className="space-y-2">
             <label className="block text-sm">Include emails (one per line or comma separated)</label>
-            <textarea className="w-full p-2 border rounded text-black min-h-[80px]" value={includeEmailsText} onChange={e => setIncludeEmailsText(e.target.value)} />
+            <textarea className="w-full p-2 border rounded-sm text-black min-h-[80px]" value={includeEmailsText} onChange={e => setIncludeEmailsText(e.target.value)} />
           </div>
           <div className="space-y-2">
             <label className="block text-sm">Exclude emails (one per line or comma separated)</label>
-            <textarea className="w-full p-2 border rounded text-black min-h-[80px]" value={excludeEmailsText} onChange={e => setExcludeEmailsText(e.target.value)} />
+            <textarea className="w-full p-2 border rounded-sm text-black min-h-[80px]" value={excludeEmailsText} onChange={e => setExcludeEmailsText(e.target.value)} />
           </div>
           <div className="space-y-2">
             <label className="block text-sm">Subject</label>
-            <input className="w-full p-2 border rounded text-black" value={subject} onChange={e => setSubject(e.target.value)} />
+            <input className="w-full p-2 border rounded-sm text-black" value={subject} onChange={e => setSubject(e.target.value)} />
           </div>
           <div className="space-y-2">
             <label className="block text-sm">Preheader</label>
-            <input className="w-full p-2 border rounded text-black" value={preheader} onChange={e => setPreheader(e.target.value)} />
+            <input className="w-full p-2 border rounded-sm text-black" value={preheader} onChange={e => setPreheader(e.target.value)} />
           </div>
           <div className="space-y-2">
             <label className="block text-sm">Intro (optional)</label>
-            <input className="w-full p-2 border rounded text-black" value={intro} onChange={e => setIntro(e.target.value)} />
+            <input className="w-full p-2 border rounded-sm text-black" value={intro} onChange={e => setIntro(e.target.value)} />
           </div>
           <div className="space-y-2">
             <label className="block text-sm">Body (HTML)</label>
-            <textarea className="w-full p-2 border rounded text-black min-h-[150px]" value={body} onChange={e => setBody(e.target.value)} />
+            <textarea className="w-full p-2 border rounded-sm text-black min-h-[150px]" value={body} onChange={e => setBody(e.target.value)} />
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="space-y-2">
               <label className="block text-sm">CTA Label</label>
-              <input className="w-full p-2 border rounded text-black" value={ctaLabel} onChange={e => setCtaLabel(e.target.value)} />
+              <input className="w-full p-2 border rounded-sm text-black" value={ctaLabel} onChange={e => setCtaLabel(e.target.value)} />
             </div>
             <div className="space-y-2">
               <label className="block text-sm">CTA URL</label>
-              <input className="w-full p-2 border rounded text-black" value={ctaUrl} onChange={e => setCtaUrl(e.target.value)} />
+              <input className="w-full p-2 border rounded-sm text-black" value={ctaUrl} onChange={e => setCtaUrl(e.target.value)} />
             </div>
           </div>
           <div className="space-y-2">
             <label className="block text-sm">Footer note (optional)</label>
-            <input className="w-full p-2 border rounded text-black" value={footerNote} onChange={e => setFooterNote(e.target.value)} />
+            <input className="w-full p-2 border rounded-sm text-black" value={footerNote} onChange={e => setFooterNote(e.target.value)} />
           </div>
           <div className="space-y-2">
             <label className="block text-sm">Campaign tag</label>
-            <input className="w-full p-2 border rounded text-black" value={campaignTag} onChange={e => setCampaignTag(e.target.value)} />
+            <input className="w-full p-2 border rounded-sm text-black" value={campaignTag} onChange={e => setCampaignTag(e.target.value)} />
           </div>
           <div className="pt-2 flex items-center gap-3 flex-wrap">
             <Button onClick={preview} disabled={sending || (cohorts.length === 0 && includeSummits.length === 0 && !includeEmailsText)}>
@@ -204,7 +204,7 @@ export default function AdminEmail() {
           <div className="flex items-center justify-end mb-3">
             <span className="text-xs text-gray-500">{previewRecipients ? `${previewRecipients.length} found` : 'Preview to list recipients'}</span>
           </div>
-          <div className="max-h-[640px] overflow-auto bg-white text-black rounded border p-2 space-y-1">
+          <div className="max-h-[640px] overflow-auto bg-white text-black rounded-sm border p-2 space-y-1">
             {previewRecipients && previewRecipients.length > 0 ? (
               previewRecipients.map(r => (
                 <label key={r.email} className="flex items-center gap-2 text-sm">

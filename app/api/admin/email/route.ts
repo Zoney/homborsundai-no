@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { getAllRegistrations } from '@/lib/registrations';
 import { renderCampaignEmail, sendCampaignEmail } from '@/lib/email';
 
@@ -60,7 +59,7 @@ function filterRecipients(
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -79,7 +78,7 @@ export async function POST(req: NextRequest) {
     const incomingHeaders = req.headers;
     const protocol = incomingHeaders.get('x-forwarded-proto') ?? 'http';
     const host = incomingHeaders.get('host');
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXTAUTH_URL || `${protocol}://${host}`;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.AUTH_URL || `${protocol}://${host}`;
 
     let cta = body.cta && body.cta.url && body.cta.label ? body.cta as { label: string; url: string } : undefined;
     if (cta && !/^https?:\/\//i.test(cta.url)) {

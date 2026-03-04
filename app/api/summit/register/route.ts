@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { ipAddress } from "@vercel/functions";
 import { revalidateTag } from 'next/cache';
 import { createRegistration, getConvexClient } from '@/lib/registrations';
 import { sendTicketEmail } from '@/lib/email';
@@ -48,7 +49,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const clientIP = request.ip || request.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown';
+    const clientIP = ipAddress(request) || request.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown';
     console.log('POST /api/summit/register: Client IP:', clientIP);
     const isValidToken = await validateTurnstileToken(body.turnstileToken, clientIP);
     console.log('POST /api/summit/register: Turnstile token validation result:', isValidToken);
@@ -87,7 +88,7 @@ export async function POST(request: NextRequest) {
 
     await notifySummitSignup(registrationData);
 
-    revalidateTag('summit-registrations-tag');
+    revalidateTag('summit-registrations-tag', { expire: 0 });
     console.log('POST /api/summit/register: Revalidated tag summit-registrations-tag.');
 
     const summitId = findSummitIdByRegistrationKey(summitKey);

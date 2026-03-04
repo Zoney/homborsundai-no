@@ -57,7 +57,7 @@ export default function ArticlePage() {
 
           <blockquote className="border-l-4 border-copperrose/70 pl-4 py-2 my-6 bg-ferra/30 rounded-r">
             <div className="flex items-start gap-2 text-rosebud-100">
-              <Quote className="h-5 w-5 mt-1 flex-shrink-0" />
+              <Quote className="h-5 w-5 mt-1 shrink-0" />
               <p className="m-0">
                 The shift is from autocomplete to agents: tools that plan,
                 apply precise patches, and validate outcomes against your
@@ -128,7 +128,7 @@ export default function ArticlePage() {
 
           <blockquote className="border-l-4 border-copperrose/70 pl-4 py-2 my-6 bg-ferra/30 rounded-r">
             <div className="flex items-start gap-2 text-rosebud-100">
-              <Quote className="h-5 w-5 mt-1 flex-shrink-0" />
+              <Quote className="h-5 w-5 mt-1 shrink-0" />
               <p className="m-0">
                 “OpenAI’s Codex CLI jumped a level in the last month. In places it’s now on par —
                 sometimes better. Codex Web still lags the CLI; I’m excited to see them meet the same
@@ -159,7 +159,7 @@ export default function ArticlePage() {
           <div className="rounded-md border border-copperrose/50 bg-copperrose/10 p-4">
             <h4 className="text-rosebud-50 font-semibold mb-2">Try Codex locally</h4>
             <p className="text-rosebud-200 mb-2">Install the terminal agent and point it at your repo:</p>
-            <pre className="whitespace-pre-wrap text-sm bg-tarawera/60 p-3 rounded border border-ferra-600 text-rosebud-100">
+            <pre className="whitespace-pre-wrap text-sm bg-tarawera/60 p-3 rounded-sm border border-ferra-600 text-rosebud-100">
 {`npm i -g @openai/codex
 codex`}
             </pre>
@@ -170,7 +170,7 @@ codex`}
           <div className="rounded-md border border-ferra-600 bg-tarawera/50 p-4">
             <h4 className="text-rosebud-50 font-semibold mb-2">Quick start</h4>
             <p className="text-rosebud-200 mb-2">Install and launch from the terminal:</p>
-            <pre className="whitespace-pre-wrap text-sm bg-tarawera/60 p-3 rounded border border-ferra-600 text-rosebud-100">
+            <pre className="whitespace-pre-wrap text-sm bg-tarawera/60 p-3 rounded-sm border border-ferra-600 text-rosebud-100">
 {`npm i -g @anthropic-ai/claude-code
 cd your-awesome-project
 claude`}
@@ -226,7 +226,7 @@ claude`}
           </ul>
           <blockquote className="border-l-4 border-copperrose/70 pl-4 py-2 my-6 bg-ferra/30 rounded-r">
             <div className="flex items-start gap-2 text-rosebud-100">
-              <Quote className="h-5 w-5 mt-1 flex-shrink-0" />
+              <Quote className="h-5 w-5 mt-1 shrink-0" />
               <p className="m-0">
                 “The goal isn’t another backlog; it’s faster learning loops. Build, learn, throw away,
                 repeat — as long as the spec lives on, we get better.” — Øyvind

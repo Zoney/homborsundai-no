@@ -58,7 +58,7 @@ export default function SummitIndexPage() {
       <section className="w-full py-16 md:py-20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="mx-auto max-w-3xl text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">
               Homborsund AI Summits
             </h1>
             <p className="text-lg md:text-xl text-rosebud-200">

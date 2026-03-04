@@ -17,8 +17,8 @@ export function SummitVenue({ activeYear }: SummitVenueProps) {
             <span
               className={
                 isDefaultYear
-                  ? "bg-gradient-to-r from-tarawera to-copperrose bg-clip-text text-transparent"
-                  : "text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose"
+                  ? "bg-linear-to-r from-tarawera to-copperrose bg-clip-text text-transparent"
+                  : "text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose"
               }
             >
               Vågsholt skole, Krømpe

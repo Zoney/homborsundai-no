@@ -103,7 +103,7 @@ export default function Summit2025_1Page() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
             <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm inline-block">Hot Topics</div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">2025&apos;s Cutting-Edge AI Trends</h2>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose mb-3">2025&apos;s Cutting-Edge AI Trends</h2>
             <p className="max-w-[700px] text-rosebud-200 md:text-lg mx-auto">
               Our summit will explore the most revolutionary AI developments just emerging in 2025, including agentic models like OpenAI&apos;s o4-mini.
             </p>
@@ -123,10 +123,10 @@ export default function Summit2025_1Page() {
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-semibold text-rosebud-100">{topic.title}</CardTitle>
-                    <div className="border border-copperrose text-copperrose text-lg font-bold px-2 py-1 rounded">{topic.number}</div>
+                    <div className="border border-copperrose text-copperrose text-lg font-bold px-2 py-1 rounded-sm">{topic.number}</div>
                   </div>
                 </CardHeader>
-                <CardContent className="flex-grow">
+                <CardContent className="grow">
                   <p className="text-rosebud-300 text-sm">{topic.description}</p>
                 </CardContent>
               </Card>
@@ -140,7 +140,7 @@ export default function Summit2025_1Page() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
             <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm inline-block">Norwegian ML Experience</div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Machine Learning, Norwegian Style</h2>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose mb-3">Machine Learning, Norwegian Style</h2>
             <p className="max-w-[700px] text-rosebud-200 md:text-lg mx-auto">
               What Norway lacks in silicon, we make up for in scenic beauty and philosophical clarity.
             </p>
@@ -175,7 +175,7 @@ export default function Summit2025_1Page() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
             <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm inline-block">How to Attend</div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose mb-3">Join the Conversation</h2>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose mb-3">Join the Conversation</h2>
             <p className="max-w-[700px] text-rosebud-200 md:text-lg mx-auto">
               The Homborsund AI Summit is an invitation... that you extend to yourself.
             </p>
@@ -187,7 +187,7 @@ export default function Summit2025_1Page() {
               <CardHeader className="p-0 pb-3">
                 <CardTitle className="text-2xl font-semibold text-rosebud-100">Want to Attend?</CardTitle>
               </CardHeader>
-              <CardContent className="p-0 flex-grow">
+              <CardContent className="p-0 grow">
                 <p className="text-rosebud-300">
                   That&apos;s the first and most important step. If you&apos;re reading this and thinking &quot;I&apos;d like to be there&quot; - congratulations, you&apos;ve completed the most crucial part of the registration process.
                 </p>
@@ -199,7 +199,7 @@ export default function Summit2025_1Page() {
               <CardHeader className="p-0 pb-3">
                 <CardTitle className="text-2xl font-semibold text-rosebud-100">Know Something</CardTitle>
               </CardHeader>
-              <CardContent className="p-0 flex-grow">
+              <CardContent className="p-0 grow">
                 <p className="text-rosebud-300">
                   Bring your knowledge—whether it&apos;s vast expertise in transformer architectures or just a persistent curiosity about why ChatGPT hallucinates your birthday. What matters is what YOU know, and what YOU want to learn.
                 </p>
@@ -211,7 +211,7 @@ export default function Summit2025_1Page() {
               <CardHeader className="p-0 pb-3">
                 <CardTitle className="text-2xl font-semibold text-rosebud-100">Tell Someone</CardTitle>
               </CardHeader>
-              <CardContent className="p-0 flex-grow">
+              <CardContent className="p-0 grow">
                 <p className="text-rosebud-300">
                   Invite yourself by clicking the registration link, then tell a fellow AI enthusiast about the summit. The best learning happens in small groups of passionate people—each person you invite enriches the experience for everyone.
                 </p>
@@ -239,7 +239,7 @@ export default function Summit2025_1Page() {
           </Card>
           
           <div className="flex flex-col items-center">
-            <Button size="lg" asChild className="bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white font-semibold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-rosebud/50 transition-all duration-300 transform hover:scale-105">
+            <Button size="lg" asChild className="bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white font-semibold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-rosebud/50 transition-all duration-300 transform hover:scale-105">
               <Link href="https://chat.whatsapp.com/FWv18Iz2r59CuQb98LBuUQ">
                 I&apos;m Inviting Myself
               </Link>
@@ -259,7 +259,7 @@ export default function Summit2025_1Page() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4">
             <div className="inline-block rounded-lg bg-rosebud px-3 py-1 text-sm text-tarawera">The Experience</div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Back to Our Roots</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">Back to Our Roots</h2>
             <p className="max-w-[700px] text-rosebud-200 md:text-xl">
               Embracing the authentic Norwegian experience, our summit offers a refreshing departure from the usual tech-laden conferences.
             </p>

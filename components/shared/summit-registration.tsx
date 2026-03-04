@@ -22,10 +22,10 @@ export function SummitRegistration({ activeYear, summit }: SummitRegistrationPro
         label: "View Upcoming Summit",
         href: `/summit/${DEFAULT_YEAR}`,
       });
-  const ctaClassName = `inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 ${
+  const ctaClassName = `inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium shadow transition-colors focus-visible:outline-hidden focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 ${
     isUpcoming
-      ? "bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
-      : "bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
+      ? "bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
+      : "bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 text-white focus-visible:ring-rosebud shadow-lg hover:shadow-rosebud/50"
   }`;
   const infoNotice =
     summit.infoNotice ||
@@ -56,7 +56,7 @@ export function SummitRegistration({ activeYear, summit }: SummitRegistrationPro
     callToActionContent = (
       <Link
         href={`/summit/${DEFAULT_YEAR}`}
-        className="inline-flex h-10 items-center justify-center rounded-md bg-gradient-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 px-8 text-sm font-medium text-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-rosebud disabled:pointer-events-none disabled:opacity-50 shadow-lg hover:shadow-rosebud/50"
+        className="inline-flex h-10 items-center justify-center rounded-md bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 px-8 text-sm font-medium text-white shadow-sm transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-rosebud disabled:pointer-events-none disabled:opacity-50 shadow-lg hover:shadow-rosebud/50"
       >
         View Upcoming Summit
       </Link>
@@ -69,9 +69,9 @@ export function SummitRegistration({ activeYear, summit }: SummitRegistrationPro
         <div className="space-y-3">
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
             {activeYear === DEFAULT_YEAR ? (
-              <span className="bg-gradient-to-r from-rosebud to-copperrose bg-clip-text text-transparent">Join us at the Homborsund AI Summit {activeYear}</span>
+              <span className="bg-linear-to-r from-rosebud to-copperrose bg-clip-text text-transparent">Join us at the Homborsund AI Summit {activeYear}</span>
             ) : (
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-rosebud to-copperrose">Join us at the Homborsund AI Summit {activeYear}</span>
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">Join us at the Homborsund AI Summit {activeYear}</span>
             )}
           </h2>
           <p className="mx-auto max-w-[600px] text-rosebud-200 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">

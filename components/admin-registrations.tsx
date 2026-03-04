@@ -108,7 +108,7 @@ export default function AdminRegistrations({ summit: summitProp }: AdminRegistra
         <label className="flex flex-col text-sm font-medium text-muted-foreground md:text-right">
           Select summit
           <select
-            className="mt-1 rounded-md border border-input bg-background px-3 py-2 text-sm font-normal text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="mt-1 rounded-md border border-input bg-background px-3 py-2 text-sm font-normal text-foreground shadow-xs focus:border-primary focus:outline-hidden focus:ring-2 focus:ring-primary/20"
             value={activeSummit}
             onChange={e => handleSummitChange(e.target.value)}
             disabled={isRouting}

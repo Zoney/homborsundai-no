@@ -1,11 +1,12 @@
-import GoogleProvider from "next-auth/providers/google";
-import type { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+import type { NextAuthConfig } from "next-auth";
 
-export const authOptions: NextAuthOptions = {
+export const authConfig = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: { hd: process.env.WORKSPACE_DOMAIN },
       },
@@ -23,5 +24,6 @@ export const authOptions: NextAuthOptions = {
       return false;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
-};
+} satisfies NextAuthConfig;
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
