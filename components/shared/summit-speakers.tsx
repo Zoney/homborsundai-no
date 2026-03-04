@@ -30,7 +30,7 @@ const DEFAULT_SPEAKERS: Speaker[] = [
   { name: "Nina", description: "Random earth traveller", activeFrom: "2026.1" },
   { name: "Erik", description: "Enterprise Architecture & economic wiz" },
   { name: "Øystein", description: "Random systems thinker", activeFrom: "2025.2" },
-  { name: "Knut", description: "Random chatty boat maker", activeFrom: "2025.2" },
+  { name: "Knut", description: "Random chatty boat maker & certified pompteinstruktør", activeFrom: "2025.2" },
   { name: "And you!", description: "..." },
   { name: "Ofc, you!", description: "...." },
 ];

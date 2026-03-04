@@ -2,29 +2,32 @@
 
 import { useEffect } from "react";
 import { SummitHeader, SummitSchedule, SummitSpeakers, SummitVenue, SummitRegistration } from "@/components/shared";
-import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { SUMMIT_METADATA } from "@/lib/summit-config";
 
 const YEAR = "2026.1";
 
 export default function Summit2026_1Page() {
   const summitInfo = SUMMIT_METADATA[YEAR];
-  const cta = summitInfo.cta;
 
   const description = [
-    "Spring 2026 is when autonomous agents either become your unfair advantage or your governance headache. We plan to spend a weekend figuring out which side of that line you want to stand on.",
-    "We are not going to pretend we know the exact stack, model names or chip allocations by April — the landscape is mutating every few weeks — but we do know we will ship something worthwhile together.",
-    "Expect demos that stress-test the latest releases, honest conversations about resilience, and a community who shows up ready to build even when the roadmap keeps changing.",
+    "AI is no longer arriving. It arrived. Agents run your deploys. Models draft your contracts. Something roughly your height is learning to open doors. The question is no longer what AI can do — it's what humans are still for.",
+    "Proof of Human is five talks and one long evening dedicated to the parts of us that don't fit in a context window. We're not here to panic, and we're not here to optimize. We're here to figure out what deserves to stay human — and what we might as well hand over.",
+    "Expect uncomfortable questions disguised as polite talks, demos that refuse to stay on script, and at least one speaker who will make you reconsider your entire career over a bonfire.",
   ];
 
   const schedule = [
-    { time: "Midday Saturday", event: "Doors open, coffee and coastline calibration" },
-    { time: "Afternoon", event: "Rapid-fire briefings: what just shipped, what broke, and why it matters" },
-    { time: "Evening", event: "Roundtables & bonfire clinics — prototypes, playbooks, mitigation drills" },
-    { time: "Late", event: "Dinner, long-form Q&A, robot beach walks (weather permitting)" },
-    { time: "Sunday optional", event: "Open lab for teams that want to keep building" },
+    { time: "15:00-ish", event: "Doors open — coffee, coastline calibration and small talk that might be generated" },
+    { time: "15:30-ish", event: "Opening words & the state of being human in 2026" },
+    { time: "15:45-ish", event: "Talk: 'What Are Humans For?' — Lars" },
+    { time: "16:20-ish", event: "Talk: 'What the Island Goat Can Teach Us About What's Coming' — Cathrine" },
+    { time: "16:55-ish", event: "Break — stretch your biological legs" },
+    { time: "17:15-ish", event: "Talk: 'Pomptekurs' — Knut" },
+    { time: "17:50-ish", event: "Talk: 'And Now for Something Completely Different' — Rebekka" },
+    { time: "18:25-ish", event: "Talk: 'Why Would We Need Coding Agents in 2026?' — Øyvind" },
+    { time: "19:00-ish", event: "Dinner, demos and arguments about consciousness" },
+    { time: "20:00-ish", event: "Open floor — lightning talks, rebuttals and unfinished thoughts" },
+    { time: "21:00-ish", event: "Bonfire, cold sea air and proof that you were here" },
   ];
 
   useEffect(() => {
@@ -49,27 +52,6 @@ export default function Summit2026_1Page() {
 
   return (
     <main className="flex flex-col min-h-screen bg-gradient-cool text-white">
-      <section className="w-full border-b border-ferra-700/60 bg-tarawera/40 py-6 md:py-10">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center">
-            <span className="text-sm uppercase tracking-[0.2em] text-rosebud-200">Stay in the loop</span>
-            <h2 className="text-3xl font-semibold text-rosebud-50 md:text-4xl">Get Summit Updates</h2>
-            <p className="max-w-xl text-rosebud-200">
-              Leave your details to get early notice when the April 2026 program locks in. We&apos;ll email you first
-              when tickets, agenda drops and travel details are ready.
-            </p>
-            {cta && (
-              <Button
-                asChild
-                size="lg"
-                className="bg-copperrose hover:bg-copperrose-600 text-white shadow-lg hover:shadow-rosebud/40"
-              >
-                <Link href={cta.href}>{cta.label}</Link>
-              </Button>
-            )}
-          </div>
-        </div>
-      </section>
       <SummitHeader
         activeYear={YEAR}
         title={summitInfo.title}
@@ -77,54 +59,56 @@ export default function Summit2026_1Page() {
         theme={summitInfo.theme}
         description={description}
       />
-      <div className="container mx-auto w-full px-4 md:px-6">
-        <div className="mx-auto max-w-3xl">
-          <SummitRegistration activeYear={YEAR} summit={summitInfo} />
-        </div>
-      </div>
+      <SummitRegistration activeYear={YEAR} summit={summitInfo} />
 
       <section className="w-full py-12 md:py-16 bg-ferra/40">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
-            <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">What&apos;s Brewing</div>
+            <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">The Talks</div>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">
-              Placeholders with Intent
+              Five Perspectives on Being Human
             </h2>
             <p className="max-w-3xl text-rosebud-200 md:text-lg">
-              The agenda is in motion. Think of this as our working outline while we scout speakers and line up the
-              right hardware, sandboxes and late-night debates.
+              Each speaker brings a different lens to the same question. None of them have the answer. That&apos;s the point.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "Agent Autonomy Clinics",
-                body: "Hands-on runbooks for shipping agents that negotiate, plan and handle tools without wrecking compliance.",
+                title: "What Are Humans For?",
+                speaker: "Lars",
+                body: "If AI can write, diagnose, plan and execute — what exactly should a person spend their Tuesday doing? Lars takes on the largest question of the decade with the calm demeanor of someone who has already made peace with several possible answers.",
               },
               {
-                title: "Resilience & Ops",
-                body: "Stories and frameworks for keeping human-in-the-loop teams sane when suppliers and model APIs shift weekly.",
+                title: "What the Island Goat Can Teach Us About What's Coming",
+                speaker: "Cathrine",
+                body: "On Tromøya, the locals are called goats. Cathrine wears the label with pride and asks whether a small island off Arendal might know something about coexistence that the rest of the world hasn't figured out yet. Also: humanoid robots walking among us, and why the GOAT might not be who you think.",
               },
               {
-                title: "Hardware Reality Check",
-                body: "From edge boards on boats to datacenter GPU rationing. Bring your own benchmarks, we will compare notes.",
+                title: "Pomptekurs",
+                speaker: "Knut",
+                body: "Everyone and their dog is offering a prompt engineering course. Knut delivers one too — finally. By the time you've mastered the art of asking nicely, the models will have moved on to doing things you never thought to ask for. But sure, let's learn to write good prompts. It can't hurt.",
               },
               {
-                title: "AI Safety in Practice",
-                body: "Not a doom loop — concrete guardrails, red-teaming drills and shared accountability templates.",
+                title: "And Now for Something Completely Different",
+                speaker: "Rebekka",
+                body: "Rebekka holds a PhD in AI and could talk about transformers, alignment, or benchmarks. She won't. Instead she's going somewhere none of us expected — and if we told you where, it wouldn't be completely different anymore, would it?",
               },
               {
-                title: "Builders&apos; Showcase",
-                body: "Lightning demos of things that already work, even if the paint is still drying. Bring your own HDMI dongle.",
+                title: "Why Would We Need Coding Agents in 2026?",
+                speaker: "Øyvind",
+                body: "Short answer: we probably don't. Long answer: when models can reason, remember and spin up exactly what you need based on who you are, the whole concept of an 'agent' starts to feel quaint. Øyvind makes the case for retiring a buzzword before it even peaks.",
               },
               {
-                title: "Seaside After Hours",
-                body: "Same Homborsund vibe: bonfire, cold sea air, plans sketched on napkins. The predictable part is the community.",
+                title: "The Evening Itself",
+                speaker: "Everyone",
+                body: "The real talk happens after the talks. Dinner, demos, bonfire debates and the kind of half-formed ideas that only surface when the projector is off and the sea air hits. This is the part no AI can replicate. Yet.",
               },
             ].map((item) => (
               <Card key={item.title} className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-rosebud-50 text-xl">{item.title}</CardTitle>
+                  <p className="text-copperrose text-sm font-medium">{item.speaker}</p>
                 </CardHeader>
                 <CardContent>
                   <p className="text-rosebud-200 text-sm leading-relaxed">{item.body}</p>
@@ -137,34 +121,34 @@ export default function Summit2026_1Page() {
 
       <SummitSchedule
         schedule={schedule}
-        note="Timing is intentionally fuzzy until we lock the crew and daylight conditions. Expect updates as soon as the schedule firms up."
+        note={"All times end in -ish because we respect the audience more than the clock. If a talk turns into a conversation, we let it. If dinner runs late because someone's demo actually works, we celebrate."}
       />
 
       <section className="w-full py-12 md:py-16 bg-ferra bg-opacity-30">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
-            <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">Why This Matters</div>
+            <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">The Real Question</div>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">
-              We&apos;re Honest About the Unknowns
+              Proof of Human
             </h2>
             <p className="max-w-3xl text-rosebud-200 md:text-lg">
-              April 2026 is a moving target. Standards, regulations, model access — everything shifts. We treat that as
-              an opportunity to co-create the playbook rather than wait for someone else to publish one.
+              We used to prove we weren&apos;t robots by clicking on traffic lights. Now the robots click better than we do.
+              So what&apos;s left?
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {[
               {
-                title: "Candid Field Notes",
-                body: "We collect what people are actually deploying in production — wins, outages, awkward lessons included.",
+                title: "Presence Over Productivity",
+                body: "The models are productive. Relentlessly, tirelessly productive. What they cannot do is show up, look someone in the eye, and mean it. This summit is built around presence — yours.",
               },
               {
-                title: "Living Roadmaps",
-                body: "We design flexible plans with checkpoints so your team can adapt without burning out.",
+                title: "Questions Over Answers",
+                body: "AI is very good at answers. It turns out the hard part was always knowing what to ask. We're gathering people who are still genuinely confused, and we think that's a strength.",
               },
               {
-                title: "Community Signal",
-                body: "You get access to the same quick pings, accountability groups and shared docs we use between summits.",
+                title: "Community Over Content",
+                body: "You can watch talks online. You cannot sit around a bonfire on the Norwegian coast and argue about consciousness with strangers who will become collaborators. That part requires showing up.",
               },
             ].map((item) => (
               <Card key={item.title} className="bg-ferra border-ferra-600 shadow-lg">

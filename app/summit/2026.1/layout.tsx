@@ -6,9 +6,9 @@ const path = "/summit/2026.1";
 export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Homborsund AI Summit — April 2026 (weekend TBA)";
+  const title = "Homborsund AI Summit — 18. april 2026 — Proof of Human";
   const description =
-    "Sign up for early updates as we map out spring 2026. The AI landscape will shape-shift, but Homborsund AI Summit will deliver.";
+    "AI is coming in every form — agents, humanoids, and things we haven't named yet. Five speakers. One question: what's left for us to do? Homborsund, April 18th.";
   const url = `${baseUrl}${path}`;
 
   return {
@@ -41,7 +41,7 @@ export default function Summit2026_1Layout({ children }: { children: React.React
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     isAccessibleForFree: true,
     description:
-      "Agents, autonomy and building resilient teams when the AI landscape keeps mutating every quarter.",
+      "Proof of Human — AI is arriving in every form. Five speakers ask what's left for us to do.",
     organizer: {
       "@type": "Organization",
       name: "Homborsund AI",

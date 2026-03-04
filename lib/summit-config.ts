@@ -46,17 +46,22 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
   },
   "2026.1": {
     title: "Homborsund AI Summit",
-    date: "April 2026 (weekend, date TBA)",
-    theme: "Agents, autonomy and building resilient teams when the AI landscape keeps mutating every quarter.",
+    date: "18. april 2026",
+    theme: "Proof of Human",
     status: "Upcoming",
     registrationKey: "2026.1.info",
     cta: {
-      label: "Get Summit Updates",
+      label: "Sign Up",
       href: "/summit/2026.1/register",
-      type: "info",
+      type: "register",
     },
-    infoNotice: "We’re still shaping the agenda and lining up speakers. Expect a full reveal once the spring shipping season calms down.",
-   
+    speakers: [
+      { name: "Lars", description: "What Are Humans For?" },
+      { name: "Cathrine", description: "What the Island Goat Can Teach Us About What’s Coming" },
+      { name: "Knut", description: "Pomptekurs" },
+      { name: "Rebekka", description: "And Now for Something Completely Different" },
+      { name: "Øyvind", description: "Why Would We Need Coding Agents in 2026?" },
+    ],
   }
 };
 
