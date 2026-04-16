@@ -57,7 +57,7 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
     },
     speakers: [
       { name: "Lars", description: "What Are Humans For?" },
-      { name: "Cathrine", description: "What the Island Goat Can Teach Us About What’s Coming" },
+      { name: "Robin", description: "Who Killed the AI Project?" },
       { name: "Open floor", description: "Speakers Corner: Prompting — what's working, what's next" },
       { name: "Michael", description: "Growing Up in the Age of AI — Now What?" },
       { name: "Øyvind", description: "Why Would We Need Coding Agents in 2026?" },

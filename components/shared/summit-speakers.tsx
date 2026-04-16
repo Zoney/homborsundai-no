@@ -26,6 +26,7 @@ const DEFAULT_SPEAKERS: Speaker[] = [
   { name: "Håvard", description: "Random DevOps ghost" },
   { name: "Anders", description: "Random GPU addict", activeFrom: "2026.1" },
   { name: "Cathrine", description: "Random island GOAT", activeFrom: "2026.1" },
+  { name: "Robin", description: "Random AI project detective", activeFrom: "2026.1" },
   { name: "Ben", description: "Mr 1st draft", activeFrom: "2026.1" },
   { name: "Nina", description: "Random earth traveller", activeFrom: "2026.1" },
   { name: "Erik", description: "Enterprise Architecture & economic wiz" },

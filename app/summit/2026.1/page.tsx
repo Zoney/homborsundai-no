@@ -20,7 +20,7 @@ export default function Summit2026_1Page() {
     { time: "15:00-ish", event: "Doors open — coffee, coastline calibration and small talk that might be generated" },
     { time: "15:30-ish", event: "Opening words & the state of being human in 2026" },
     { time: "15:45-ish", event: "Talk: 'What Are Humans For?' — Lars" },
-    { time: "16:20-ish", event: "Talk: 'What the Island Goat Can Teach Us About What's Coming' — Cathrine" },
+    { time: "16:20-ish", event: "Talk: 'Who Killed the AI Project?' — Robin" },
     { time: "16:55-ish", event: "Break — stretch your biological legs" },
     { time: "17:15-ish", event: "Speakers Corner: 'Prompting — what's working, what's next' — Open floor" },
     { time: "17:50-ish", event: "Talk: 'Growing Up in the Age of AI — Now What?' — Michael" },
@@ -80,9 +80,9 @@ export default function Summit2026_1Page() {
                 body: "If AI can write, diagnose, plan and execute — what exactly should a person spend their Tuesday doing? Lars takes on the largest question of the decade with the calm demeanor of someone who has already made peace with several possible answers.",
               },
               {
-                title: "What the Island Goat Can Teach Us About What's Coming",
-                speaker: "Cathrine",
-                body: "On Tromøya, the locals are called goats. Cathrine wears the label with pride and asks whether a small island off Arendal might know something about coexistence that the rest of the world hasn't figured out yet. Also: humanoid robots walking among us, and why the GOAT might not be who you think.",
+                title: "Who Killed the AI Project?",
+                speaker: "Robin",
+                body: "Everyone was excited at the kickoff. The pilot worked. The demo got applause from people who don't usually applaud. And then — nothing. The budget moved, the sponsor changed roles, and the Slack channel went quiet. Robin investigates the scene of the crime, talks to the usual suspects, and asks why organisations keep murdering projects that were technically alive.",
               },
               {
                 title: "Speakers Corner: Prompting",
