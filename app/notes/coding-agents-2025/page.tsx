@@ -35,6 +35,20 @@ export default function ArticlePage() {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000") },
+              { "@type": "ListItem", position: 2, name: "Notes", item: (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000") + "/notes" },
+              { "@type": "ListItem", position: 3, name: "Claude Code vs Codex", item: (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000") + "/notes/coding-agents-2025" },
+            ],
+          }),
+        }}
+      />
       <div className="container mx-auto px-4 md:px-6 max-w-3xl">
         <p className="text-rosebud-300 text-sm">Community Notes</p>
         <h1 className="text-4xl md:text-5xl font-bold mt-2">Claude Code vs Codex: Agentic Coding Gets Real</h1>

@@ -26,7 +26,8 @@ export function VenueLocation({ className }: VenueLocationProps) {
         <div className="space-y-4 text-left">
           <h3 className="text-2xl font-bold text-rosebud-50">Vågsholt skole, Krømpe</h3>
           <p className="text-rosebud-200 text-base leading-relaxed">
-            Homborsund AI brings everyone together at the old village school in Krømpe, a short hop from Grimstad.
+            Homborsund AI brings everyone together at the old village school in Krømpe, a short hop from Grimstad
+            and within easy reach of Kristiansand and Arendal in the Agder region.
             It is a stripped-back, warm space that keeps the focus on people, prototypes and whatever
             refreshments you were clever enough to stash in your bag.
           </p>
@@ -61,7 +62,7 @@ export function VenueLocation({ className }: VenueLocationProps) {
           <dl className="space-y-2 text-sm md:text-base">
             <div className="flex items-baseline justify-between gap-4">
               <dt className="font-medium text-rosebud-200">Address</dt>
-              <dd className="text-right text-rosebud-100">Krømpe 16, 4885 Grimstad</dd>
+              <dd className="text-right text-rosebud-100">Krømpe 16, 4887 Grimstad</dd>
             </div>
             <div className="flex items-baseline justify-between gap-4">
               <dt className="font-medium text-rosebud-200">Coordinates</dt>
