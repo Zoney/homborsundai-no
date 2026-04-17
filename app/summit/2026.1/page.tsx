@@ -19,11 +19,11 @@ export default function Summit2026_1Page() {
   const schedule = [
     { time: "15:00-ish", event: "Doors open — coffee, coastline calibration and small talk that might be generated" },
     { time: "15:30-ish", event: "Opening words & the state of being human in 2026" },
-    { time: "15:45-ish", event: "Talk: 'What Are Humans For?' — Lars" },
+    { time: "15:45-ish", event: "Talk: 'Growing Up in the Age of AI — Now What?' — Michael" },
     { time: "16:20-ish", event: "Talk: 'Who Killed the AI Project?' — Robin" },
     { time: "16:55-ish", event: "Break — stretch your biological legs" },
     { time: "17:15-ish", event: "Speakers Corner: 'Prompting — what's working, what's next' — Open floor" },
-    { time: "17:50-ish", event: "Talk: 'Growing Up in the Age of AI — Now What?' — Michael" },
+    { time: "17:50-ish", event: "Talk: 'What Are Humans For?' — Lars" },
     { time: "18:25-ish", event: "Talk: 'Why Would We Need Coding Agents in 2026?' — Øyvind" },
     { time: "19:00-ish", event: "Dinner, demos and arguments about consciousness" },
     { time: "20:00-ish", event: "Open floor — lightning talks, rebuttals and unfinished thoughts" },
@@ -75,9 +75,9 @@ export default function Summit2026_1Page() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "What Are Humans For?",
-                speaker: "Lars",
-                body: "If AI can write, diagnose, plan and execute — what exactly should a person spend their Tuesday doing? Lars takes on the largest question of the decade with the calm demeanor of someone who has already made peace with several possible answers.",
+                title: "Growing Up in the Age of AI — Now What?",
+                speaker: "Michael",
+                body: "Michael recently became a father. His child will never remember a world without AI in it — will never not know the feeling of talking to something that answers back. What does that childhood look like? What do we teach, what do we protect, and what becomes of curiosity when every question has an instant, confident answer? A quieter talk from someone who has suddenly started thinking about the long term.",
               },
               {
                 title: "Who Killed the AI Project?",
@@ -90,9 +90,9 @@ export default function Summit2026_1Page() {
                 body: "Everyone has a prompt that works a little too well and one that fails for reasons no one can explain. Bring yours. We trade tricks, superstitions and half-working incantations — and then ask the harder question: when the models get better at reading us than we are at writing to them, what is a prompt, really? And what comes after?",
               },
               {
-                title: "Growing Up in the Age of AI — Now What?",
-                speaker: "Michael",
-                body: "Michael recently became a father. His child will never remember a world without AI in it — will never not know the feeling of talking to something that answers back. What does that childhood look like? What do we teach, what do we protect, and what becomes of curiosity when every question has an instant, confident answer? A quieter talk from someone who has suddenly started thinking about the long term.",
+                title: "What Are Humans For?",
+                speaker: "Lars",
+                body: "If AI can write, diagnose, plan and execute — what exactly should a person spend their Tuesday doing? Lars takes on the largest question of the decade with the calm demeanor of someone who has already made peace with several possible answers.",
               },
               {
                 title: "Why Would We Need Coding Agents in 2026?",
