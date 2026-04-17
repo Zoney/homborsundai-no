@@ -13,6 +13,7 @@ export type SummitMetadata = {
   date: string;
   theme: string;
   status: 'Upcoming' | 'Completed';
+  lastModified: string;
   registrationKey?: string;
   cta?: SummitCta;
   infoNotice?: string;
@@ -28,19 +29,22 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
     title: "Homborsund AI Conference",
     date: "August 17th 2024",
     theme: "Back to Basics",
-    status: "Completed"
+    status: "Completed",
+    lastModified: "2024-08-17",
   },
   "2025.1": {
     title: "Homborsund AI Summit",
     date: "3. Mai 2025",
     theme: "Agentic & Multimodal AI: Beyond GenAI with o4-mini & The Hardware Wars",
-    status: "Completed"
+    status: "Completed",
+    lastModified: "2025-05-03",
   },
   "2025.2": {
     title: "Homborsund AI Festival",
     date: "18. oktober 2025",
     theme: "Flashy Agents & Friendly Robots",
     status: "Completed",
+    lastModified: "2025-10-18",
     registrationKey: "2025.2.signedup",
     infoNotice: "This gathering just wrapped. Relive the sparks below and keep your eyes on the spring 2026 plans."
   },
@@ -49,6 +53,7 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
     date: "18. april 2026",
     theme: "Proof of Human",
     status: "Upcoming",
+    lastModified: "2026-04-17",
     registrationKey: "2026.1.info",
     cta: {
       label: "Sign Up",

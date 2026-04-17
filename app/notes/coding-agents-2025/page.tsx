@@ -6,6 +6,8 @@ import { Quote, LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
 export const metadata = {
   title: "Claude Code vs Codex: Agentic Coding Gets Real | Homborsund AI",
   description:
@@ -30,8 +32,22 @@ export default function ArticlePage() {
             author: { "@type": "Organization", name: "Homborsund AI" },
             mainEntityOfPage: {
               "@type": "WebPage",
-              "@id": (process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000") + "/notes/coding-agents-2025",
+              "@id": baseUrl + "/notes/coding-agents-2025",
             },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+              { "@type": "ListItem", position: 2, name: "Notes", item: baseUrl + "/notes" },
+              { "@type": "ListItem", position: 3, name: "Claude Code vs Codex", item: baseUrl + "/notes/coding-agents-2025" },
+            ],
           }),
         }}
       />

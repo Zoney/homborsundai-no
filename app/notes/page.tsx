@@ -3,6 +3,8 @@ import { NOTES } from "@/lib/notes";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
 export const metadata = {
   title: "Community Notes | Homborsund AI",
   description: "Updates, ideas, and notes from the Homborsund AI community.",
@@ -12,8 +14,21 @@ export const metadata = {
 export const revalidate = 3600;
 
 export default function NotesIndexPage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+      { "@type": "ListItem", position: 2, name: "Notes", item: `${baseUrl}/notes` },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gradient-cool text-white py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="container mx-auto px-4 md:px-6">
         <h1 className="text-4xl md:text-5xl font-bold mb-8">Community Notes</h1>
         <p className="text-rosebud-200 mb-10 max-w-3xl">

@@ -9,6 +9,14 @@ export default function Head() {
     name: "Homborsund AI",
     url: baseUrl,
     logo: `${baseUrl}/icon.png`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Krømpe 16",
+      postalCode: "4887",
+      addressLocality: "Grimstad",
+      addressRegion: "Agder",
+      addressCountry: "NO",
+    },
   };
 
   const websiteJsonLd = {

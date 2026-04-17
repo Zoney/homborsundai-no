@@ -37,9 +37,16 @@ export default function Summit2024Layout({ children }: { children: React.ReactNo
       name: "Homborsund Community Center (Vågsholt skole)",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Vågsholt skole",
-        addressLocality: "Krømpe",
+        streetAddress: "Krømpe 16",
+        postalCode: "4887",
+        addressLocality: "Grimstad",
+        addressRegion: "Agder",
         addressCountry: "NO",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 58.2926,
+        longitude: 8.5086,
       },
     },
     url: `${baseUrl}${path}`,

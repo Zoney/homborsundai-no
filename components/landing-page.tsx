@@ -240,8 +240,9 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="py-8 text-center text-rosebud-300 border-t border-ferra-600">
+      <footer className="py-8 text-center text-rosebud-300 border-t border-ferra-600 space-y-2">
         <p>&copy; {new Date().getFullYear()} Homborsund AI. Org. nr: 935616913. The Future is Collaborative.</p>
+        <p className="text-sm text-rosebud-400">Visiting address: Krømpe 16, 4887 Grimstad, Norway</p>
       </footer>
     </div>
   );
