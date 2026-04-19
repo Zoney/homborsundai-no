@@ -1,4 +1,4 @@
-export const DEFAULT_YEAR = "2026.1";
+export const DEFAULT_YEAR = "2026.2";
 
 export type SummitCta = {
   label: string;
@@ -52,14 +52,10 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
     title: "Homborsund AI Summit",
     date: "18. april 2026",
     theme: "Proof of Human",
-    status: "Upcoming",
-    lastModified: "2026-04-17",
+    status: "Completed",
+    lastModified: "2026-04-18",
     registrationKey: "2026.1.info",
-    cta: {
-      label: "Sign Up",
-      href: "/summit/2026.1/register",
-      type: "register",
-    },
+    infoNotice: "This edition just wrapped. Relive the sparks below and keep an eye out for what comes next.",
     speakers: [
       { name: "Lars", description: "What Are Humans For?" },
       { name: "Robin", description: "Who Killed the AI Project?" },
@@ -67,6 +63,21 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
       { name: "Michael", description: "Growing Up in the Age of AI — Now What?" },
       { name: "Øyvind", description: "Why Would We Need Coding Agents in 2026?" },
     ],
+  },
+  "2026.2": {
+    title: "Homborsund AI Summit",
+    date: "Date pending",
+    theme: "To space! We'll need it!",
+    status: "Upcoming",
+    lastModified: "2026-04-19",
+    registrationKey: "2026.2.info",
+    cta: {
+      label: "Get notified",
+      href: "/summit/2026.2/register",
+      type: "info",
+      description: "We'll drop you a line the moment a date locks in.",
+    },
+    infoNotice: "No date yet, no agenda yet — just a title and a hunch. Leave your details and we'll reach out when the next one has legs.",
   }
 };
 

@@ -22,16 +22,16 @@ describe('LandingPage', () => {
 
     // Title and date from next summit metadata should be visible
     expect(screen.getByText(/Homborsund AI Summit/i)).toBeInTheDocument();
-    expect(screen.getByText(/18\. april 2026/i)).toBeInTheDocument();
+    expect(screen.getByText(/Date pending/i)).toBeInTheDocument();
 
     // "Learn more" should link to the summit details page
     const detailsLink = screen.getByRole('link', { name: /Learn more/i });
     expect(detailsLink).toBeInTheDocument();
-    expect(detailsLink).toHaveAttribute('href', '/summit/2026.1');
+    expect(detailsLink).toHaveAttribute('href', '/summit/2026.2');
 
     // "Register" should link to the register page
     const signupLink = screen.getByRole('link', { name: /Register/i });
     expect(signupLink).toBeInTheDocument();
-    expect(signupLink).toHaveAttribute('href', '/summit/2026.1/register');
+    expect(signupLink).toHaveAttribute('href', '/summit/2026.2/register');
   });
 });

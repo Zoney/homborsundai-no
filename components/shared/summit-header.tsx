@@ -39,9 +39,10 @@ export function SummitHeader({ activeYear, title, date, theme, description }: Su
       : "bg-transparent border border-rosebud text-rosebud hover:bg-rosebud/10"
   }`;
 
+  const hasSchedule = primaryCta.type !== "info";
   const secondaryLinks = isUpcoming
     ? [
-        { label: "View Schedule", href: "#schedule" },
+        ...(hasSchedule ? [{ label: "View Schedule", href: "#schedule" }] : []),
         { label: "View Venue", href: "#venue" },
       ]
     : [];
@@ -84,6 +85,14 @@ export function SummitHeader({ activeYear, title, date, theme, description }: Su
               )}
               {isUpcoming && (
                 <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 w-full">
+                  <Link
+                    href={primaryCta.href}
+                    target={primaryCta.isExternal ? "_blank" : undefined}
+                    rel={primaryCta.isExternal ? "noreferrer" : undefined}
+                    className={`${primaryCtaClasses} flex-1 min-w-[180px]`}
+                  >
+                    {primaryCta.label}
+                  </Link>
                   {secondaryLinks.map(({ label, href }) => (
                     <Link
                       key={href}
