@@ -8,7 +8,7 @@ export const revalidate = 86400;
 export async function generateMetadata(): Promise<Metadata> {
   const title = "Homborsund AI Summit 2026.2 — To space! We'll need it!";
   const description =
-    "The next Homborsund AI Summit is being sketched. No date yet, no agenda yet — leave your details and we'll reach out once it takes shape.";
+    "Space, gamliser and AI: Hanne is the first confirmed speaker for the next Homborsund AI Summit. The date is still pending.";
   const url = `${baseUrl}${path}`;
 
   return {

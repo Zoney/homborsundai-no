@@ -1,6 +1,6 @@
 "use client";
 
-import { SummitHeader, SummitRegistration, SummitVenue } from "@/components/shared";
+import { SummitHeader, SummitRegistration, SummitSpeakers, SummitVenue } from "@/components/shared";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { SUMMIT_METADATA } from "@/lib/summit-config";
 
@@ -10,8 +10,8 @@ export default function Summit2026_2Page() {
   const summitInfo = SUMMIT_METADATA[YEAR];
 
   const description = [
-    "We don't have a date. We don't have a speaker list. We don't even have an agenda yet.",
-    "What we do have is a title and a growing suspicion that whatever comes next is going to need more room than one schoolhouse can offer — which is exactly why we're still using one.",
+    "We don't have a date or a full agenda yet. But we do have our first speaker.",
+    "We're heading to space — because it's always sunny in space — and back through the generations with Hanne and the gamliser.",
     "Leave your name, email, phone, and anything you want us to know below. We'll reach out the moment a date holds.",
   ];
 
@@ -31,21 +31,21 @@ export default function Summit2026_2Page() {
           <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
             <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">What we know so far</div>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">
-              Mostly nothing, honestly
+              Two directions, one summit
             </h2>
             <p className="max-w-3xl text-rosebud-200 md:text-lg">
-              The last summit only just wrapped. We&apos;re letting the dust settle before we commit to anything.
+              Space is in. So is Hanne.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {[
               {
-                title: "The title",
-                body: "\u201CTo space! We\u2019ll need it!\u201D Read it as literal, figurative, or both. Either way, the direction is out — away from the small boxes we\u2019ve been arguing in.",
+                title: "Space",
+                body: "Because it\u2019s always sunny in space.",
               },
               {
-                title: "The shape",
-                body: "Same idea as last time: a handful of speakers, a long evening, bonfire at the end. If it ain\u2019t broke, we\u2019re not going to pretend it is.",
+                title: "Gamliser",
+                body: "Hanne will explore how AI might help us learn from older people, understand ageing and illness, and bring generations closer.",
               },
               {
                 title: "The date",
@@ -65,6 +65,7 @@ export default function Summit2026_2Page() {
         </div>
       </section>
 
+      <SummitSpeakers activeYear={YEAR} includeCommunitySpeakers={false} />
       <SummitVenue activeYear={YEAR} />
     </main>
   );

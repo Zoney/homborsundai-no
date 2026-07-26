@@ -69,7 +69,7 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
     date: "Date pending",
     theme: "To space! We'll need it!",
     status: "Upcoming",
-    lastModified: "2026-04-19",
+    lastModified: "2026-07-26",
     registrationKey: "2026.2.info",
     cta: {
       label: "Get notified",
@@ -78,6 +78,12 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
       description: "We'll drop you a line the moment a date locks in.",
     },
     infoNotice: "No date yet, no agenda yet — just a title and a hunch. Leave your details and we'll reach out when the next one has legs.",
+    speakers: [
+      {
+        name: "Hanne",
+        description: "Gamliser — how AI can help us learn from older people, understand ageing and illness, and bridge generations.",
+      },
+    ],
   }
 };
 

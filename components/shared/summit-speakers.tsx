@@ -7,6 +7,7 @@ import { SUMMIT_METADATA } from "@/lib/summit-config";
 
 type SummitSpeakersProps = {
   activeYear: string;
+  includeCommunitySpeakers?: boolean;
 };
 
 type Speaker = {
@@ -47,11 +48,15 @@ function getInitials(name: string): string {
   return matches || name.slice(0, 2).toUpperCase();
 }
 
-export function SummitSpeakers({ activeYear }: SummitSpeakersProps) {
+export function SummitSpeakers({ activeYear, includeCommunitySpeakers = true }: SummitSpeakersProps) {
   const yearNumeric = Number.parseFloat(activeYear);
 
   const speakers = useMemo(() => {
     const metadataSpeakers = SUMMIT_METADATA[activeYear]?.speakers ?? [];
+    if (!includeCommunitySpeakers) {
+      return metadataSpeakers;
+    }
+
     const base = DEFAULT_SPEAKERS.filter((speaker) => {
       if (!speaker.activeFrom) return true;
       const minYear = Number.parseFloat(speaker.activeFrom);
@@ -60,7 +65,7 @@ export function SummitSpeakers({ activeYear }: SummitSpeakersProps) {
     const merged = [...metadataSpeakers, ...base];
 
     return merged;
-  }, [activeYear, yearNumeric]);
+  }, [activeYear, includeCommunitySpeakers, yearNumeric]);
 
   return (
     <section id="speakers" className="w-full py-12 md:py-16 scroll-mt-16 bg-tarawera bg-opacity-50">
@@ -74,11 +79,17 @@ export function SummitSpeakers({ activeYear }: SummitSpeakersProps) {
             Learn from industry experts, field builders and the occasional chaos agent.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div
+          className={
+            speakers.length === 1
+              ? "flex justify-center"
+              : "grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          }
+        >
           {speakers.map((speaker) => (
             <Card
               key={`${activeYear}-${speaker.name}`}
-              className="flex transform flex-col items-center rounded-xl border-ferra-600 bg-ferra p-6 text-center shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-rosebud/30"
+              className="flex w-full max-w-sm transform flex-col items-center rounded-xl border-ferra-600 bg-ferra p-6 text-center shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-rosebud/30"
             >
               <Avatar className="mb-6 h-32 w-32 border-4 border-ferra-700 shadow-md">
                 <AvatarImage src="/placeholder.svg" alt={speaker.name} />
