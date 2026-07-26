@@ -69,7 +69,7 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
     date: "Date pending",
     theme: "To space! We'll need it!",
     status: "Upcoming",
-    lastModified: "2026-07-26",
+    lastModified: "2026-07-27",
     registrationKey: "2026.2.info",
     cta: {
       label: "Get notified",
@@ -77,11 +77,31 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
       type: "info",
       description: "We'll drop you a line the moment a date locks in.",
     },
-    infoNotice: "No date yet, no agenda yet — just a title and a hunch. Leave your details and we'll reach out when the next one has legs.",
+    infoNotice: "No date yet, but the first six talks are taking shape. Leave your details and we'll reach out when the calendar catches up.",
     speakers: [
       {
         name: "Hanne",
-        description: "Gamliser — how AI can help us learn from older people, understand ageing and illness, and bridge generations.",
+        description: "Gamliser: The Original Intelligence",
+      },
+      {
+        name: "Øyvind",
+        description: "It's Always Sunny in Space",
+      },
+      {
+        name: "Knut & Øystein",
+        description: "Build a Brain. Then Build One for Work.",
+      },
+      {
+        name: "Cathrine",
+        description: "Just Add AI Is Not a Strategy",
+      },
+      {
+        name: "Jan Ivar",
+        description: "Do We Still Need All These Roles?",
+      },
+      {
+        name: "Karianne",
+        description: "Can't the Robots Just Run Everything?",
       },
     ],
   }
