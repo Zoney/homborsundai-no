@@ -6,9 +6,9 @@ const path = "/summit/2026.2";
 export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Homborsund AI Summit 2026.2 — To space! We'll need it!";
+  const title = "Homborsund AI Summit 2026.2 — No Hype. Just Fire.";
   const description =
-    "Six talks about space, old wisdom, knowledge bases, AI strategy, disappearing roles and tiny robot brains. The date is still pending.";
+    "Seven talks: the state of AI in Agder, building something now, why industry is hard, real AI for leaders, LLM wikis for the enterprise, elders and politics, and one analogy to rule them all. Saturday 3 October 2026 at Vågsholt skole, Krømpe — doors 15:00, first talk 17:00, grill provided.";
   const url = `${baseUrl}${path}`;
 
   return {
@@ -31,6 +31,33 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function Summit2026_2Layout({ children }: { children: React.ReactNode }) {
+  const eventJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: "Homborsund AI Summit 2026.2 — No Hype. Just Fire.",
+    startDate: "2026-10-03T15:00:00+02:00",
+    doorTime: "2026-10-03T15:00:00+02:00",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    location: {
+      "@type": "Place",
+      name: "Vågsholt skole",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Krømpe 16",
+        postalCode: "4887",
+        addressLocality: "Grimstad",
+        addressCountry: "NO",
+      },
+    },
+    organizer: {
+      "@type": "Organization",
+      name: "Homborsund AI",
+      url: baseUrl,
+    },
+    url: `${baseUrl}${path}`,
+  };
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -43,6 +70,10 @@ export default function Summit2026_2Layout({ children }: { children: React.React
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}

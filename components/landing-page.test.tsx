@@ -22,7 +22,7 @@ describe('LandingPage', () => {
 
     // Title and date from next summit metadata should be visible
     expect(screen.getByText(/Homborsund AI Summit/i)).toBeInTheDocument();
-    expect(screen.getByText(/Date pending/i)).toBeInTheDocument();
+    expect(screen.getByText(/3\. oktober 2026/i)).toBeInTheDocument();
 
     // "Learn more" should link to the summit details page
     const detailsLink = screen.getByRole('link', { name: /Learn more/i });

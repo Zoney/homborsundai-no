@@ -5,13 +5,14 @@ describe("SummitSpeakers", () => {
   it("shows the confirmed Summit 2026.2 lineup without community placeholders", () => {
     render(<SummitSpeakers activeYear="2026.2" includeCommunitySpeakers={false} />);
 
-    for (const name of ["Hanne", "Øyvind", "Knut & Øystein", "Cathrine", "Jan Ivar", "Karianne"]) {
+    for (const name of ["Lars", "Michael", "Knut", "Cathrine", "Eivind", "Hanne", "Øyvind"]) {
       expect(screen.getByRole("heading", { name })).toBeInTheDocument();
     }
 
-    expect(screen.getByText("Gamliser: The Original Intelligence")).toBeInTheDocument();
-    expect(screen.getByText("It's Always Sunny in Space")).toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Kari-Anne" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Lars" })).not.toBeInTheDocument();
+    expect(screen.getByText("The State of AI in Agder")).toBeInTheDocument();
+    expect(screen.getByText("One Analogy to Rule Them All")).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Jan Ivar" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Karianne" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Knut & Øystein" })).not.toBeInTheDocument();
   });
 });

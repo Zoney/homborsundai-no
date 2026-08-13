@@ -66,42 +66,46 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
   },
   "2026.2": {
     title: "Homborsund AI Summit",
-    date: "Date pending",
-    theme: "To space! We'll need it!",
+    date: "3. oktober 2026",
+    theme: "No Hype. Just Fire.",
     status: "Upcoming",
-    lastModified: "2026-07-27",
+    lastModified: "2026-08-13",
     registrationKey: "2026.2.info",
     cta: {
-      label: "Get notified",
+      label: "Sign up — it's real",
       href: "/summit/2026.2/register",
       type: "info",
-      description: "We'll drop you a line the moment a date locks in.",
+      description: "Saturday 3 October 2026 at Vågsholt skole. Doors 15:00 with the grill already lit, first talk 17:00.",
     },
-    infoNotice: "No date yet, but the first six talks are taking shape. Leave your details and we'll reach out when the calendar catches up.",
+    infoNotice: "Saturday 3 October 2026 at Vågsholt skole in Krømpe. Doors at 15:00 with the grill already going, first talk at 17:00. Seven talks, one bonfire, roughly twenty seats — and the schoolhouse has filled every single time. Sign up so we know how much to put on the grill.",
     speakers: [
       {
-        name: "Hanne",
-        description: "Gamliser: The Original Intelligence",
+        name: "Lars",
+        description: "The State of AI in Agder",
       },
       {
-        name: "Øyvind",
-        description: "It's Always Sunny in Space",
+        name: "Michael",
+        description: "Build Something. Now!",
       },
       {
-        name: "Knut & Øystein",
-        description: "Build a Brain. Then Build One for Work.",
+        name: "Knut",
+        description: "Why Industry Doesn't Fall for Demos",
       },
       {
         name: "Cathrine",
-        description: "Just Add AI Is Not a Strategy",
+        description: "Real AI for Leaders — the Hype Stays Outside",
       },
       {
-        name: "Jan Ivar",
-        description: "Do We Still Need All These Roles?",
+        name: "Eivind",
+        description: "The Company That Remembers: An LLM Wiki for the Enterprise",
       },
       {
-        name: "Karianne",
-        description: "Can't the Robots Just Run Everything?",
+        name: "Hanne",
+        description: "The Longest Context Windows in the Room",
+      },
+      {
+        name: "Øyvind",
+        description: "One Analogy to Rule Them All",
       },
     ],
   }

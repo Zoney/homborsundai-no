@@ -202,15 +202,17 @@ export default function RegisterInterestPage() {
         <div className="flex-1 flex items-center justify-center p-4">
           <Card className="w-full max-w-md bg-ferra border-ferra-600 shadow-xl">
             <CardHeader className="text-center space-y-2">
-              <CardTitle className="text-2xl font-bold text-rosebud-100">You&apos;re on the list!</CardTitle>
+              <CardTitle className="text-2xl font-bold text-rosebud-100">You&apos;re in!</CardTitle>
               <CardDescription className="text-rosebud-200">
-                We&apos;ll ping you the moment {summitInfo.title} {YEAR} has a date you can plan around.
+                {summitInfo.title} {YEAR} — Saturday 3 October 2026 at Vågsholt skole in Krømpe.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4 text-center text-rosebud-200">
               <p>
-                Until then, nothing to do. No countdown, no save-the-date that isn&apos;t real yet. Just a
-                promise you&apos;ll hear from us first.
+                Put it in the calendar — Saturday 3 October, doors 15:00, first talk 17:00. We bring the
+                grill; you bring whatever deserves a place on it, a drink that flatters AI, and at least
+                one strong opinion. We&apos;ll be in touch with the practical details as October gets
+                closer.
               </p>
               <Button
                 onClick={() => router.push(`/summit/${YEAR}`)}
@@ -244,14 +246,15 @@ export default function RegisterInterestPage() {
         <Card className="w-full max-w-lg bg-ferra border-ferra-600 shadow-xl">
           <CardHeader className="text-center space-y-2">
             <CardTitle className="text-2xl font-bold text-rosebud-100">
-              Get notified about Summit {YEAR}
+              Sign up for Summit {YEAR}
             </CardTitle>
             <CardDescription className="text-rosebud-200">
               {summitInfo.theme}
             </CardDescription>
             <CardDescription className="text-rosebud-200">
-              There&apos;s no date yet. When there is, we&apos;d rather you hear it from us than stumble on
-              it somewhere online.
+              Saturday 3 October 2026, Vågsholt skole in Krømpe. Doors at 15:00 with the grill already
+              lit, first talk at 17:00. Yes, it&apos;s a real event — the venue just happens to have an
+              outhouse instead of a lobby.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -341,7 +344,7 @@ export default function RegisterInterestPage() {
                 disabled={isSubmitting || !turnstileToken || !formData.name.trim()}
                 className="w-full bg-linear-to-r from-copperrose to-ferra hover:from-copperrose-600 hover:to-ferra-600 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Submitting..." : "Ping me when there's a date"}
+                {isSubmitting ? "Submitting..." : "Count me in — October 3rd"}
               </Button>
             </form>
             <p className="text-xs text-rosebud-400 text-center mt-4">

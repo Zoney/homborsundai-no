@@ -1,18 +1,31 @@
 "use client";
 
-import { SummitHeader, SummitRegistration, SummitSpeakers, SummitVenue } from "@/components/shared";
+import { SummitHeader, SummitRegistration, SummitSchedule, SummitSpeakers, SummitVenue } from "@/components/shared";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { SUMMIT_METADATA } from "@/lib/summit-config";
 
 const YEAR = "2026.2";
 
+const SCHEDULE = [
+  { time: "15:00", event: "Doors open. The grill is already lit — we bring it, you bring whatever deserves to meet it, plus a drink that flatters AI (beer and wine have an enviable track record)." },
+  { time: "17:00", event: "Lars — The State of AI in Agder" },
+  { time: "17:30", event: "Michael — Build Something. Now!" },
+  { time: "18:00", event: "Knut — Why Industry Doesn't Fall for Demos" },
+  { time: "18:30", event: "Grill, round two. The arguments from round one continue." },
+  { time: "19:00", event: "Cathrine — Real AI for Leaders — the Hype Stays Outside" },
+  { time: "19:30", event: "Eivind — The Company That Remembers: An LLM Wiki for the Enterprise" },
+  { time: "20:00", event: "Hanne — The Longest Context Windows in the Room" },
+  { time: "20:30", event: "Øyvind — One Analogy to Rule Them All" },
+  { time: "21:00", event: "Bonfire and open floor. It ends when it ends." },
+];
+
 export default function Summit2026_2Page() {
   const summitInfo = SUMMIT_METADATA[YEAR];
 
   const description = [
-    "The date is still floating somewhere in the future. The speaker lineup isn't.",
-    "Six talks, seven humans, a few robots and one recurring question: as intelligence gets cheaper, what should people and companies do with it?",
-    "We're going to space, into second brains, across generations and through the org chart. It will probably make more sense around the bonfire.",
+    "Saturday 3 October 2026. Doors at 15:00 with the grill already lit, first talk at 17:00. A real date, on a real calendar, for a real gathering in a schoolhouse without running water. We checked twice.",
+    "Seven talks, one recurring question: as intelligence gets cheaper, what should people, companies — and the rest of us — actually do with it?",
+    "From the state of AI in Agder to enterprise memory, from heavy industry to eldercare politics, ending with one analogy to rule them all. It will make more sense around the bonfire. The room takes about twenty people, and it has filled every single time.",
   ];
 
   return (
@@ -31,43 +44,48 @@ export default function Summit2026_2Page() {
           <div className="flex flex-col items-center text-center space-y-4 mb-10 md:mb-12">
             <div className="bg-rosebud text-tarawera font-semibold px-4 py-1 rounded-full text-sm">The Talks</div>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-rosebud to-copperrose">
-              From old wisdom to tiny robot brains
+              From the state of Agder to one analogy to rule them all
             </h2>
             <p className="max-w-3xl text-rosebud-200 md:text-lg">
-              Six talks. No final answers. That would ruin the evening.
+              Seven talks. No final answers. That would ruin the evening.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "Gamliser: The Original Intelligence",
-                speaker: "Hanne",
-                body: "AI likes the newest data. Hanne turns the room toward people with the longest context windows. What can younger generations learn from older people, how do we understand ageing and illness better, and where can AI genuinely help? Spoiler: wisdom did not launch with a waitlist.",
+                title: "The State of AI in Agder",
+                speaker: "Lars",
+                body: "Lars opens the evening with the briefing consultants would happily invoice five figures for: who is actually doing what with AI between Mandal and Tvedestrand, what is real, what is theatre, and where the smart money quietly went. Regional strategy documents will be rewritten to agree with him. This room hears it first.",
               },
               {
-                title: "It\u2019s Always Sunny in Space",
-                speaker: "Øyvind",
-                body: "After context engineering and coding agents, Øyvind looks up: launch costs fall, compute gets cheaper, tools get better, and impossible projects quietly become weekend plans. A talk about space, abundance and why the next chapter may be more exciting than the doomscroll suggests.",
+                title: "Build Something. Now!",
+                speaker: "Michael",
+                body: "Michael has seen enough roadmaps. While other organisations schedule a preliminary study of a pilot of a proof of concept, he shows what happens when you just make the thing — this week, with the tools already in your pocket. Known side effects include leaving the schoolhouse with a working prototype and no memory of deciding to build it.",
               },
               {
-                title: "Build a Brain. Then Build One for Work.",
-                speaker: "Knut & Øystein",
-                body: "Knut and Øystein ask how to turn the daily avalanche of notes, documents and conversations into knowledge bases that actually help — one for yourself, one for a company, and ideally neither named final-final-v7.",
+                title: "Why Industry Doesn’t Fall for Demos",
+                speaker: "Knut",
+                body: "Knut took AI somewhere it genuinely did not want to go: industry. Concrete floors, real machines, processes with consequences. Why the demo that wowed the boardroom dies at the factory gate, and what actually survives out there — some of the region’s most expensive lessons, served free with your sausage. Ask him about the mealworms.",
               },
               {
-                title: "Just Add AI Is Not a Strategy",
+                title: "Real AI for Leaders — the Hype Stays Outside",
                 speaker: "Cathrine",
-                body: "Why do some organisations turn AI into better work while others produce a steering committee and 47 slides? Cathrine looks at what it takes to succeed, how to choose where AI belongs, and how to work strategically before the strategy becomes an archaeological object.",
+                body: "Cathrine has done the thing every keynote claims is possible: taken a leadership group from AI-curious to AI-competent without a single buzzword surviving the journey. Budgets, decisions, org charts — and a CEO dispatched to prompt school along the way. If you bring one colleague to Krømpe, bring the one who owns a strategy document.",
               },
               {
-                title: "Do We Still Need All These Roles?",
-                speaker: "Jan Ivar",
-                body: "The org chart says twelve specialties. The AI says it can do eleven before lunch. Jan Ivar asks whether the future still needs a role for every task, or whether a few capable people with very capable tools can cover more ground — and what we lose if we simplify too far.",
+                title: "The Company That Remembers: An LLM Wiki for the Enterprise",
+                speaker: "Eivind",
+                body: "What if your organisation actually remembered things? Eivind — who got impatient and built his own ambient recorder from scratch — walks through the LLM wiki: raw captures in, compounding knowledge out, a collective memory that outlives every reorg. After this talk, “where is that document?” sounds like a disease from a previous civilisation.",
               },
               {
-                title: "Can\u2019t the Robots Just Run Everything?",
-                speaker: "Karianne",
-                body: "Give the robots wheels, arms and a small AI brain — then what? Karianne follows the question past the demo video: what could machines actually run, where do humans still belong, and who gets called when the tiny brain confidently drives the wrong way?",
+                title: "The Longest Context Windows in the Room",
+                speaker: "Hanne",
+                body: "New to the summit, and arriving with the two audiences AI forgot: the elderly, and the politicians who decide on their behalf. Hanne spends her days where policy meets people with eighty years of context — and asks what happens when we point our shiniest technology at those who need it most and were consulted least. You will quote this one for months.",
+              },
+              {
+                title: "One Analogy to Rule Them All",
+                speaker: "Øyvind",
+                body: "Is an AI system a colleague? An intern with infinite stamina? A power grid? A very eager golden retriever? After a full evening of evidence, your host attempts the summit’s most dangerous stunt: landing the one analogy that makes AI in organisations make sense. Settled around the bonfire, where all serious architecture decisions belong.",
               },
             ].map((item) => (
               <Card key={item.title} className="bg-ferra border-ferra-600 shadow-lg hover:shadow-rosebud/30 transition-all duration-300">
@@ -84,6 +102,10 @@ export default function Summit2026_2Page() {
         </div>
       </section>
 
+      <SummitSchedule
+        schedule={SCHEDULE}
+        note="Times before 17:00 are precise. Times after 17:00 are a mood — the bonfire has the final word."
+      />
       <SummitSpeakers activeYear={YEAR} includeCommunitySpeakers={false} />
       <SummitVenue activeYear={YEAR} />
     </main>
