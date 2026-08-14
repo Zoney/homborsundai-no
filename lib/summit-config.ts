@@ -69,7 +69,7 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
     date: "3. oktober 2026",
     theme: "No Hype. Just Fire.",
     status: "Upcoming",
-    lastModified: "2026-08-13",
+    lastModified: "2026-08-14",
     registrationKey: "2026.2.info",
     cta: {
       label: "Sign up — it's real",
