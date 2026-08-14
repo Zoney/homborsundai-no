@@ -8,7 +8,7 @@ export const revalidate = 86400;
 export async function generateMetadata(): Promise<Metadata> {
   const title = "Homborsund AI Summit 2026.2 — No Hype. Just Fire.";
   const description =
-    "Seven talks: the state of AI in Agder, building something now, why industry is hard, real AI for leaders, LLM wikis for the enterprise, elders and politics, and one analogy to rule them all. Saturday 3 October 2026 at Vågsholt skole, Krømpe — doors 15:00, first talk 17:00, grill provided.";
+    "Eight talks: the state of AI in Agder, building something now, why industry is hard, real AI for leaders, LLM wikis for the enterprise, what a kommune can actually do, elders and politics, and one analogy to rule them all. Saturday 3 October 2026 at Vågsholt skole, Krømpe — doors 15:00, first talk 17:00, grill provided.";
   const url = `${baseUrl}${path}`;
 
   return {

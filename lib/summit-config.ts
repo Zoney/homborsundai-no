@@ -77,7 +77,7 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
       type: "info",
       description: "Saturday 3 October 2026 at Vågsholt skole. Doors 15:00 with the grill already lit, first talk 17:00.",
     },
-    infoNotice: "Saturday 3 October 2026 at Vågsholt skole in Krømpe. Doors at 15:00 with the grill already going, first talk at 17:00. Seven talks, one bonfire, roughly twenty seats — and the schoolhouse has filled every single time. Sign up so we know how much to put on the grill.",
+    infoNotice: "Saturday 3 October 2026 at Vågsholt skole in Krømpe. Doors at 15:00 with the grill already going, first talk at 17:00. Eight talks, one bonfire, roughly twenty seats — and the schoolhouse has filled every single time. Sign up so we know how much to put on the grill.",
     speakers: [
       {
         name: "Lars",
@@ -98,6 +98,10 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
       {
         name: "Eivind",
         description: "The Company That Remembers: An LLM Wiki for the Enterprise",
+      },
+      {
+        name: "Arild",
+        description: "The Kommune Has Entered the Chat",
       },
       {
         name: "Hanne",

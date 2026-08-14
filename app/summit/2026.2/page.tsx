@@ -14,9 +14,10 @@ const SCHEDULE = [
   { time: "18:30", event: "Grill, round two. The arguments from round one continue." },
   { time: "19:00", event: "Cathrine — Real AI for Leaders — the Hype Stays Outside" },
   { time: "19:30", event: "Eivind — The Company That Remembers: An LLM Wiki for the Enterprise" },
-  { time: "20:00", event: "Hanne — The Longest Context Windows in the Room" },
-  { time: "20:30", event: "Øyvind — One Analogy to Rule Them All" },
-  { time: "21:00", event: "Bonfire and open floor. It ends when it ends." },
+  { time: "20:00", event: "Arild — The Kommune Has Entered the Chat" },
+  { time: "20:30", event: "Hanne — The Longest Context Windows in the Room" },
+  { time: "21:00", event: "Øyvind — One Analogy to Rule Them All" },
+  { time: "21:30", event: "Bonfire and open floor. It ends when it ends." },
 ];
 
 export default function Summit2026_2Page() {
@@ -24,7 +25,7 @@ export default function Summit2026_2Page() {
 
   const description = [
     "Saturday 3 October 2026. Doors at 15:00 with the grill already lit, first talk at 17:00. A real date, on a real calendar, for a real gathering in a schoolhouse without running water. We checked twice.",
-    "Seven talks, one recurring question: as intelligence gets cheaper, what should people, companies — and the rest of us — actually do with it?",
+    "Eight talks, one recurring question: as intelligence gets cheaper, what should people, companies — and the rest of us — actually do with it?",
     "From the state of AI in Agder to enterprise memory, from heavy industry to eldercare politics, ending with one analogy to rule them all. It will make more sense around the bonfire. The room takes about twenty people, and it has filled every single time.",
   ];
 
@@ -47,7 +48,7 @@ export default function Summit2026_2Page() {
               From the state of Agder to one analogy to rule them all
             </h2>
             <p className="max-w-3xl text-rosebud-200 md:text-lg">
-              Seven talks. No final answers. That would ruin the evening.
+              Eight talks. No final answers. That would ruin the evening.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -76,6 +77,11 @@ export default function Summit2026_2Page() {
                 title: "The Company That Remembers: An LLM Wiki for the Enterprise",
                 speaker: "Eivind",
                 body: "What if your organisation actually remembered things? Eivind — who got impatient and built his own ambient recorder from scratch — walks through the LLM wiki: raw captures in, compounding knowledge out, a collective memory that outlives every reorg. After this talk, “where is that document?” sounds like a disease from a previous civilisation.",
+              },
+              {
+                title: "The Kommune Has Entered the Chat",
+                speaker: "Arild",
+                body: "Arild does business development for Kristiansand kommune, which means he spends his days matchmaking farmers, chefs and logistics across the region — the original recommendation algorithm, running on coffee and phone calls since long before AI was cool. Now he asks what a municipality can actually do when the robots arrive: open doors, connect value chains, or write another strategy? Bring your scepticism about the public sector; he has heard it all and shows up anyway.",
               },
               {
                 title: "The Longest Context Windows in the Room",

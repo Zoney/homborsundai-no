@@ -5,7 +5,7 @@ describe("SummitSpeakers", () => {
   it("shows the confirmed Summit 2026.2 lineup without community placeholders", () => {
     render(<SummitSpeakers activeYear="2026.2" includeCommunitySpeakers={false} />);
 
-    for (const name of ["Lars", "Michael", "Knut", "Cathrine", "Eivind", "Hanne", "Øyvind"]) {
+    for (const name of ["Lars", "Michael", "Knut", "Cathrine", "Eivind", "Arild", "Hanne", "Øyvind"]) {
       expect(screen.getByRole("heading", { name })).toBeInTheDocument();
     }
 
