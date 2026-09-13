@@ -67,49 +67,41 @@ export const SUMMIT_METADATA: Record<string, SummitMetadata> = {
   "2026.2": {
     title: "Homborsund AI Summit",
     date: "3. oktober 2026",
-    theme: "No Hype. Just Fire.",
+    theme: "LLM-wiki: Break free and empower yourself",
     status: "Upcoming",
-    lastModified: "2026-08-14",
+    lastModified: "2026-09-13",
     registrationKey: "2026.2.info",
     cta: {
       label: "Sign up — it's real",
       href: "/summit/2026.2/register",
       type: "info",
-      description: "Saturday 3 October 2026 at Vågsholt skole. Doors 15:00 with the grill already lit, first talk 17:00.",
+      description: "Saturday 3 October 2026 at Vågsholt skole. Doors 15:00 with the grill already lit, first talk 17:00. No laptop needed — just come.",
     },
-    infoNotice: "Saturday 3 October 2026 at Vågsholt skole in Krømpe. Doors at 15:00 with the grill already going, first talk at 17:00. Eight talks, one bonfire, roughly twenty seats — and the schoolhouse has filled every single time. Sign up so we know how much to put on the grill.",
+    infoNotice: "Saturday 3 October 2026 at Vågsholt skole in Krømpe. Doors at 15:00 with the grill already going, first talk at 17:00. Four talks, two special guests, one old blackboard, one bonfire. No laptops, nothing to install; built for the AI-curious as much as the AI-fluent. Sign up so we know how much to put on the grill.",
     speakers: [
       {
         name: "Lars",
-        description: "The State of AI in Agder",
-      },
-      {
-        name: "Michael",
-        description: "Build Something. Now!",
-      },
-      {
-        name: "Knut",
-        description: "Why Industry Doesn't Fall for Demos",
-      },
-      {
-        name: "Cathrine",
-        description: "Real AI for Leaders — the Hype Stays Outside",
-      },
-      {
-        name: "Eivind",
-        description: "The Company That Remembers: An LLM Wiki for the Enterprise",
-      },
-      {
-        name: "Arild",
-        description: "The Kommune Has Entered the Chat",
-      },
-      {
-        name: "Hanne",
-        description: "The Longest Context Windows in the Room",
+        description: "Whose Memory Is It Anyway?",
       },
       {
         name: "Øyvind",
-        description: "One Analogy to Rule Them All",
+        description: "No Slides. A Second Brain, Live.",
+      },
+      {
+        name: "Erik",
+        description: "Start Tonight: A Second Brain for the Price of a Pizza",
+      },
+      {
+        name: "Special guest 1",
+        description: "Deliberately unannounced",
+      },
+      {
+        name: "Cathrine",
+        description: "Empower Yourself. Then Your Whole Company.",
+      },
+      {
+        name: "Special guest 2",
+        description: "Also unannounced",
       },
     ],
   }

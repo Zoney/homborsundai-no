@@ -6,9 +6,9 @@ const path = "/summit/2026.2";
 export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Homborsund AI Summit 2026.2 — No Hype. Just Fire.";
+  const title = "Homborsund AI Summit 2026.2 — LLM-wiki: Break free and empower yourself";
   const description =
-    "Eight talks: the state of AI in Agder, building something now, why industry is hard, real AI for leaders, LLM wikis for the enterprise, what a kommune can actually do, elders and politics, and one analogy to rule them all. Saturday 3 October 2026 at Vågsholt skole, Krømpe — doors 15:00, first talk 17:00, grill provided.";
+    "One theme, four ways in: the LLM wiki — a folder of plain-text notes an AI reads, organises, links and answers from, on your own machine. Lars on why your memory should answer to you, Øyvind's live demo, Erik on starting tonight for the price of a pizza, Cathrine on scaling it to a whole company, two special guests we are keeping off the website, plus a wiki the whole room builds in chalk on the schoolhouse blackboard. No laptops needed. Saturday 3 October 2026 at Vågsholt skole, Krømpe — doors 15:00, first talk 17:00, grill provided. Built for the AI-curious as much as the AI-fluent.";
   const url = `${baseUrl}${path}`;
 
   return {
@@ -34,7 +34,9 @@ export default function Summit2026_2Layout({ children }: { children: React.React
   const eventJsonLd = {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: "Homborsund AI Summit 2026.2 — No Hype. Just Fire.",
+    name: "Homborsund AI Summit 2026.2 — LLM-wiki: Break free and empower yourself",
+    description:
+      "Four talks, two special guests and one old blackboard on the LLM wiki: own your knowledge in plain-text notes an AI reads, organises and answers from. For the AI-curious as much as the AI-fluent.",
     startDate: "2026-10-03T15:00:00+02:00",
     doorTime: "2026-10-03T15:00:00+02:00",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",

@@ -38,6 +38,7 @@ const DEFAULT_SPEAKERS: Speaker[] = [
 ];
 
 function getInitials(name: string): string {
+  if (/^special guest/i.test(name)) return "?";
   const matches = name
     .replace(/\(.*?\)/g, "")
     .split(" ")
@@ -83,7 +84,9 @@ export function SummitSpeakers({ activeYear, includeCommunitySpeakers = true }: 
           className={
             speakers.length === 1
               ? "flex justify-center"
-              : includeCommunitySpeakers
+              : speakers.length === 4 && !includeCommunitySpeakers
+                ? "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
+                : includeCommunitySpeakers
                 ? "grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
                 : "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
           }

@@ -211,7 +211,8 @@ export default function RegisterInterestPage() {
               <p>
                 Put it in the calendar — Saturday 3 October, doors 15:00, first talk 17:00. We bring the
                 grill; you bring whatever deserves a place on it, a drink that flatters AI, and at least
-                one strong opinion. We&apos;ll be in touch with the practical details as October gets
+                one strong opinion. Leave the laptop at home — the schoolhouse has a blackboard and chalk,
+                and that is all we need. We&apos;ll be in touch with the practical details as October gets
                 closer.
               </p>
               <Button
@@ -253,8 +254,8 @@ export default function RegisterInterestPage() {
             </CardDescription>
             <CardDescription className="text-rosebud-200">
               Saturday 3 October 2026, Vågsholt skole in Krømpe. Doors at 15:00 with the grill already
-              lit, first talk at 17:00. Yes, it&apos;s a real event — the venue just happens to have an
-              outhouse instead of a lobby.
+              lit, first talk at 17:00. Four talks, two special guests, one old blackboard, no laptops needed. Yes, it&apos;s a
+              real event — the venue just happens to have an outhouse instead of a lobby.
             </CardDescription>
           </CardHeader>
           <CardContent>
