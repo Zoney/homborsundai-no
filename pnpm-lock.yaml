@@ -16,14 +16,14 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0
       '@axiomhq/logging':
-        specifier: ^0.2.2
-        version: 0.2.2(@axiomhq/js@1.8.0)
+        specifier: ^0.4.1
+        version: 0.4.1(@axiomhq/js@1.8.0)
       '@axiomhq/nextjs':
-        specifier: ^0.2.2
-        version: 0.2.2(@axiomhq/logging@0.2.2(@axiomhq/js@1.8.0))(next@16.3.6(@babel/core@7.29.7)(@opentelemetry/api@1.9.0)(@types/node@26.6.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))
+        specifier: ^0.4.1
+        version: 0.4.1(@axiomhq/logging@0.4.1(@axiomhq/js@1.8.0))(next@16.3.6(@babel/core@7.29.7)(@opentelemetry/api@1.9.0)(@types/node@26.6.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))
       '@axiomhq/react':
-        specifier: ^0.2.2
-        version: 0.2.2(@axiomhq/logging@0.2.2(@axiomhq/js@1.8.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^0.4.1
+        version: 0.4.1(@axiomhq/logging@0.4.1(@axiomhq/js@1.8.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@radix-ui/react-avatar':
         specifier: ^1.2.6
         version: 1.2.6(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -161,8 +161,8 @@ packages:
     resolution: {integrity: sha512-VRkqV9XH+pkj8d9eRdw8TuWvXdCkVDMtDOz2rix5UAg7x5SlOeWhUz9fwc0ZgySosMSMA7WP7X0fFX8N/jBHtQ==}
     engines: {node: '>=20'}
 
-  '@axiomhq/logging@0.2.2':
-    resolution: {integrity: sha512-r21JL+hQH4KL8wlkfzcl9OToMLSX2iPVeQR51EfaDmXNz9oeLJTyaqfiXQJSfHnjoV/NOIE6TNQ4CxHfzt/ROg==}
+  '@axiomhq/logging@0.4.1':
+    resolution: {integrity: sha512-lrl63DiVLXwf2Zj2XeuGhbzhngcNyhqrrdkxs1pG9g5qLxs1BxHdRBbIVhp0/1dQbLpd8CT3FvQA1RS9usbTgw==}
     engines: {node: '>=20'}
     peerDependencies:
       '@axiomhq/js': ^1.0.0
@@ -170,18 +170,18 @@ packages:
       '@axiomhq/js':
         optional: true
 
-  '@axiomhq/nextjs@0.2.2':
-    resolution: {integrity: sha512-Rgj+PtFBWgIN1FT1dVx+PnlYxazL0HUd6WSGmuQ3p3FhtNShiTwaYPoXrSlpUq8AjVoTZiAwsmEPBXF7J5Br3w==}
+  '@axiomhq/nextjs@0.4.1':
+    resolution: {integrity: sha512-1R8WzjXC5LFyLMW1rzcx7S/DMDe9JI/vA8oipz06QHE6lN88eF4qFU90bYepSRxWIgIQyYHD/CvE7lrHL5sTUA==}
     engines: {node: '>=20'}
     peerDependencies:
-      '@axiomhq/logging': 0.2.2
+      '@axiomhq/logging': 0.4.1
       next: '>=13'
 
-  '@axiomhq/react@0.2.2':
-    resolution: {integrity: sha512-QCIWaq7ySXTJnBiPg1034XrwMqgUdvtKeuJ+bEb0p7ACtEF2+BO9eWbSYjO/WbS9C/2WX3Nhozj68Rkx02bBGQ==}
+  '@axiomhq/react@0.4.1':
+    resolution: {integrity: sha512-CxJTIOG77GDsTx3mOR7p9kj/uoGd8901+b/OwvBrQjwXZIFTDnfvy7nuGIRDGDKgfQLctPzeiah32HeZvGrvUQ==}
     engines: {node: '>=20'}
     peerDependencies:
-      '@axiomhq/logging': 0.2.2
+      '@axiomhq/logging': 0.4.1
       react: ^18 || ^19
       react-dom: ^18 || ^19
 
@@ -4033,18 +4033,18 @@ snapshots:
     dependencies:
       fetch-retry: 6.0.0
 
-  '@axiomhq/logging@0.2.2(@axiomhq/js@1.8.0)':
+  '@axiomhq/logging@0.4.1(@axiomhq/js@1.8.0)':
     optionalDependencies:
       '@axiomhq/js': 1.8.0
 
-  '@axiomhq/nextjs@0.2.2(@axiomhq/logging@0.2.2(@axiomhq/js@1.8.0))(next@16.3.6(@babel/core@7.29.7)(@opentelemetry/api@1.9.0)(@types/node@26.6.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))':
+  '@axiomhq/nextjs@0.4.1(@axiomhq/logging@0.4.1(@axiomhq/js@1.8.0))(next@16.3.6(@babel/core@7.29.7)(@opentelemetry/api@1.9.0)(@types/node@26.6.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))':
     dependencies:
-      '@axiomhq/logging': 0.2.2(@axiomhq/js@1.8.0)
+      '@axiomhq/logging': 0.4.1(@axiomhq/js@1.8.0)
       next: 16.3.6(@babel/core@7.29.7)(@opentelemetry/api@1.9.0)(@types/node@26.6.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
 
-  '@axiomhq/react@0.2.2(@axiomhq/logging@0.2.2(@axiomhq/js@1.8.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@axiomhq/react@0.4.1(@axiomhq/logging@0.4.1(@axiomhq/js@1.8.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@axiomhq/logging': 0.2.2(@axiomhq/js@1.8.0)
+      '@axiomhq/logging': 0.4.1(@axiomhq/js@1.8.0)
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
       use-deep-compare: 1.3.0(react@19.3.0)
