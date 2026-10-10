@@ -15,7 +15,7 @@
     "convex:deploy": "convex deploy"
   },
   "dependencies": {
-    "@axiomhq/js": "^1.8.0",
+    "@axiomhq/js": "^2.0.0",
     "@axiomhq/logging": "^0.4.1",
     "@axiomhq/nextjs": "^0.4.1",
     "@axiomhq/react": "^0.4.1",
