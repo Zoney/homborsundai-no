@@ -27,7 +27,7 @@ const CSP = [
 const TILLATELSER = 'camera=(self), microphone=(), geolocation=(), interest-cohort=()';
 
 /** @type {import('next').NextConfig} */
-export default {
+const nextConfig = {
   output: 'standalone',
   poweredByHeader: false,
   headers: async () => [
@@ -50,3 +50,5 @@ export default {
     },
   ],
 };
+
+export default nextConfig;

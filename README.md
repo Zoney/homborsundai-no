@@ -51,7 +51,7 @@ those are gone. `vercel.json` stops Vercel from building.
 
 ```bash
 npm ci
-npm run db:dev        # PGlite on 127.0.0.1:5437 (keeps data in .pglite/)
+npm run db:dev        # PGlite on 127.0.0.1:5471 (keeps data in .pglite/)
 cp .env.example .env.local   # fill BETTER_AUTH_SECRET with any random string
 npm run dev           # http://localhost:3520
 ```

@@ -8,7 +8,7 @@
     "start": "node .next/standalone/server.js",
     "lint": "eslint .",
     "test": "NODE_ENV=test jest",
-    "db:dev": "pglite-server --db=.pglite --port=5437 --max-connections=10",
+    "db:dev": "pglite-server --db=.pglite --port=5471 --max-connections=10",
     "flytt:import": "node scripts/flytt-import.mjs"
   },
   "dependencies": {

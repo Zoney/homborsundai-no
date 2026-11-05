@@ -4,12 +4,14 @@
 
 import useSWR from "swr";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { authKlient } from "@/lib/auth-klient";
 
 type Passkey = { id: string; name?: string | null; createdAt: string | Date };
 
 export default function MyAccount() {
+  const router = useRouter();
   const { data: passkeys, mutate } = useSWR("passkeys", async () => ((await authKlient.passkey.listUserPasskeys()).data as Passkey[] | null) ?? []);
   const [msg, setMsg] = useState("");
   const [alsoRegs, setAlsoRegs] = useState(false);
@@ -32,7 +34,8 @@ export default function MyAccount() {
 
   const logout = async () => {
     await authKlient.signOut();
-    location.href = "/";
+    router.replace("/");
+    router.refresh();
   };
 
   const deleteAccount = async () => {
@@ -50,7 +53,8 @@ export default function MyAccount() {
       return;
     }
     await authKlient.signOut().catch(() => {});
-    location.href = "/";
+    router.replace("/");
+    router.refresh();
   };
 
   return (

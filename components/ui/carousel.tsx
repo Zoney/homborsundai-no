@@ -111,11 +111,15 @@ const Carousel = React.forwardRef<
         return
       }
 
-      onSelect(api)
+      // First sync in a callback, not synchronously in the effect body
+      // (setTimeout, not requestAnimationFrame: rAF pauses in background tabs)
+      const frame = setTimeout(() => onSelect(api), 0)
       api.on("reInit", onSelect)
       api.on("select", onSelect)
 
       return () => {
+        clearTimeout(frame)
+        api?.off("reInit", onSelect)
         api?.off("select", onSelect)
       }
     }, [api, onSelect])
