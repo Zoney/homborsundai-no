@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { krevAdmin } from '@/lib/api';
+import { loggHendelse } from '@/lib/hendelser';
 import { getAllRegistrations } from '@/lib/registrations';
 import { renderCampaignEmail, sendCampaignEmail } from '@/lib/email';
 
@@ -38,7 +39,7 @@ function filterRecipients(
   const emails = new Set<string>();
   for (const r of rows) {
     const email = (r.email || '').trim().toLowerCase();
-    if (!email) continue;
+    if (!email || r.cancelledAt) continue;
     if (excludeEmails.has(email)) continue;
 
     const isInterested2025_2 = r.summit === '2025.2';
@@ -59,10 +60,8 @@ function filterRecipients(
 }
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const admin = await krevAdmin();
+  if (admin instanceof NextResponse) return admin;
 
   try {
     const body = await req.json();
@@ -78,17 +77,16 @@ export async function POST(req: NextRequest) {
     const incomingHeaders = req.headers;
     const protocol = incomingHeaders.get('x-forwarded-proto') ?? 'http';
     const host = incomingHeaders.get('host');
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.AUTH_URL || `${protocol}://${host}`;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.BETTER_AUTH_URL || `${protocol}://${host}`;
 
     let cta = body.cta && body.cta.url && body.cta.label ? body.cta as { label: string; url: string } : undefined;
     if (cta && !/^https?:\/\//i.test(cta.url)) {
       cta = { ...cta, url: new URL(cta.url, baseUrl).toString() };
     }
     const footerNote: string | undefined = body.footerNote || undefined;
-    const campaignTag: string = body.campaignTag || 'admin-campaign';
 
-    if (!subject || !contentHtml || cohorts.length === 0) {
-      return NextResponse.json({ error: 'Missing subject, contentHtml, or cohorts' }, { status: 400 });
+    if (!subject || !contentHtml || (cohorts.length === 0 && includeSummits.length === 0 && includeEmails.length === 0 && overrideRecipients.length === 0)) {
+      return NextResponse.json({ error: 'Missing subject, contentHtml, or recipients' }, { status: 400 });
     }
 
     const html = renderCampaignEmail({
@@ -110,21 +108,14 @@ export async function POST(req: NextRequest) {
     // Basic send loop; consider batching/sleeping in the future
     let sent = 0;
     for (const to of recipients) {
-      const res = await sendCampaignEmail({
-        to,
-        subject,
-        html,
-        tags: [
-          { name: 'campaign', value: campaignTag },
-          { name: 'cohort', value: cohorts.join(',') }
-        ],
-      });
+      const res = await sendCampaignEmail({ to, subject, html });
       if (res.ok) sent += 1;
     }
 
+    await loggHendelse('kampanje_sendt', { aktor: admin.epost, detaljer: { emne: subject, mottakere: recipients.length, sendt: sent } });
     return NextResponse.json({ ok: true, sent, recipients });
   } catch (err) {
-    console.error('Admin email send error:', err);
+    console.error(JSON.stringify({ app: 'hai', niva: 'error', hendelse: 'kampanje_feilet' }));
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

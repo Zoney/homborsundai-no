@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 type VenueLocationProps = {
@@ -11,16 +12,31 @@ const MAP_EMBED_URL = "https://www.openstreetmap.org/export/embed.html?bbox=8.50
 const MAP_LINK_URL = "https://www.openstreetmap.org/?mlat=58.292615235145405&mlon=8.50863841132553#map=16/58.2926/8.5086";
 
 export function VenueLocation({ className }: VenueLocationProps) {
+  const [showMap, setShowMap] = useState(false);
   return (
     <div className={cn("space-y-8", className)}>
       <div className="overflow-hidden rounded-3xl border border-ferra-600 shadow-2xl shadow-rosebud/30">
-        <iframe
-          title="Map showing Vågsholt skole in Krømpe"
-          src={MAP_EMBED_URL}
-          className="h-[320px] w-full border-0 md:h-[420px]"
-          loading="lazy"
-          allowFullScreen
-        />
+        {showMap ? (
+          <iframe
+            title="Map showing Vågsholt skole in Krømpe"
+            src={MAP_EMBED_URL}
+            className="h-[320px] w-full border-0 md:h-[420px]"
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            allowFullScreen
+          />
+        ) : (
+          // The map is loaded from openstreetmap.org only when asked for, so a visit to the
+          // page sends nothing to anyone else (see /personvern).
+          <button
+            type="button"
+            onClick={() => setShowMap(true)}
+            className="flex h-[320px] w-full flex-col items-center justify-center gap-2 bg-ferra-900/40 text-rosebud-100 hover:bg-ferra-900/60 md:h-[420px]"
+          >
+            <span className="text-lg font-semibold">Show the map</span>
+            <span className="text-sm text-rosebud-300">Loads from openstreetmap.org</span>
+          </button>
+        )}
       </div>
       <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
         <div className="space-y-4 text-left">

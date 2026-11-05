@@ -150,7 +150,8 @@ function formatTimestamp(timestamp: string): string {
   return date.toLocaleString('en-GB', { timeZone: 'Europe/Oslo' });
 }
 
-function formatList(registrations: RegistrationData[], summit: string, limit: number): SlackResponse {
+function formatList(all: RegistrationData[], summit: string, limit: number): SlackResponse {
+  const registrations = all.filter((r) => !r.cancelledAt);
   if (registrations.length === 0) {
     return {
       response_type: 'ephemeral',
@@ -277,12 +278,10 @@ function parseCommand(text: string): { action: string; args: string[] } {
 export async function POST(request: NextRequest) {
   const signingSecret = process.env.SLACK_SIGNING_SECRET;
 
+  // Optional: the slash command only exists when SLACK_SIGNING_SECRET is set (Slack calls us,
+  // and we answer in the response body, so it needs no outbound network).
   if (!signingSecret) {
-    console.error('Missing SLACK_SIGNING_SECRET environment variable.');
-    return NextResponse.json(
-      { response_type: 'ephemeral', text: 'Slack integration is not configured. Missing signing secret.' },
-      { status: 500 },
-    );
+    return new NextResponse('Not found', { status: 404 });
   }
 
   const rawBody = await request.text();

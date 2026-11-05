@@ -1,88 +1,83 @@
-Homborsund.no – Development, Convex, and Deployment
+# homborsundai.no
 
-## Setup
+The Homborsund AI site: summit pages, notes, signups with ticket e-mails and QR codes,
+optional accounts for attendees, and an admin area for the organisers.
 
-- Install dependencies: `pnpm install`
-- Copy `.env.example` to `.env.local` and fill in values
-  - Set `NEXT_PUBLIC_CONVEX_URL` as described below
-- Start the app: `pnpm dev` (http://localhost:3000)
+Since November 2026 it runs on **our own app server at Hetzner** (Caddy, Postgres, our own
+Postfix), set up and deployed from the husken repo (`workshop/apper/`, slug `hai`). Before
+that it ran on Vercel with Convex, next-auth/Google, Resend, Axiom and Turnstile; all of
+those are gone. `vercel.json` stops Vercel from building.
 
-## Convex
+## Stack
 
-This repo uses Convex for registrations and related server functions. The app reads `NEXT_PUBLIC_CONVEX_URL` to know which Convex deployment to talk to.
+- Next.js (`output: 'standalone'`), Node 20, **npm** (`npm ci && npm run build`).
+- **Postgres** via `DATABASE_URL` (schema `app` when `HAI_MILJO=production`, else `dev`).
+  Tables are created by the app (`lib/db.ts`): `registrering` (signups), `admin`,
+  `hendelse` (activity log), plus Better Auth's tables.
+- **Better Auth** (`lib/auth.ts`, lazy init): e-mail code + passkey. Who may log in:
+  everyone who has signed up (with that address) and admins. No Google, no passwords.
+- **Admins:** everyone `@homborsundai.no` automatically; `HAI_SUPERADMIN` (comma list) can
+  add and remove other admins at `/admin/admins`.
+- **Mail** (`lib/epost.ts`): nodemailer over the unix socket `EPOST_SOCKET` to our Postfix,
+  DKIM-signed by the app (`DKIM_DOMENE`, `DKIM_VELGER`, `DKIM_NOKKEL`), from
+  `summit@post.homborsundai.no` (`EPOST_FRA`). Without `EPOST_SOCKET` mails are logged.
+- **No outbound network at runtime.** No Turnstile: the signup form uses a honeypot, a
+  minimum time on the form, a same-origin check and an in-memory rate limit per IP.
+  The OpenStreetMap venue map loads only after a click.
+- **Logs:** one JSON line per event on stdout (`lib/logg.ts`), searched in Utkikk. Never
+  tokens, codes or e-mail addresses there; the activity log table (admins only) has the
+  details, without IP addresses, and is pruned after 24 months.
 
-### Create or link a Convex project
+## Flows
 
-1) Start a dev deployment (cloud, interactive):
-- `pnpm run convex:dev`
-- Log in / select or create a Convex project when prompted.
-- The CLI prints a stable Development URL. Put that in `.env.local` as `NEXT_PUBLIC_CONVEX_URL` for local development when not using `--local`.
+- **Signup** `POST /api/summit/register` (only summits with `status: 'Upcoming'` in
+  `lib/summit-config.ts`). E-mail is required: everyone gets the ticket e-mail with the
+  link `/ticket/<token>`. The token is 192 random bits; old Convex ids
+  (`registration:<time>:<random>`) are kept as tokens, so old links and QR codes work.
+  Same address twice for the same summit = the ticket is sent again, nothing is shown.
+- **Ticket page** `/ticket/<token>`: QR code (the token), cancel / sign up again. No account.
+- **My tickets** `/my-tickets` (login at `/login`): all signups for the address, passkeys,
+  log out, «Delete my account» (optionally with all signups).
+- **Admin** `/admin`: counts, registrations (edit, cancel, check in, delete), check-in with
+  the camera scanner (`/admin/verify`), activity log, campaign e-mails, admins.
+- **Slack** `/api/slack/commands` exists only when `SLACK_SIGNING_SECRET` is set (Slack calls
+  us; no outbound call). Off by default: it would send signups to Slack (USA), so the
+  privacy page must be updated before turning it on. The old signup webhook is replaced by
+  optional e-mails to `HAI_VARSLE`.
+- **Server-to-server** `/api/tjeneste/*`: only via `https://relay.zoney.no/hai/…` with a
+  client certificate (`X-Klient`, set by Caddy); 404 elsewhere.
 
-2) Optional: create Production deployment (from dashboard or CLI):
-- `pnpm run convex:deploy` (after you’re ready to publish changes to Production)
-- Copy the Production URL from the dashboard for use in Vercel Production.
+## Local development
 
-### Local development (`--local`)
+```bash
+npm ci
+npm run db:dev        # PGlite on 127.0.0.1:5437 (keeps data in .pglite/)
+cp .env.example .env.local   # fill BETTER_AUTH_SECRET with any random string
+npm run dev           # http://localhost:3520
+```
 
-Use a fully local Convex dev server when you want everything to run locally.
+Login codes and ticket e-mails are printed in the dev server log. `@example.com` addresses
+may always log in locally.
 
-- Start local Convex: `pnpm run convex:local`
-- Copy the Local URL printed by the CLI into `.env.local` as `NEXT_PUBLIC_CONVEX_URL`
-- In a separate terminal: `pnpm dev`
+## The move from Convex (November 2026)
 
-Notes:
-- Keep the Convex terminal running while developing; it hot-reloads functions and regenerates types.
-- If types are missing in CI, we run `convex codegen` on install (see package.json).
+All data in Convex prod (50 signups; the Firestore and Upstash generations are already in
+there or gone) is moved with `scripts/flytt-import.mjs`, idempotent on the ticket id:
 
-### Environment matrix
+```bash
+node scripts/flytt-import.mjs --mal hetzner --tørt   # counts only, nothing sent
+node scripts/flytt-import.mjs --mal hetzner          # via relay with ~/.husk/klient/macen.*
+```
 
-- Local (`--local`): `.env.local` → `NEXT_PUBLIC_CONVEX_URL` is the local URL printed by `convex dev --local`.
-- Preview (Vercel): set `NEXT_PUBLIC_CONVEX_URL` in Vercel “Preview” environment to the Convex Development URL (shared dev deployment).
-- Production (Vercel): set `NEXT_PUBLIC_CONVEX_URL` in Vercel “Production” environment to the Convex Production URL.
+It reads the unzipped `npx convex export` in `~/.husk/flytting/hai/convex/` and prints counts only.
 
-### Useful Convex commands
+## Deploy
 
-- `pnpm run convex:dev` – Start cloud dev deployment (watch server).
-- `pnpm run convex:local` – Start local dev server.
-- `pnpm run convex:deploy` – Deploy functions/schema to Production.
-- `pnpm exec convex codegen` – Regenerate types in `convex/_generated/`.
+Push to `main`, then on Workshop: `workshop/apper/apper.sh deploy hai` (husken repo). Never
+`vercel --prod`.
 
-## Vercel Deployment
+## Content
 
-The project deploys on Vercel using standard Next.js defaults.
-
-- Install Command: `pnpm install`
-- Build Command: `pnpm build`
-- Output: `.next`
-
-### Environment variables on Vercel
-
-Set these in Vercel Project Settings → Environment Variables:
-
-- Preview:
-  - `NEXT_PUBLIC_CONVEX_URL` → Convex Development URL
-- Production:
-  - `NEXT_PUBLIC_CONVEX_URL` → Convex Production URL
-
-- All environments:
-  - `SLACK_SIGNUPS_WEBHOOK_URL` → Slack incoming webhook for the `#summit-signups` channel.
-  - `SLACK_SIGNING_SECRET` → Slack signing secret (found in App Credentials).
-
-Other variables from `.env.example` should be filled appropriately for each environment.
-
-### Notes
-
-- The repo runs `convex codegen` on install to ensure generated types exist during Vercel builds.
-- For local dev, you can choose between `--local` (fully local) or the shared cloud Development server.
-
-## Slack Setup
-
-1. In Slack → _Your Apps_, open the summit app.
-2. Enable **Incoming Webhooks** and add a webhook to `#summit-signups`. Paste the URL into `SLACK_SIGNUPS_WEBHOOK_URL`.
-3. Under **Basic Information**, copy the **Signing Secret** into `SLACK_SIGNING_SECRET`.
-4. Add a Slash Command (e.g. `/summit-signups`) with:
-   - Request URL: `http://homborsundai.no/api/slack/commands` (use Vercel preview/prod URLs accordingly).
-   - Short description: “Show summit registrations”.
-   - Usage hint: `count | list [summit] [limit]`.
-5. Deploy the updated environment variables to Vercel (`Settings → Environment Variables`) for Preview and Production.
-6. Test the command in Slack: `/summit-signups count` or `/summit-signups list 2025.2 5`.
+See `AGENTS.md` (summit pages, notes, SEO) and `SUMMIT_ARCHITECTURE.md`. Public copy rules:
+never seat counts or «fullt hver gang», never children as examples, no audience activity
+on computers (only the blackboard).

@@ -11,6 +11,7 @@ type NavItem = { href: string; label: string };
 const NAV: NavItem[] = [
   { href: "/summit", label: "Summit" },
   { href: "/notes", label: "Notes" },
+  { href: "/my-tickets", label: "My tickets" },
 ];
 
 export default function SiteHeader() {

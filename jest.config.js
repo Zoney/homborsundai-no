@@ -18,6 +18,7 @@ const customJestConfig = {
   },
   // If using TypeScript with a baseUrl set to the root directory, you need the below for alias support
   moduleDirectories: ['node_modules', '<rootDir>/'],
+  modulePathIgnorePatterns: ['<rootDir>/.next/'],
   // Handle CSS imports (if you import CSS files directly in your components)
   // '^.+\.module\.(css|sass|scss)$': 'identity-obj-proxy', // For CSS Modules
   // '^.+\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js', // For global CSS

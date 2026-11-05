@@ -1,13 +1,17 @@
 "use client";
-import { signOut } from "next-auth/react";
+
 import { Button } from "@/components/ui/button";
+import { authKlient } from "@/lib/auth-klient";
 
 export default function SignOutButton() {
   return (
     <Button
-      variant="link"
-      className="justify-start"
-      onClick={() => signOut({ redirectTo: "/" })}
+      variant="ghost"
+      className="justify-start w-full"
+      onClick={async () => {
+        await authKlient.signOut();
+        location.href = "/";
+      }}
     >
       Sign out
     </Button>

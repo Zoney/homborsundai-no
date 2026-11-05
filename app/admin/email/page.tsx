@@ -1,16 +1,8 @@
-import { auth } from '@/lib/auth';
-import Link from 'next/link';
 import AdminEmail from '@/components/admin-email';
 
-export default async function AdminEmailPage() {
-  const session = await auth();
-  if (!session) {
-    return (
-      <div className="container mx-auto py-10 text-center">
-        <Link className="underline" href="/api/auth/signin">Sign in with Google</Link>
-      </div>
-    );
-  }
+export const dynamic = 'force-dynamic';
+
+export default function AdminEmailPage() {
 
   return (
     <main className="container mx-auto py-10 space-y-6">

@@ -128,8 +128,15 @@ export default function AdminRegistrations({ summit: summitProp }: AdminRegistra
       ) : (
         <div className="space-y-4">
           {data?.registrations?.length ? (
+            <p className="text-sm text-muted-foreground">
+              {data.registrations.filter((r: any) => !r.cancelledAt).length} signed up,{' '}
+              {data.registrations.filter((r: any) => r.checkedInAt && !r.cancelledAt).length} checked in,{' '}
+              {data.registrations.filter((r: any) => r.cancelledAt).length} cancelled
+            </p>
+          ) : null}
+          {data?.registrations?.length ? (
             data.registrations.map((reg: any) => (
-        <RegistrationItem key={reg.id} reg={reg} onUpdated={mutate} />
+        <RegistrationItem key={reg.nr} reg={reg} onUpdated={mutate} />
             ))
           ) : (
             <div className="rounded-md border border-dashed p-6 text-center text-sm text-muted-foreground">
@@ -145,79 +152,73 @@ export default function AdminRegistrations({ summit: summitProp }: AdminRegistra
 function RegistrationItem({ reg, onUpdated }: { reg: any; onUpdated: () => void | Promise<unknown> }) {
   const [edit, setEdit] = useState(false);
   const [form, setForm] = useState(reg);
+  const path = `/api/admin/registrations/${encodeURIComponent(reg.id)}`;
 
   const save = async () => {
-    await fetch(`/api/admin/registrations/${reg.id}`, {
+    await fetch(path, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone, comment: form.comment }),
     });
     setEdit(false);
     await onUpdated();
   };
 
+  const act = async (action: 'checkin' | 'undo-checkin' | 'cancel' | 'restore') => {
+    await fetch(path, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action }),
+    });
+    await onUpdated();
+  };
+
   const deleteRegistration = async () => {
-    if (window.confirm("Are you sure you want to delete this registration?")) {
-      await fetch(`/api/admin/registrations/${reg.id}`, {
-        method: 'DELETE',
-      });
+    if (window.confirm("Delete this registration for good? Cancelling keeps it in the list; deleting removes it.")) {
+      await fetch(path, { method: 'DELETE' });
       await onUpdated();
     }
   };
 
+  const fmt = (d: string) => new Date(d).toLocaleString('en-GB', { timeZone: 'Europe/Oslo' });
+
   return (
-    <div className="border p-4 rounded-md">
+    <div className={`border p-4 rounded-md ${reg.cancelledAt ? 'opacity-60' : ''}`}>
       {edit ? (
         <div className="space-y-2">
-          <input
-            className="w-full border p-1 text-black"
-            value={form.name}
-            onChange={e => setForm({ ...form, name: e.target.value })}
-          />
-          <input
-            className="w-full border p-1 text-black"
-            value={form.email}
-            onChange={e => setForm({ ...form, email: e.target.value })}
-          />
-          <input
-            className="w-full border p-1 text-black"
-            value={form.phone}
-            onChange={e => setForm({ ...form, phone: e.target.value })}
-          />
-          <textarea
-            className="w-full border p-1 text-black"
-            value={form.comment}
-            onChange={e => setForm({ ...form, comment: e.target.value })}
-            placeholder="Comment"
-          />
+          <input className="w-full border p-1 text-black" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Name" />
+          <input className="w-full border p-1 text-black" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="E-mail" />
+          <input className="w-full border p-1 text-black" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} placeholder="Phone" />
+          <textarea className="w-full border p-1 text-black" value={form.comment} onChange={e => setForm({ ...form, comment: e.target.value })} placeholder="Comment" />
           <div className="flex space-x-2">
             <Button onClick={save}>Save</Button>
-            <Button variant="outline" onClick={() => {
-              setEdit(false);
-              setForm(reg); // Reset form to original data
-            }}>Cancel</Button>
+            <Button variant="outline" onClick={() => { setEdit(false); setForm(reg); }}>Cancel</Button>
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            {reg.summit && (
-              <p className="text-xs mb-1 text-gray-400">Summit: {reg.summit}</p>
-            )}
-            <p className="font-semibold">{reg.name}</p>
+            {reg.summit && <p className="text-xs mb-1 text-gray-400">Summit: {reg.summit} · #{reg.nr}</p>}
+            <p className="font-semibold">
+              {reg.name}
+              {reg.cancelledAt && <span className="ml-2 rounded bg-red-900/40 px-2 py-0.5 text-xs">cancelled {fmt(reg.cancelledAt)}</span>}
+              {reg.checkedInAt && <span className="ml-2 rounded bg-green-900/40 px-2 py-0.5 text-xs">checked in {fmt(reg.checkedInAt)}</span>}
+            </p>
             <p className="text-sm text-gray-400">{reg.email}</p>
             {reg.phone && <p className="text-sm text-gray-400">{reg.phone}</p>}
             {reg.comment && <p className="text-sm text-gray-500 mt-1">Comment: {reg.comment}</p>}
-            <p className="text-sm text-gray-400">ID: {reg.id}</p>
-            {reg.timestamp && <p className="text-sm text-gray-400">Timestamp: {new Date(reg.timestamp).toUTCString()}</p>}
+            {reg.timestamp && <p className="text-sm text-gray-400">Signed up: {fmt(reg.timestamp)}</p>}
+            <p className="text-sm"><a className="underline text-gray-400" href={`/ticket/${encodeURIComponent(reg.id)}`} target="_blank" rel="noreferrer">Ticket page</a></p>
           </div>
-          <div className="flex space-x-2">
-            <Button variant="secondary" onClick={() => setEdit(true)}>
-              Edit
-            </Button>
-            <Button variant="destructive" onClick={deleteRegistration}>
-              Delete
-            </Button>
+          <div className="flex flex-wrap gap-2">
+            {!reg.cancelledAt && (reg.checkedInAt
+              ? <Button variant="outline" onClick={() => act('undo-checkin')}>Undo check-in</Button>
+              : <Button onClick={() => act('checkin')}>Check in</Button>)}
+            {reg.cancelledAt
+              ? <Button variant="outline" onClick={() => act('restore')}>Restore</Button>
+              : <Button variant="outline" onClick={() => act('cancel')}>Cancel signup</Button>}
+            <Button variant="secondary" onClick={() => setEdit(true)}>Edit</Button>
+            <Button variant="destructive" onClick={deleteRegistration}>Delete</Button>
           </div>
         </div>
       )}

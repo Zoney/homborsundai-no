@@ -1,141 +1,110 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ipAddress } from "@vercel/functions";
-import { revalidateTag } from 'next/cache';
-import { createRegistration, getConvexClient } from '@/lib/registrations';
-import { sendTicketEmail } from '@/lib/email';
-import { notifySummitSignup } from '@/lib/slack';
-import { normalizeSummitRegistrationKey, findSummitIdByRegistrationKey, SUMMIT_METADATA } from '@/lib/summit-config';
+import { brems, klientIp, sammeOpphav } from '@/lib/api';
+import { dbKonfigurert } from '@/lib/db';
+import { sendEpost } from '@/lib/epost';
+import { sendTicketEmail, summitLabel, baseUrl } from '@/lib/email';
+import { loggHendelse } from '@/lib/hendelser';
+import { feilTekst, logg } from '@/lib/logg';
+import { createRegistration, findActiveForEmail, setStatus } from '@/lib/registrations';
+import { SUMMIT_METADATA, getSummitRegistrationKey, normalizeSummitRegistrationKey } from '@/lib/summit-config';
 
-const REGISTRATIONS_COLLECTION = 'summitRegistrations';
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
-// Validate Turnstile token
-async function validateTurnstileToken(token: string, ip: string): Promise<boolean> {
-  const formData = new FormData();
-  formData.append('secret', process.env.TURNSTILE_SECRET_KEY!);
-  formData.append('response', token);
-  formData.append('remoteip', ip);
+const EPOST_RE = /^[^\s@<>()",;:]+@[^\s@<>()",;:]+\.[^\s@<>()",;:]+$/;
 
-  try {
-    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      body: formData,
-    });
-
-    const data = await response.json();
-    return data.success === true;
-  } catch (error) {
-    console.error('Turnstile validation error:', error);
-    return false;
-  }
+/** Registration keys that take signups now: summits marked Upcoming. */
+function openKeys(): Set<string> {
+  return new Set(
+    Object.entries(SUMMIT_METADATA)
+      .filter(([, m]) => m.status === 'Upcoming')
+      .map(([id]) => getSummitRegistrationKey(id)),
+  );
 }
 
+const str = (v: unknown, maks: number) => (typeof v === 'string' ? v.trim().slice(0, maks) : '');
+
+/**
+ * POST /api/summit/register { name, email, phone?, comment?, summit, startedAt, website }
+ *
+ * Bot protection without a third party (Turnstile is gone, the app has no network):
+ * same-origin check, a honeypot field ("website"), a minimum time on the form, and a
+ * rate limit per IP address in memory (plus Caddy's own limit per IP).
+ * Everyone who signs up gets the ticket e-mail with the link to their QR code page.
+ */
 export async function POST(request: NextRequest) {
-  console.log('POST /api/summit/register: Received request');
+  if (!sammeOpphav(request)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  if (!dbKonfigurert()) return NextResponse.json({ error: 'Signups are not open right now.' }, { status: 503 });
+
+  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
+  if (!body) return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+
+  // Honeypot and too-fast submits: pretend it worked, store nothing.
+  const startedAt = Number(body.startedAt);
+  if (str(body.website, 200) || (Number.isFinite(startedAt) && Date.now() - startedAt < 1500)) {
+    logg.warn('robot_avvist', { grunn: str(body.website, 1) ? 'honningfelle' : 'for_rask' });
+    return NextResponse.json({ success: true, message: 'Registration successful' });
+  }
+
+  if (!brems(`reg:${klientIp(request)}`, 6, 600)) {
+    logg.warn('brems', { rute: 'register' });
+    return NextResponse.json({ error: 'Too many signups from here. Wait a few minutes and try again.' }, { status: 429 });
+  }
+
+  const name = str(body.name, 200);
+  const email = str(body.email, 254).toLowerCase();
+  const phone = str(body.phone, 50);
+  const comment = str(body.comment, 2000);
+  const summit = normalizeSummitRegistrationKey(typeof body.summit === 'string' ? body.summit : null);
+
+  if (!name) return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+  if (!email || !EPOST_RE.test(email)) return NextResponse.json({ error: 'A valid e-mail address is required, so we can send you your ticket.' }, { status: 400 });
+  if (!openKeys().has(summit)) return NextResponse.json({ error: 'Signups for this summit are closed.' }, { status: 400 });
+
   try {
-    const body = await request.json();
-    console.log('POST /api/summit/register: Request body:', body);
-    
-    if (!body.name || !body.name.trim()) {
-      return NextResponse.json(
-        { error: 'Name is required' },
-        { status: 400 }
-      );
+    const eksisterende = await findActiveForEmail(summit, email);
+    if (eksisterende && !eksisterende.cancelledAt) {
+      // Already signed up: send the ticket again, but never show it here (anyone can type an address).
+      await sendTicketEmail(eksisterende).catch((e) => logg.error('billett_feilet', { reg: eksisterende.nr, feil: feilTekst(e) }));
+      await loggHendelse('billett_sendt', { epost: email, registrering: eksisterende.nr, summit, detaljer: { grunn: 'allerede påmeldt' } });
+      return NextResponse.json({ success: true, existing: true, message: 'You were already signed up. We have sent your ticket again.' });
+    }
+    if (eksisterende?.cancelledAt) {
+      const igjen = await setStatus(eksisterende.id, 'restore');
+      await loggHendelse('pameldt_igjen', { aktor: email, epost: email, registrering: eksisterende.nr, summit });
+      if (igjen) await sendTicketEmail(igjen).catch((e) => logg.error('billett_feilet', { reg: igjen.nr, feil: feilTekst(e) }));
+      return NextResponse.json({ success: true, existing: true, message: 'Welcome back. We have sent your ticket again.' });
     }
 
-    if (!body.turnstileToken) {
-      return NextResponse.json(
-        { error: 'Security verification is required' },
-        { status: 400 }
-      );
+    const reg = await createRegistration({ summit, name, email, phone, comment });
+    await loggHendelse('pameldt', { aktor: email, epost: email, registrering: reg.nr, summit, detaljer: { navn: name } });
+    try {
+      await sendTicketEmail(reg);
+      await loggHendelse('billett_sendt', { epost: email, registrering: reg.nr, summit });
+    } catch (e) {
+      logg.error('billett_feilet', { reg: reg.nr, feil: feilTekst(e) });
     }
-
-    const clientIP = ipAddress(request) || request.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown';
-    console.log('POST /api/summit/register: Client IP:', clientIP);
-    const isValidToken = await validateTurnstileToken(body.turnstileToken, clientIP);
-    console.log('POST /api/summit/register: Turnstile token validation result:', isValidToken);
-    
-    if (!isValidToken) {
-      console.error('POST /api/summit/register: Turnstile validation failed.');
-      return NextResponse.json(
-        { error: 'Security verification failed. Please try again.' },
-        { status: 400 }
-      );
-    }
-    
-    const registrationId = `registration:${Date.now()}:${Math.random().toString(36).substr(2, 9)}`;
-    console.log('POST /api/summit/register: Generated Registration ID:', registrationId);
-    
-    const summitKey = normalizeSummitRegistrationKey(typeof body.summit === 'string' ? body.summit : null);
-
-    const registrationData = {
-      id: registrationId,
-      name: body.name.trim(),
-      email: body.email?.trim() || '',
-      phone: body.phone?.trim() || '',
-      comment: body.comment?.trim() || '',
-      // Use the normalized summit key so downstream views map correctly.
-      summit: summitKey,
-      timestamp: body.timestamp || new Date().toISOString(),
-      ip: clientIP,
-      userAgent: request.headers.get('user-agent') || 'unknown'
-    };
-    console.log('POST /api/summit/register: Registration data to save:', registrationData);
-    
-    // Save to Convex
-    console.log(`POST /api/summit/register: Attempting to save to Convex collection '${REGISTRATIONS_COLLECTION}', document ID '${registrationId}'`);
-    await createRegistration(registrationData);
-    console.log('POST /api/summit/register: Successfully saved to Convex.');
-
-    await notifySummitSignup(registrationData);
-
-    revalidateTag('summit-registrations-tag', { expire: 0 });
-    console.log('POST /api/summit/register: Revalidated tag summit-registrations-tag.');
-
-    const summitId = findSummitIdByRegistrationKey(summitKey);
-    const summitDetails = summitId ? SUMMIT_METADATA[summitId] : undefined;
-    const shouldSendTicketEmail = summitDetails?.cta?.type !== 'info';
-
-    if (registrationData.email && shouldSendTicketEmail) {
-      await sendTicketEmail(registrationData.email, registrationId);
-    }
-    
-    const ticketUrl = `/ticket/${registrationId}`;
-    
-    return NextResponse.json(
-      { 
-        success: true, 
-        message: 'Registration successful',
-        id: registrationId,
-        ticketUrl: ticketUrl
-      },
-      { status: 200 }
-    );
-    
+    varsleAdmins(name, summit);
+    return NextResponse.json({
+      success: true,
+      message: 'Registration successful',
+      ticketUrl: `/ticket/${encodeURIComponent(reg.id)}`,
+    });
   } catch (error) {
-    console.error('POST /api/summit/register: Registration error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    logg.error('pamelding_feilet', { feil: feilTekst(error) });
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
-export async function GET(request: NextRequest) {
-  try {
-    // Optional: Implement a Convex count or compute on the fly
-    // Keeping simple by querying all and counting may be heavy at scale; using Convex query 'count' instead.
-    const { api } = await import('@/convex/_generated/api');
-    const client = getConvexClient();
-    const count = (await client.query(api.registrations.count, {})) as number;
-    return NextResponse.json(
-      { count: count || 0 },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('Error fetching registration count:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
+/** Optional heads-up to the organisers (replaces the Slack webhook): HAI_VARSLE=a@x,b@y. */
+function varsleAdmins(navn: string, summit: string) {
+  const til = (process.env.HAI_VARSLE ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+  if (til.length === 0) return;
+  const s = summitLabel(summit);
+  void sendEpost({
+    type: 'varsel',
+    til: til.join(', '),
+    emne: `New signup: ${s.title}`,
+    tekst: `${navn} signed up for ${s.title}.\n\nAll signups: ${baseUrl()}/admin/registrations`,
+  }).catch((e) => logg.error('varsel_feilet', { feil: feilTekst(e) }));
 }

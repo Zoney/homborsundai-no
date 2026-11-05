@@ -6,6 +6,6 @@ export default defineConfig([
     extends: [...nextCoreWebVitals],
   },
   {
-    ignores: ["convex/_generated/**"],
+    ignores: [".next/**"],
   },
 ]);

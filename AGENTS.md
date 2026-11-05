@@ -1,25 +1,24 @@
 # Repo Guidelines for Codex Agents
 
-This repository uses **pnpm** with a Next.js + TypeScript setup. UI components come from **Shadcn UI** with **Tailwind CSS** already configured. Follow these steps when working here.
+This repository uses **npm** with a Next.js + TypeScript setup. UI components come from **Shadcn UI** with **Tailwind CSS** already configured. It runs on our own app server at Hetzner (see `README.md`): Postgres, Better Auth, our own mail server, and **no outbound network at runtime**. Never add a third-party service, script, font or analytics call.
 
 ## Setup
-- Install dependencies with `pnpm install`.
-- Run `pnpm install` again whenever starting a new workspace before running
-  other `pnpm` commands like `pnpm lint` or `pnpm test`. Missing dependencies
-  will cause these tasks to fail.
-- Copy `.env.example` to `.env` and fill in the required values.
+- Install dependencies with `npm ci`.
+- Copy `.env.example` to `.env.local`, start `npm run db:dev` (local Postgres via PGlite).
 - All Shadcn UI components are already available in `components/ui`.
 
 ## Development
-- Start the local server with `pnpm dev`. The app runs on <http://localhost:3000>.
-- Create a production build with `pnpm build`.
-- The `/admin` route is protected by Google Workspace authentication.
+- Start the local server with `npm run dev`. The app runs on <http://localhost:3520>.
+- Create a production build with `npm run build`.
+- `/admin` needs a login (e-mail code or passkey) as an admin: `@homborsundai.no`, an address the superadmin added, or `HAI_SUPERADMIN`.
+- Logs go to stdout as one JSON line (`lib/logg.ts`); never log tokens, codes or e-mail addresses. Meaningful actions also go to the activity log (`lib/hendelser.ts`).
+- If you change what is stored, for how long, or who sees it, update `app/personvern/page.tsx` in the same commit.
 
 ## Quality Checks
-- Run `pnpm lint` to check code style.
-- Run `pnpm test` to execute Jest tests. The test script automatically runs `pnpm build` before Jest.
+- Run `npm run lint` to check code style.
+- Run `npm run build && npm test` to build and run the Jest tests.
 
-Always make sure `pnpm lint` and `pnpm test` succeed before committing changes.
+Always make sure lint, build and tests succeed before committing changes.
 
 ## Contribution Workflow
 - Keep commits focused and descriptive.
@@ -34,7 +33,7 @@ These practices help Codex agents collaborate effectively and keep the project h
 - Site metadata: `app/layout.tsx` defines `metadataBase`, title template, Open Graph and Twitter defaults. `app/head.tsx` injects Organization and WebSite JSON‑LD.
 - Sitemap/robots: `app/sitemap.ts` and `app/robots.ts` are present. The sitemap auto‑includes summits from `lib/summit-config.ts` and notes from `lib/notes.ts`.
 - OG images: `app/opengraph-image.tsx` and `app/twitter-image.tsx` provide default social cards. You can override per route by adding the same files under that route.
-- Caching: Prefer static ISR with `export const revalidate = <seconds>` on pages to keep content on the Vercel CDN.
+- Caching: Prefer static pages (`export const revalidate = <seconds>`); ISR does not survive a restart on the server, so never rely on it for data.
 
 ### New Summit Page
 - Create `app/summit/[year]/layout.tsx` with:
@@ -63,4 +62,4 @@ These practices help Codex agents collaborate effectively and keep the project h
 ### Validate
 - Verify meta tags and canonical URLs in the browser DevTools.
 - Validate JSON‑LD with Google’s Rich Results Test.
-- Run `pnpm lint` and `pnpm test` before opening a PR.
+- Run `npm run lint`, `npm run build` and `npm test` before opening a PR.

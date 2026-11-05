@@ -1,100 +1,97 @@
-import { Resend } from 'resend';
+// The e-mails summit attendees get: the ticket (with the link to the QR code page) and the
+// admins' campaign mails. Sent from summit@post.homborsundai.no through our own mail server
+// (lib/epost.ts), never through a third party.
 
-export async function sendTicketEmail(to: string, ticketId: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.AUTH_URL || '';
-  const ticketUrl = `${baseUrl}/ticket/${ticketId}`;
-  const subject = 'Your Homborsund AI Summit Ticket';
-  const htmlBody = `<p>Thank you for registering for the Homborsund AI Summit.</p><p>Your ticket is available <a href="${ticketUrl}">here</a>.</p>`;
-  const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@homborsund.ai';
+import { sendEpost } from './epost';
+import { SUMMIT_METADATA, findSummitIdByRegistrationKey, resolveSummitId } from './summit-config';
+import type { RegistrationData } from './registrations';
 
-  // Check if running in a local development environment
-  if (process.env.NODE_ENV === 'development' || baseUrl.includes('localhost')) {
-    console.log('--- Sending Ticket Email (Local Development) ---');
-    console.log('To:', to);
-    console.log('Subject:', subject);
-    console.log('HTML Body:', htmlBody);
-    console.log('Ticket URL:', ticketUrl);
-    console.log('From:', fromEmail);
-    console.log('-------------------------------------------------');
-    return;
-  }
+export function baseUrl(): string {
+  return (process.env.NEXT_PUBLIC_BASE_URL || process.env.BETTER_AUTH_URL || 'http://localhost:3520').replace(/\/+$/, '');
+}
 
-  if (!process.env.RESEND_API_KEY || !to) {
-    console.warn('Resend API key not configured or no recipient email.');
-    return;
-  }
+export function ticketUrl(token: string): string {
+  return `${baseUrl()}/ticket/${encodeURIComponent(token)}`;
+}
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
+export function summitLabel(summitKey: string): { title: string; date: string; id: string } {
+  const id = findSummitIdByRegistrationKey(summitKey) ?? resolveSummitId(summitKey);
+  const meta = SUMMIT_METADATA[id];
+  return { id, title: meta ? `${meta.title} ${id}` : `Homborsund AI ${summitKey}`, date: meta?.date ?? '' };
+}
 
-  try {
-    const { data, error } = await resend.emails.send({
-      from: fromEmail,
-      to,
-      subject: subject,
-      html: htmlBody,
-    });
+export function renderTicketEmail(reg: Pick<RegistrationData, 'id' | 'name' | 'summit'>) {
+  const s = summitLabel(reg.summit);
+  const url = ticketUrl(reg.id);
+  const mine = `${baseUrl()}/my-tickets`;
+  const subject = `Your ticket: ${s.title}`;
+  const text = [
+    `Hi ${reg.name},`,
+    '',
+    `You are signed up for ${s.title}${s.date ? ` (${s.date})` : ''}.`,
+    '',
+    'Your ticket, with the QR code we scan at the door:',
+    url,
+    '',
+    'Keep this e-mail, or open the link and save the page. If you cannot come after all, you can cancel on the same page.',
+    '',
+    `Want all your tickets in one place? Log in at ${mine} with this e-mail address. You get a code by e-mail, and you can add a passkey (Face ID, Touch ID) so you do not need the code next time. An account is optional.`,
+    '',
+    'See you there,',
+    'Homborsund AI',
+    '',
+    `Privacy: ${baseUrl()}/personvern`,
+    '(This e-mail was sent automatically. Replies do not reach anyone.)',
+  ].join('\n');
+  const html = renderCampaignEmail({
+    title: s.title,
+    preheader: 'Your ticket and QR code',
+    intro: `Hi ${reg.name}, you are signed up${s.date ? ` for ${s.date}` : ''}.`,
+    bodyHtml: `<p>Your ticket, with the QR code we scan at the door, is one click away. Keep this e-mail, or open the link and save the page. If you cannot come after all, you can cancel on the same page.</p>
+<p>Want all your tickets in one place? <a href="${escapeHtml(mine)}">Log in</a> with this e-mail address. You get a code by e-mail, and you can add a passkey so you do not need the code next time. An account is optional.</p>`,
+    cta: { label: 'Show my ticket', url },
+    footerNote: 'Sent automatically from summit@post.homborsundai.no. Replies do not reach anyone.',
+  });
+  return { subject, text, html };
+}
 
-    if (error) {
-      console.error('Failed to send email:', error);
-      return;
-    }
-
-    console.log('Email sent successfully:', data);
-  } catch (err) {
-    console.error('Error sending email:', err);
-  }
+export async function sendTicketEmail(reg: Pick<RegistrationData, 'id' | 'name' | 'summit' | 'email'>) {
+  if (!reg.email) return;
+  const { subject, text, html } = renderTicketEmail(reg);
+  await sendEpost({ type: 'billett', til: reg.email, emne: subject, tekst: text, html });
 }
 
 export type CampaignEmailOptions = {
   to: string;
   subject: string;
   html: string;
-  tags?: { name: string; value: string }[];
+  text?: string;
 };
 
-export async function sendCampaignEmail({ to, subject, html, tags }: CampaignEmailOptions) {
-  const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@homborsund.ai';
-
-  // Local dev: log email instead of sending
-  if (process.env.NODE_ENV === 'development' || (process.env.NEXT_PUBLIC_BASE_URL || '').includes('localhost')) {
-    console.log('--- Sending Campaign Email (Local Development) ---');
-    console.log('To:', to);
-    console.log('Subject:', subject);
-    console.log('HTML Body:', html);
-    console.log('From:', fromEmail);
-    console.log('Tags:', tags);
-    console.log('-------------------------------------------------');
-    return { ok: true } as const;
-  }
-
-  if (!process.env.RESEND_API_KEY || !to) {
-    console.warn('Resend API key not configured or no recipient email.');
-    return { ok: false } as const;
-  }
-
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
+export async function sendCampaignEmail({ to, subject, html, text }: CampaignEmailOptions) {
+  if (!to) return { ok: false } as const;
   try {
-    const { data, error } = await resend.emails.send({
-      from: fromEmail,
-      to,
-      subject,
-      html,
-      // Resend supports tagging for analytics; optional
-      tags,
-    } as any);
-
-    if (error) {
-      console.error('Failed to send campaign email:', error);
-      return { ok: false } as const;
-    }
-
-    console.log('Campaign email sent:', data);
+    await sendEpost({ type: 'kampanje', til: to, emne: subject, html, tekst: text ?? htmlToText(html) });
     return { ok: true } as const;
-  } catch (err) {
-    console.error('Error sending campaign email:', err);
+  } catch {
     return { ok: false } as const;
   }
+}
+
+function htmlToText(html: string): string {
+  return html
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi, '$2 ($1)')
+    .replace(/<(br|\/p|\/h[1-6]|\/tr|\/li)[^>]*>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
 }
 
 export function renderCampaignEmail(params: {
@@ -111,9 +108,9 @@ export function renderCampaignEmail(params: {
   const ctaHtml = cta
     ? `<tr>
          <td align="center" style="padding: 24px 0 0 0;">
-           <a href="${cta.url}"
+           <a href="${escapeHtml(cta.url)}"
               style="background: linear-gradient(90deg, #C2767A, #644C54); color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 10px; display: inline-block; font-weight: 600;">
-             ${cta.label}
+             ${escapeHtml(cta.label)}
            </a>
          </td>
        </tr>`

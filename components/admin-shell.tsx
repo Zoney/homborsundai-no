@@ -23,6 +23,7 @@ type AdminNavItem = {
 type AdminShellProps = {
   children: ReactNode;
   navItems: AdminNavItem[];
+  who?: string;
 };
 
 function NavLinks({
@@ -72,13 +73,14 @@ function NavLinks({
   );
 }
 
-export default function AdminShell({ children, navItems }: AdminShellProps) {
+export default function AdminShell({ children, navItems, who }: AdminShellProps) {
   const pathname = usePathname();
 
   return (
     <div className="flex min-h-screen">
       <aside className="hidden w-64 border-r bg-muted/30 p-4 md:block">
         <NavLinks navItems={navItems} pathname={pathname} />
+        {who && <p className="mt-4 text-xs text-gray-500 break-all">{who}</p>}
       </aside>
       <div className="flex min-h-screen flex-1 flex-col">
         <header className="flex items-center justify-between border-b bg-background px-4 py-3 md:hidden">

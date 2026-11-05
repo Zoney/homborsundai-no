@@ -11,7 +11,7 @@ const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 export default function AdminEmail() {
   // Discover summits for filtering
-  const { data: regSummary } = useSWR('/api/summit/registrations', fetcher);
+  const { data: regSummary } = useSWR('/api/admin/summary', fetcher);
   const summits: string[] = useMemo(() => regSummary?.summitCounts ? Object.keys(regSummary.summitCounts) : [], [regSummary]);
 
   const [cohorts, setCohorts] = useState<Cohort[]>([]);

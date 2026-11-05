@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { krevAdmin } from '@/lib/api';
 import { getAllRegistrations } from '@/lib/registrations';
 
 type Cohort = 'interested_2025_2' | 'signedup_2025_2' | 'previous_events';
@@ -14,10 +14,8 @@ function parseEmails(input?: string[] | string): string[] {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const admin = await krevAdmin();
+  if (admin instanceof NextResponse) return admin;
 
   try {
     const body = await req.json();
@@ -33,7 +31,7 @@ export async function POST(req: NextRequest) {
 
     for (const r of all) {
       const email = (r.email || '').trim().toLowerCase();
-      if (!email) continue;
+      if (!email || r.cancelledAt) continue;
       if (excludeEmails.has(email)) continue;
 
       const isInterested2025_2 = r.summit === '2025.2';
@@ -63,7 +61,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ ok: true, recipients, count: recipients.length });
   } catch (err) {
-    console.error('Preview recipients error:', err);
+    console.error(JSON.stringify({ app: 'hai', niva: 'error', hendelse: 'kampanje_forhandsvisning_feilet' }));
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
