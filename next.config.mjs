@@ -29,6 +29,8 @@ const TILLATELSER = 'camera=(self), microphone=(), geolocation=(), interest-coho
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  // The release folder is read-only on the app server: keep the ISR cache in memory
+  experimental: { isrFlushToDisk: false },
   poweredByHeader: false,
   headers: async () => [
     {
